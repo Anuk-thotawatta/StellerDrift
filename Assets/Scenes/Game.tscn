@@ -1,0 +1,146 @@
+[gd_scene format=3 uid="uid://ccqyrq6yeuaxc"]
+
+[ext_resource type="Script" uid="uid://da2xfa25cbma1" path="res://Assets/Scripts/game.gd" id="1_jqtiv"]
+[ext_resource type="Texture2D" uid="uid://d2ieq0c5mp7ev" path="res://Assets/Sprites/space_bg2.png" id="2_4iy6t"]
+[ext_resource type="PackedScene" uid="uid://buclaxknceuby" path="res://Assets/Objects/player.tscn" id="2_up1fl"]
+[ext_resource type="PackedScene" uid="uid://c1knlbk0sm2y2" path="res://Assets/Objects/Asteroid_pillars.tscn" id="3_ffpvu"]
+[ext_resource type="Shader" uid="uid://ssl5mg0a3yio" path="res://Assets/Shaders/explosion.gdshader" id="4_53qdw"]
+[ext_resource type="PackedScene" uid="uid://o4i86je37a7g" path="res://Assets/Scenes/game_over.tscn" id="4_ltsxh"]
+[ext_resource type="PackedScene" uid="uid://ch2hel60r6h55" path="res://Assets/Scenes/pause_menu.tscn" id="4_owchf"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_p0uke"]
+seamless = true
+seamless_blend_skirt = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_j7htu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4iy6t"]
+shader = ExtResource("4_53qdw")
+shader_parameter/noise_tex1 = SubResource("NoiseTexture2D_p0uke")
+shader_parameter/noise_tex2 = SubResource("NoiseTexture2D_j7htu")
+shader_parameter/core_color = Color(0.99452263, 0.976832, 0.9999998, 1)
+shader_parameter/mid_color = Color(1, 0.79607844, 0, 1)
+shader_parameter/outer_color = Color(0.99931496, 2.8397144e-06, 7.70092e-07, 1)
+shader_parameter/smoke_color = Color(0.14901961, 0.14901961, 0.14901961, 1)
+shader_parameter/progress = 0.5850000277875
+shader_parameter/noise_scale = 2.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_53qdw"]
+size = Vector2(5474, 303)
+
+[node name="Game" type="Node2D" unique_id=435565740]
+script = ExtResource("1_jqtiv")
+metadata/_edit_horizontal_guides_ = [-1813.0]
+
+[node name="background1" type="Sprite2D" parent="." unique_id=2041400844]
+z_index = -10
+position = Vector2(2.000122, 1.999939)
+scale = Vector2(2.1264536, 2.2135417)
+texture = ExtResource("2_4iy6t")
+
+[node name="Explosion_fx" type="ColorRect" parent="." unique_id=1715444286]
+process_mode = 3
+visible = false
+material = SubResource("ShaderMaterial_4iy6t")
+offset_left = -393.0
+offset_top = -337.5
+offset_right = 610.0
+offset_bottom = 627.5
+
+[node name="Player" parent="." unique_id=1515067146 instance=ExtResource("2_up1fl")]
+scale = Vector2(0.75, 0.75)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=322626283]
+
+[node name="hscore_label" type="Label" parent="CanvasLayer" unique_id=1447875411]
+offset_left = 34.0
+offset_top = 62.0
+offset_right = 261.0
+offset_bottom = 117.0
+theme_override_colors/font_color = Color(0, 0.955435, 0.97568864, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 40
+text = "High Score: "
+
+[node name="hscore" type="Label" parent="CanvasLayer" unique_id=696912810]
+offset_left = 259.0
+offset_top = 65.0
+offset_right = 387.0
+offset_bottom = 120.0
+theme_override_colors/font_color = Color(0, 0.955435, 0.97568864, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 40
+
+[node name="score_label" type="Label" parent="CanvasLayer" unique_id=1730362022]
+offset_left = 32.0
+offset_top = 16.0
+offset_right = 160.0
+offset_bottom = 71.0
+theme_override_colors/font_color = Color(0, 0.955435, 0.97568864, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 40
+text = "Score: "
+
+[node name="score" type="Label" parent="CanvasLayer" unique_id=1388900965]
+offset_left = 167.0
+offset_top = 16.0
+offset_right = 295.0
+offset_bottom = 71.0
+theme_override_colors/font_color = Color(0, 0.955435, 0.97568864, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 40
+
+[node name="Game_over" parent="CanvasLayer" unique_id=403820172 instance=ExtResource("4_ltsxh")]
+
+[node name="pause_menu" parent="CanvasLayer" unique_id=438422434 instance=ExtResource("4_owchf")]
+
+[node name="pillarSpawnTimer" type="Timer" parent="." unique_id=1724369859]
+wait_time = 3.0
+autostart = true
+
+[node name="initial_pillars" type="Node" parent="." unique_id=1165458556]
+
+[node name="Asteroid_pillars" parent="initial_pillars" unique_id=836778206 instance=ExtResource("3_ffpvu")]
+position = Vector2(1362, 4)
+
+[node name="countdown" type="Label" parent="initial_pillars/Asteroid_pillars" unique_id=585189894]
+offset_left = -1439.0
+offset_top = -459.0
+offset_right = -1267.0
+offset_bottom = -50.0
+theme_override_colors/font_color = Color(0, 0.21960784, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 29
+theme_override_font_sizes/font_size = 300
+text = "3"
+
+[node name="Tutorial" type="Label" parent="initial_pillars/Asteroid_pillars" unique_id=1517293332]
+offset_left = -911.0
+offset_top = -181.0
+offset_right = -241.0
+offset_bottom = -105.0
+theme_override_colors/font_color = Color(0.043137256, 0.050980393, 0.050980393, 1)
+theme_override_font_sizes/font_size = 55
+text = "press [space bar] to jump"
+
+[node name="floorSky_limits" type="Area2D" parent="initial_pillars/Asteroid_pillars" unique_id=1218450829]
+position = Vector2(-1362, -4)
+
+[node name="floorLimit" type="CollisionShape2D" parent="initial_pillars/Asteroid_pillars/floorSky_limits" unique_id=1489717559]
+position = Vector2(296, 992)
+shape = SubResource("RectangleShape2D_53qdw")
+
+[node name="skyLimit" type="CollisionShape2D" parent="initial_pillars/Asteroid_pillars/floorSky_limits" unique_id=1350263682]
+position = Vector2(282, -983)
+shape = SubResource("RectangleShape2D_53qdw")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=156824474]
+zoom = Vector2(0.4, 0.4)
+
+[connection signal="timeout" from="pillarSpawnTimer" to="." method="_on_pillar_spawn_timer_timeout"]
+[connection signal="timeout" from="pillarSpawnTimer" to="." method="_on_tower_spawn_timer_timeout"]
+[connection signal="body_entered" from="initial_pillars/Asteroid_pillars/floorSky_limits" to="." method="_on_floor_sky_limits_body_entered"]

@@ -1,0 +1,265 @@
+[gd_scene format=3 uid="uid://ch2hel60r6h55"]
+
+[ext_resource type="Script" uid="uid://c5vt1k35wp317" path="res://Assets/Scripts/pause_menu.gd" id="1_6udtp"]
+[ext_resource type="Shader" uid="uid://dj38rmj2ynwok" path="res://Assets/Shaders/pause_blur.gdshader" id="1_jbhf4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6udtp"]
+shader = ExtResource("1_jbhf4")
+shader_parameter/lod = 0.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dadan"]
+bg_color = Color(0, 0, 0, 0.7764706)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_owchf"]
+bg_color = Color(0.19607843, 0.003921569, 0.9764706, 1)
+border_width_left = 5
+border_width_right = 5
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+corner_detail = 9
+expand_margin_left = 10.0
+expand_margin_right = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ltsxh"]
+bg_color = Color(0.44705883, 0.6666667, 0.9764706, 1)
+border_width_top = 5
+border_width_bottom = 5
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jqtiv"]
+bg_color = Color(0.19607843, 0.003921569, 0.9764706, 1)
+border_width_top = 5
+border_width_bottom = 5
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="Animation" id="Animation_jbhf4"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:material:shader_parameter/lod")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.15, 0, 0.15, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Panel:modulate:r")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.15, 0, 0.15, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Panel:modulate:g")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.15, 0, 0.15, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Panel:modulate:b")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.15, 0, 0.15, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Panel:modulate:a")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.15, 0, 0.15, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_6udtp"]
+resource_name = "blur"
+length = 0.3
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:material:shader_parameter/lod")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(0, -0.15, 0, 0.15, 0, 0.8, -0.050000004, -0.13333334, 0, 0),
+"times": PackedFloat32Array(0, 0.3)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Panel:modulate:r")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1, -0.15, 0, 0.15, 0, 1, -0.050000004, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.3)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Panel:modulate:g")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1, -0.15, 0, 0.15, 0, 1, -0.050000004, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.3)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Panel:modulate:b")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(1, -0.15, 0, 0.15, 0, 1, -0.050000004, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.3)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Panel:modulate:a")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(0, -0.15, 0, 0.15, 0, 1, -0.050000004, -0.16666667, 0, 0),
+"times": PackedFloat32Array(0, 0.3)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dadan"]
+_data = {
+&"RESET": SubResource("Animation_jbhf4"),
+&"blur": SubResource("Animation_6udtp")
+}
+
+[node name="pause_menu" type="Control" unique_id=438422434]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6udtp")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1829165953]
+material = SubResource("ShaderMaterial_6udtp")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="." unique_id=1856645692]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 350.0
+offset_top = 119.0
+offset_right = -347.0
+offset_bottom = -85.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dadan")
+
+[node name="Label" type="Label" parent="Panel" unique_id=1256402976]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -147.0
+offset_top = -182.0
+offset_right = 142.0
+offset_bottom = -79.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.43137255, 1, 1, 1)
+theme_override_font_sizes/font_size = 75
+text = "PAUSED"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=1995045024]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -85.0
+offset_top = -80.0
+offset_right = 80.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="resume_button" type="Button" parent="Panel/VBoxContainer" unique_id=1123033984]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_owchf")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ltsxh")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jqtiv")
+text = "Resume"
+
+[node name="restart_button" type="Button" parent="Panel/VBoxContainer" unique_id=466540129]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_owchf")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ltsxh")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jqtiv")
+text = "Restart"
+
+[node name="quit_button" type="Button" parent="Panel/VBoxContainer" unique_id=1809116749]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_owchf")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ltsxh")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jqtiv")
+text = "Quit
+"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1352536446]
+libraries/ = SubResource("AnimationLibrary_dadan")
+
+[connection signal="pressed" from="Panel/VBoxContainer/resume_button" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/restart_button" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/quit_button" to="." method="_on_quit_button_pressed"]

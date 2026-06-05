@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://buclaxknceuby"]
+
+[ext_resource type="Texture2D" uid="uid://ctwl07fwj7y7l" path="res://Assets/Sprites/PlayerSpaceShip.png" id="2_kpjtk"]
+[ext_resource type="Script" uid="uid://yplihgxewan2" path="res://Assets/Scripts/playerController.gd" id="2_ph473"]
+[ext_resource type="AudioStream" uid="uid://nigu1idiqcr4" path="res://Assets/sound/woosh.mp3" id="3_kpjtk"]
+[ext_resource type="Shader" uid="uid://cod7pyhpvwnx4" path="res://Assets/Shaders/exhaust.gdshader" id="4_pcvt2"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pcvt2"]
+radius = 62.0
+height = 218.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_pcvt2"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4xdwk"]
+height = 511
+noise = SubResource("FastNoiseLite_pcvt2")
+seamless = true
+seamless_blend_skirt = 0.44
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_p0uke"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2xamd"]
+noise = SubResource("FastNoiseLite_p0uke")
+seamless = true
+invert = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4xdwk"]
+shader = ExtResource("4_pcvt2")
+shader_parameter/noise_tex1 = SubResource("NoiseTexture2D_4xdwk")
+shader_parameter/noise_tex2 = SubResource("NoiseTexture2D_2xamd")
+shader_parameter/yellow_color = Color(0, 0.972549, 0.9764706, 1)
+shader_parameter/orange_color = Color(0.8784314, 1, 0, 1)
+shader_parameter/smoke_color = Color(0.7666196, 0.76661956, 0.76661956, 1)
+shader_parameter/effect_speed = 3.0
+shader_parameter/flame_height = 1.2
+
+[node name="Player" type="CharacterBody2D" unique_id=1916527571]
+script = ExtResource("2_ph473")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=723411736]
+position = Vector2(0, 1)
+rotation = -0.21019238
+scale = Vector2(0.55, 0.77166665)
+texture = ExtResource("2_kpjtk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=388250326]
+position = Vector2(-16, 2)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_pcvt2")
+
+[node name="woosh" type="AudioStreamPlayer2D" parent="." unique_id=1963837134]
+process_mode = 3
+stream = ExtResource("3_kpjtk")
+
+[node name="Exhaust_fx" type="ColorRect" parent="." unique_id=1375010591]
+material = SubResource("ShaderMaterial_4xdwk")
+offset_left = -144.0
+offset_top = -4.999997
+offset_right = -74.22351
+offset_bottom = 164.02293
+rotation = 1.3168806

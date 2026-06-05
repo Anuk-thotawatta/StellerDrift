@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://c1knlbk0sm2y2"]
+
+[ext_resource type="Script" uid="uid://3808bvq8xqs7" path="res://Assets/Scripts/towers.gd" id="1_5vb52"]
+[ext_resource type="Texture2D" uid="uid://ckncv4fngtsc8" path="res://Assets/Sprites/asteroid_pillar.png" id="2_0v5yy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6cu8m"]
+size = Vector2(202, 2185)
+
+[node name="Asteroid_pillar" type="Node2D" unique_id=836778206]
+script = ExtResource("1_5vb52")
+
+[node name="AsteroidPillar1" type="Sprite2D" parent="." unique_id=153149500]
+position = Vector2(-24, 551)
+texture = ExtResource("2_0v5yy")
+
+[node name="AsteroidPillar" type="Sprite2D" parent="AsteroidPillar1" unique_id=428237371]
+position = Vector2(9, 551)
+texture = ExtResource("2_0v5yy")
+
+[node name="AsteroidPillar" type="Sprite2D" parent="AsteroidPillar1/AsteroidPillar" unique_id=654736195]
+position = Vector2(-5, 540)
+texture = ExtResource("2_0v5yy")
+
+[node name="AsteroidPillar" type="Sprite2D" parent="AsteroidPillar1/AsteroidPillar/AsteroidPillar" unique_id=310975998]
+position = Vector2(9, 545)
+texture = ExtResource("2_0v5yy")
+
+[node name="AsteroidPillar2" type="Sprite2D" parent="." unique_id=172233024]
+position = Vector2(-24, -2131)
+texture = ExtResource("2_0v5yy")
+
+[node name="AsteroidPillar" type="Sprite2D" parent="AsteroidPillar2" unique_id=904356066]
+position = Vector2(9, 551)
+texture = ExtResource("2_0v5yy")
+
+[node name="AsteroidPillar" type="Sprite2D" parent="AsteroidPillar2/AsteroidPillar" unique_id=1963692332]
+position = Vector2(-5, 540)
+texture = ExtResource("2_0v5yy")
+
+[node name="AsteroidPillar" type="Sprite2D" parent="AsteroidPillar2/AsteroidPillar/AsteroidPillar" unique_id=544130321]
+position = Vector2(9, 545)
+texture = ExtResource("2_0v5yy")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=258397086]
+position = Vector2(-15.499855, 1278.5)
+
+[node name="pillar1_CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=201783754]
+position = Vector2(-3.500145, -2572.5)
+shape = SubResource("RectangleShape2D_6cu8m")
+
+[node name="pillar2_CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2132870854]
+position = Vector2(-3.5001488, 60)
+shape = SubResource("RectangleShape2D_6cu8m")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
