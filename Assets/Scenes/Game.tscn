@@ -7,6 +7,23 @@
 [ext_resource type="Shader" uid="uid://ssl5mg0a3yio" path="res://Assets/Shaders/explosion.gdshader" id="4_53qdw"]
 [ext_resource type="PackedScene" uid="uid://o4i86je37a7g" path="res://Assets/Scenes/game_over.tscn" id="4_ltsxh"]
 [ext_resource type="PackedScene" uid="uid://ch2hel60r6h55" path="res://Assets/Scenes/pause_menu.tscn" id="4_owchf"]
+[ext_resource type="Shader" uid="uid://sgjcnrhvmpni" path="res://Assets/Shaders/starField.gdshader" id="7_4iy6t"]
+[ext_resource type="FontFile" uid="uid://bpr51ycd2jhki" path="res://Assets/fonts/ASTERA v2.ttf" id="9_4e1g7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4e1g7"]
+shader = ExtResource("7_4iy6t")
+shader_parameter/density = 0.69999998229
+shader_parameter/layer_parascale = 4
+shader_parameter/star_speed = Vector2(-2, 0)
+shader_parameter/star_wave = Vector2(0, 0)
+shader_parameter/star_size = 3.499999921768
+shader_parameter/star_rotate_speed = 0.8230001815925001
+shader_parameter/twinkle_effect = 0.7999999821184
+shader_parameter/twinkle_speed = 3.999999910592
+shader_parameter/pixelate_enabled = false
+shader_parameter/pixelate_count = 1000.0
+shader_parameter/emissive_intensity = 1.0
+shader_parameter/manual_time = 0.0
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_p0uke"]
 seamless = true
@@ -22,7 +39,7 @@ shader_parameter/core_color = Color(0.99452263, 0.976832, 0.9999998, 1)
 shader_parameter/mid_color = Color(1, 0.79607844, 0, 1)
 shader_parameter/outer_color = Color(0.99931496, 2.8397144e-06, 7.70092e-07, 1)
 shader_parameter/smoke_color = Color(0.14901961, 0.14901961, 0.14901961, 1)
-shader_parameter/progress = 0.5850000277875
+shader_parameter/progress = 1.0
 shader_parameter/noise_scale = 2.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_53qdw"]
@@ -38,9 +55,21 @@ position = Vector2(2.000122, 1.999939)
 scale = Vector2(2.1264536, 2.2135417)
 texture = ExtResource("2_4iy6t")
 
+[node name="StarField" type="ColorRect" parent="." unique_id=1196929458]
+z_index = -9
+material = SubResource("ShaderMaterial_4e1g7")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1490.0
+offset_top = -850.00006
+offset_right = 1485.0
+offset_bottom = 867.99994
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="Explosion_fx" type="ColorRect" parent="." unique_id=1715444286]
 process_mode = 3
-visible = false
 material = SubResource("ShaderMaterial_4iy6t")
 offset_left = -393.0
 offset_top = -337.5
@@ -112,9 +141,10 @@ offset_left = -1439.0
 offset_top = -459.0
 offset_right = -1267.0
 offset_bottom = -50.0
-theme_override_colors/font_color = Color(0, 0.21960784, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 29
+theme_override_colors/font_color = Color(0.7893102, 0.8600971, 1, 1)
+theme_override_colors/font_outline_color = Color(1.1030967e-05, 0.013225988, 0.11723321, 1)
+theme_override_constants/outline_size = 37
+theme_override_fonts/font = ExtResource("9_4e1g7")
 theme_override_font_sizes/font_size = 300
 text = "3"
 
@@ -123,9 +153,9 @@ offset_left = -911.0
 offset_top = -181.0
 offset_right = -241.0
 offset_bottom = -105.0
-theme_override_colors/font_color = Color(0.043137256, 0.050980393, 0.050980393, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 55
-text = "press [space bar] to jump"
+text = "Press [space bar] to Jump"
 
 [node name="floorSky_limits" type="Area2D" parent="initial_pillars/Asteroid_pillars" unique_id=1218450829]
 position = Vector2(-1362, -4)
@@ -141,6 +171,6 @@ shape = SubResource("RectangleShape2D_53qdw")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=156824474]
 zoom = Vector2(0.4, 0.4)
 
-[connection signal="timeout" from="pillarSpawnTimer" to="." method="_on_pillar_spawn_timer_timeout"]
 [connection signal="timeout" from="pillarSpawnTimer" to="." method="_on_tower_spawn_timer_timeout"]
+[connection signal="timeout" from="pillarSpawnTimer" to="." method="_on_pillar_spawn_timer_timeout"]
 [connection signal="body_entered" from="initial_pillars/Asteroid_pillars/floorSky_limits" to="." method="_on_floor_sky_limits_body_entered"]

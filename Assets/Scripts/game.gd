@@ -9,6 +9,8 @@ extends Node2D
 @onready var player: CharacterBody2D = $Player
 @onready var background1: Sprite2D = $background1
 @onready var explosion_fx: ColorRect = $Explosion_fx
+@onready var star_field: ColorRect = $StarField
+
 var background2: Sprite2D
 var bg_width
 
@@ -17,6 +19,7 @@ const SAVEPATH = "user://save.json"
 var scoreVal = 0
 var highScoreVal = 0
 const BG_SCROLL_SPEED = 100.0
+var star_time: float = 0.0
 
 func _ready():
 	player.hide_exhaust()
@@ -26,6 +29,9 @@ func _ready():
 	scoreVal = 0.0
 	get_tree().paused = false
 	game_over.hide()
+	
+	if star_field:
+		star_field.process_mode = Node.PROCESS_MODE_ALWAYS
 	
 	#scrolling background
 	bg_width = background1.texture.get_width() * background1.scale.x
@@ -45,6 +51,12 @@ func _ready():
 	get_tree().paused = false
 	
 func _process(delta):
+	# If the tree is paused (during the 3-second countdown), update twinkles without shifting position
+	if get_tree().paused:
+		if star_field and star_field.material:
+			star_field.material.set_shader_parameter("manual_time", star_time)
+		return
+
 	scoreVal += delta * 100
 	score.text = str(int(scoreVal))
 	hscore.text = str(int(highScoreVal))
@@ -52,6 +64,11 @@ func _process(delta):
 	# --- Scroll both backgrounds ---
 	background1.position.x -= BG_SCROLL_SPEED * delta
 	background2.position.x -= BG_SCROLL_SPEED * delta
+
+	# --- Accumulate clean delta time and update the shader ---
+	star_time += delta
+	if star_field and star_field.material:
+		star_field.material.set_shader_parameter("manual_time", star_time)
 
 	# When a background fully exits left, wrap it to the right of the other
 	if background1.position.x <= -bg_width:
