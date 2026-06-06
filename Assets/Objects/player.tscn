@@ -5,6 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://nigu1idiqcr4" path="res://Assets/sound/woosh.mp3" id="3_kpjtk"]
 [ext_resource type="Shader" uid="uid://cod7pyhpvwnx4" path="res://Assets/Shaders/exhaust.gdshader" id="4_pcvt2"]
 [ext_resource type="Shader" uid="uid://ciewlexkbtcit" path="res://Assets/Shaders/jumpJet.gdshader" id="5_4xdwk"]
+[ext_resource type="AudioStream" uid="uid://b5vbl20qak3p" path="res://Assets/sound/explosion.mp3" id="6_p0uke"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_4xdwk"]
 seed = 6
@@ -93,3 +94,7 @@ shape = SubResource("CapsuleShape2D_pcvt2")
 [node name="woosh" type="AudioStreamPlayer2D" parent="." unique_id=1963837134]
 process_mode = 3
 stream = ExtResource("3_kpjtk")
+
+[node name="explosion" type="AudioStreamPlayer2D" parent="." unique_id=1952441412]
+process_mode = 3
+stream = ExtResource("6_p0uke")

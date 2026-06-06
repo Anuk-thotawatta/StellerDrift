@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://ch2hel60r6h55" path="res://Assets/Scenes/pause_menu.tscn" id="4_owchf"]
 [ext_resource type="Shader" uid="uid://sgjcnrhvmpni" path="res://Assets/Shaders/starField.gdshader" id="7_4iy6t"]
 [ext_resource type="FontFile" uid="uid://bpr51ycd2jhki" path="res://Assets/fonts/ASTERA v2.ttf" id="9_4e1g7"]
+[ext_resource type="AudioStream" uid="uid://b8ga2mr0hg6pb" path="res://Assets/sound/soundtrack1.mp3" id="10_g3py7"]
+[ext_resource type="AudioStream" uid="uid://xbqkdh1f5pi0" path="res://Assets/sound/beep.mp3" id="11_tim1p"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4e1g7"]
 shader = ExtResource("7_4iy6t")
@@ -149,13 +151,13 @@ theme_override_font_sizes/font_size = 300
 text = "3"
 
 [node name="Tutorial" type="Label" parent="initial_pillars/Asteroid_pillars" unique_id=1517293332]
-offset_left = -911.0
-offset_top = -181.0
-offset_right = -241.0
-offset_bottom = -105.0
+offset_left = -1061.0
+offset_top = -243.0
+offset_right = -376.0
+offset_bottom = -167.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 55
-text = "Press [space bar] to Jump"
+text = "Press [space bar] to Boost"
 
 [node name="floorSky_limits" type="Area2D" parent="initial_pillars/Asteroid_pillars" unique_id=1218450829]
 position = Vector2(-1362, -4)
@@ -170,6 +172,16 @@ shape = SubResource("RectangleShape2D_53qdw")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=156824474]
 zoom = Vector2(0.4, 0.4)
+
+[node name="game_soundtrack" type="AudioStreamPlayer2D" parent="." unique_id=1632519022]
+process_mode = 3
+stream = ExtResource("10_g3py7")
+volume_db = 1.0
+
+[node name="beep" type="AudioStreamPlayer2D" parent="." unique_id=422775388]
+process_mode = 3
+stream = ExtResource("11_tim1p")
+volume_db = 10.0
 
 [connection signal="timeout" from="pillarSpawnTimer" to="." method="_on_tower_spawn_timer_timeout"]
 [connection signal="timeout" from="pillarSpawnTimer" to="." method="_on_pillar_spawn_timer_timeout"]

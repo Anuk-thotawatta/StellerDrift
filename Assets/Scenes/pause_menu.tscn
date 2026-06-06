@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c5vt1k35wp317" path="res://Assets/Scripts/pause_menu.gd" id="1_6udtp"]
 [ext_resource type="Shader" uid="uid://dj38rmj2ynwok" path="res://Assets/Shaders/pause_blur.gdshader" id="1_jbhf4"]
+[ext_resource type="AudioStream" uid="uid://b3vbfg0w8ua5e" path="res://Assets/sound/buttons.mp3" id="3_dadan"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6udtp"]
 shader = ExtResource("1_jbhf4")
@@ -260,6 +261,16 @@ text = "Quit
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1352536446]
 libraries/ = SubResource("AnimationLibrary_dadan")
 
+[node name="button_sound" type="AudioStreamPlayer2D" parent="." unique_id=1505356103]
+stream = ExtResource("3_dadan")
+volume_db = 17.0
+
+[connection signal="button_down" from="Panel/VBoxContainer/resume_button" to="." method="_on_resume_button_button_down"]
+[connection signal="mouse_entered" from="Panel/VBoxContainer/resume_button" to="." method="_on_resume_button_mouse_entered"]
 [connection signal="pressed" from="Panel/VBoxContainer/resume_button" to="." method="_on_resume_button_pressed"]
+[connection signal="button_down" from="Panel/VBoxContainer/restart_button" to="." method="_on_restart_button_button_down"]
+[connection signal="mouse_entered" from="Panel/VBoxContainer/restart_button" to="." method="_on_restart_button_mouse_entered"]
 [connection signal="pressed" from="Panel/VBoxContainer/restart_button" to="." method="_on_restart_button_pressed"]
+[connection signal="button_down" from="Panel/VBoxContainer/quit_button" to="." method="_on_quit_button_button_down"]
+[connection signal="mouse_entered" from="Panel/VBoxContainer/quit_button" to="." method="_on_quit_button_mouse_entered"]
 [connection signal="pressed" from="Panel/VBoxContainer/quit_button" to="." method="_on_quit_button_pressed"]

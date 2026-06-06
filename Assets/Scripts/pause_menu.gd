@@ -1,5 +1,7 @@
 extends Control
 
+@onready var button_sound: AudioStreamPlayer2D = $button_sound
+
 func _ready():
 	$AnimationPlayer.play("RESET")
 	hide()
@@ -39,3 +41,21 @@ func _on_quit_button_pressed() -> void:
 	
 func _process(delta):
 	hit_escape()
+
+func _on_resume_button_button_down() -> void:
+	button_sound.play()
+
+func _on_resume_button_mouse_entered() -> void:
+	button_sound.play()
+
+func _on_restart_button_button_down() -> void:
+	button_sound.play()
+
+func _on_restart_button_mouse_entered() -> void:
+	button_sound.play()
+
+func _on_quit_button_button_down() -> void:
+	button_sound.play()
+
+func _on_quit_button_mouse_entered() -> void:
+	button_sound.play()

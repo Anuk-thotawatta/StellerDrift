@@ -10,6 +10,8 @@ extends Node2D
 @onready var background1: Sprite2D = $background1
 @onready var explosion_fx: ColorRect = $Explosion_fx
 @onready var star_field: ColorRect = $StarField
+@onready var game_soundtrack: AudioStreamPlayer2D = $game_soundtrack
+@onready var beep: AudioStreamPlayer2D = $beep
 
 var background2: Sprite2D
 var bg_width
@@ -44,9 +46,11 @@ func _ready():
 	var x=3
 	while x>=0:
 		countdown.text = str(x)
+		beep.play()
 		await get_tree().create_timer(1.0).timeout
 		x-=1
 	countdown.hide()
+	game_soundtrack.play()
 	player.show_exhaust()
 	get_tree().paused = false
 	
@@ -79,6 +83,7 @@ func _process(delta):
 	
 func player_died():
 	get_tree().paused = true
+	player.play_explosion_audio()
 	explosion_fx.global_position = player.global_position - explosion_fx.size / 2.0
 	explosion_fx.process_mode = Node.PROCESS_MODE_ALWAYS
 	explosion_fx.material.set_shader_parameter("progress", 0.0)

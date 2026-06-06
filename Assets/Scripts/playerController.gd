@@ -7,6 +7,7 @@ const tilt_up = -05.00
 const tilt_down = 65.00
 const tilt_speed = 8.0
 
+@onready var explosion: AudioStreamPlayer2D = $explosion
 @onready var woosh: AudioStreamPlayer2D = $woosh
 @onready var exhaust_fx: ColorRect = $Exhaust_fx
 @onready var jump_jet_fx: ColorRect = $JumpJet_fx
@@ -16,6 +17,9 @@ func show_exhaust():
 
 func hide_exhaust():
 	exhaust_fx.hide()
+	
+func play_explosion_audio():
+	explosion.play()
 	
 func play_burst():
 	jump_jet_fx.material.set_shader_parameter("burst_progress", 0.5)
