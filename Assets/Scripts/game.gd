@@ -24,6 +24,7 @@ const BG_SCROLL_SPEED = 100.0
 var star_time: float = 0.0
 
 func _ready():
+	Global.countdown_happening = true
 	player.hide_exhaust()
 	explosion_fx.hide()
 	player.show()
@@ -52,6 +53,7 @@ func _ready():
 	countdown.hide()
 	game_soundtrack.play()
 	player.show_exhaust()
+	Global.countdown_happening = false
 	get_tree().paused = false
 	
 func _process(delta):

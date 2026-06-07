@@ -2,7 +2,9 @@
 
 [ext_resource type="Script" uid="uid://c5vt1k35wp317" path="res://Assets/Scripts/pause_menu.gd" id="1_6udtp"]
 [ext_resource type="Shader" uid="uid://dj38rmj2ynwok" path="res://Assets/Shaders/pause_blur.gdshader" id="1_jbhf4"]
+[ext_resource type="FontFile" uid="uid://dy0egxts88v3n" path="res://Assets/fonts/Conthrax-SemiBold.otf" id="3_48c7y"]
 [ext_resource type="AudioStream" uid="uid://b3vbfg0w8ua5e" path="res://Assets/sound/buttons.mp3" id="3_dadan"]
+[ext_resource type="Texture2D" uid="uid://b036yecxodr5b" path="res://Assets/Sprites/button.png" id="4_d7po0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6udtp"]
 shader = ExtResource("1_jbhf4")
@@ -15,35 +17,53 @@ corner_radius_top_right = 50
 corner_radius_bottom_right = 50
 corner_radius_bottom_left = 50
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_owchf"]
-bg_color = Color(0.19607843, 0.003921569, 0.9764706, 1)
-border_width_left = 5
-border_width_right = 5
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-corner_detail = 9
-expand_margin_left = 10.0
-expand_margin_right = 10.0
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_shbfh"]
+load_path = "res://.godot/imported/button.png-12fa84202ab84fdfc25f930107ab94bd.ctex"
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ltsxh"]
-bg_color = Color(0.44705883, 0.6666667, 0.9764706, 1)
-border_width_top = 5
-border_width_bottom = 5
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tgy2g"]
+texture = SubResource("CompressedTexture2D_shbfh")
+expand_margin_left = 80.0
+expand_margin_top = 10.0
+expand_margin_right = 80.0
+expand_margin_bottom = 10.0
+region_rect = Rect2(15.283051, 18.5, 1803.8304, 552.7819)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jqtiv"]
-bg_color = Color(0.19607843, 0.003921569, 0.9764706, 1)
-border_width_top = 5
-border_width_bottom = 5
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hxcs8"]
+load_path = "res://.godot/imported/button.png-12fa84202ab84fdfc25f930107ab94bd.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qxc5f"]
+texture = SubResource("CompressedTexture2D_hxcs8")
+expand_margin_left = 85.0
+expand_margin_top = 15.0
+expand_margin_right = 85.0
+expand_margin_bottom = 15.0
+region_rect = Rect2(15.283051, 18.5, 1803.8304, 552.7819)
+modulate_color = Color(0.6703423, 1.1444291, 0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1lvdy"]
+texture = ExtResource("4_d7po0")
+expand_margin_left = 85.0
+expand_margin_top = 15.0
+expand_margin_right = 85.0
+expand_margin_bottom = 15.0
+region_rect = Rect2(15.283051, 18.5, 1803.8304, 552.7819)
+modulate_color = Color(1.1638972, 1.1638972, 1.1638972, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6nmhk"]
+texture = SubResource("CompressedTexture2D_shbfh")
+expand_margin_left = 80.0
+expand_margin_top = 10.0
+expand_margin_right = 80.0
+expand_margin_bottom = 10.0
+region_rect = Rect2(15.283051, 18.5, 1803.8304, 552.7819)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hdkeg"]
+texture = SubResource("CompressedTexture2D_shbfh")
+expand_margin_left = 80.0
+expand_margin_top = 10.0
+expand_margin_right = 80.0
+expand_margin_bottom = 10.0
+region_rect = Rect2(15.283051, 18.5, 1803.8304, 552.7819)
 
 [sub_resource type="Animation" id="Animation_jbhf4"]
 length = 0.001
@@ -193,10 +213,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 350.0
-offset_top = 119.0
-offset_right = -347.0
-offset_bottom = -85.0
+offset_left = 306.0
+offset_top = 59.0
+offset_right = -322.0
+offset_bottom = -83.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_dadan")
@@ -215,6 +235,7 @@ offset_bottom = -79.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.43137255, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_48c7y")
 theme_override_font_sizes/font_size = 75
 text = "PAUSED"
 
@@ -225,36 +246,39 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -85.0
-offset_top = -80.0
-offset_right = 80.0
-offset_bottom = 125.0
+offset_left = -107.0
+offset_top = -59.0
+offset_right = 102.0
+offset_bottom = 166.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 20
+theme_override_constants/separation = 33
 
 [node name="resume_button" type="Button" parent="Panel/VBoxContainer" unique_id=1123033984]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_48c7y")
 theme_override_font_sizes/font_size = 40
-theme_override_styles/normal = SubResource("StyleBoxFlat_owchf")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_ltsxh")
-theme_override_styles/hover = SubResource("StyleBoxFlat_jqtiv")
+theme_override_styles/normal = SubResource("StyleBoxTexture_tgy2g")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_qxc5f")
+theme_override_styles/hover = SubResource("StyleBoxTexture_1lvdy")
 text = "Resume"
 
 [node name="restart_button" type="Button" parent="Panel/VBoxContainer" unique_id=466540129]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_48c7y")
 theme_override_font_sizes/font_size = 40
-theme_override_styles/normal = SubResource("StyleBoxFlat_owchf")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_ltsxh")
-theme_override_styles/hover = SubResource("StyleBoxFlat_jqtiv")
+theme_override_styles/normal = SubResource("StyleBoxTexture_6nmhk")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_qxc5f")
+theme_override_styles/hover = SubResource("StyleBoxTexture_1lvdy")
 text = "Restart"
 
 [node name="quit_button" type="Button" parent="Panel/VBoxContainer" unique_id=1809116749]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_48c7y")
 theme_override_font_sizes/font_size = 40
-theme_override_styles/normal = SubResource("StyleBoxFlat_owchf")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_ltsxh")
-theme_override_styles/hover = SubResource("StyleBoxFlat_jqtiv")
+theme_override_styles/normal = SubResource("StyleBoxTexture_hdkeg")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_qxc5f")
+theme_override_styles/hover = SubResource("StyleBoxTexture_1lvdy")
 text = "Quit
 "
 

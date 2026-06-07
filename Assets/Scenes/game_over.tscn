@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://o4i86je37a7g"]
 
 [ext_resource type="Script" uid="uid://1587nhvncxun" path="res://Assets/Scripts/game_over_menu.gd" id="1_b48d2"]
+[ext_resource type="FontFile" uid="uid://dy0egxts88v3n" path="res://Assets/fonts/Conthrax-SemiBold.otf" id="2_7gjxu"]
+[ext_resource type="Texture2D" uid="uid://b036yecxodr5b" path="res://Assets/Sprites/button.png" id="3_302cm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0mivm"]
 bg_color = Color(0, 0, 0, 0.78431374)
@@ -9,35 +11,63 @@ corner_radius_top_right = 50
 corner_radius_bottom_right = 50
 corner_radius_bottom_left = 50
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b48d2"]
-bg_color = Color(0.19607843, 0.003921569, 0.9764706, 1)
-border_width_left = 5
-border_width_right = 5
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-corner_detail = 9
-expand_margin_left = 10.0
-expand_margin_right = 10.0
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_shbfh"]
+load_path = "res://.godot/imported/button.png-12fa84202ab84fdfc25f930107ab94bd.ctex"
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_scefk"]
-bg_color = Color(0.44705883, 0.6666667, 0.9764706, 1)
-border_width_top = 5
-border_width_bottom = 5
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_uvs0b"]
+texture = SubResource("CompressedTexture2D_shbfh")
+expand_margin_left = 80.0
+expand_margin_top = 10.0
+expand_margin_right = 80.0
+expand_margin_bottom = 10.0
+region_rect = Rect2(15.283051, 18.5, 1803.8304, 552.7819)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7gjxu"]
-bg_color = Color(0.19607843, 0.003921569, 0.9764706, 1)
-border_width_top = 5
-border_width_bottom = 5
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hxcs8"]
+load_path = "res://.godot/imported/button.png-12fa84202ab84fdfc25f930107ab94bd.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_eg02k"]
+texture = SubResource("CompressedTexture2D_hxcs8")
+expand_margin_left = 80.0
+expand_margin_top = 10.0
+expand_margin_right = 80.0
+expand_margin_bottom = 10.0
+region_rect = Rect2(15.283051, 18.5, 1803.8304, 552.7819)
+modulate_color = Color(0.6703423, 1.1444291, 0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j1l6g"]
+texture = ExtResource("3_302cm")
+expand_margin_left = 85.0
+expand_margin_top = 15.0
+expand_margin_right = 85.0
+expand_margin_bottom = 15.0
+region_rect = Rect2(15.283051, 18.5, 1803.8304, 552.7819)
+modulate_color = Color(1.1638972, 1.1638972, 1.1638972, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2iypb"]
+texture = SubResource("CompressedTexture2D_shbfh")
+expand_margin_left = 80.0
+expand_margin_top = 10.0
+expand_margin_right = 80.0
+expand_margin_bottom = 10.0
+region_rect = Rect2(15.283051, 18.5, 1803.8304, 552.7819)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gu83f"]
+texture = SubResource("CompressedTexture2D_hxcs8")
+expand_margin_left = 80.0
+expand_margin_top = 10.0
+expand_margin_right = 80.0
+expand_margin_bottom = 10.0
+region_rect = Rect2(15.283051, 18.5, 1803.8304, 552.7819)
+modulate_color = Color(0.6703423, 1.1444291, 0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ygpko"]
+texture = ExtResource("3_302cm")
+expand_margin_left = 85.0
+expand_margin_top = 15.0
+expand_margin_right = 85.0
+expand_margin_bottom = 15.0
+region_rect = Rect2(15.283051, 18.5, 1803.8304, 552.7819)
+modulate_color = Color(1.1638972, 1.1638972, 1.1638972, 1)
 
 [node name="Game_over" type="Control" unique_id=403820172]
 process_mode = 3
@@ -78,14 +108,16 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -228.75
-offset_top = 35.0
-offset_right = 229.25
-offset_bottom = 145.0
+offset_left = -312.0
+offset_top = 48.75
+offset_right = 320.0
+offset_bottom = 126.5
 grow_horizontal = 2
 theme_override_colors/font_color = Color(0.56078434, 0.6, 1, 1)
-theme_override_font_sizes/font_size = 80
+theme_override_fonts/font = ExtResource("2_7gjxu")
+theme_override_font_sizes/font_size = 61
 text = "GAME OVER"
+horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=183860466]
 layout_mode = 1
@@ -104,18 +136,20 @@ theme_override_constants/separation = 40
 
 [node name="restart_button" type="Button" parent="Panel/VBoxContainer" unique_id=1268296693]
 layout_mode = 2
-theme_override_font_sizes/font_size = 40
-theme_override_styles/normal = SubResource("StyleBoxFlat_b48d2")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_scefk")
-theme_override_styles/hover = SubResource("StyleBoxFlat_7gjxu")
+theme_override_fonts/font = ExtResource("2_7gjxu")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxTexture_uvs0b")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_eg02k")
+theme_override_styles/hover = SubResource("StyleBoxTexture_j1l6g")
 text = "Restart"
 
 [node name="quit_button" type="Button" parent="Panel/VBoxContainer" unique_id=1931283668]
 layout_mode = 2
-theme_override_font_sizes/font_size = 40
-theme_override_styles/normal = SubResource("StyleBoxFlat_b48d2")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_scefk")
-theme_override_styles/hover = SubResource("StyleBoxFlat_7gjxu")
+theme_override_fonts/font = ExtResource("2_7gjxu")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxTexture_2iypb")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_gu83f")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ygpko")
 text = "Quit
 "
 

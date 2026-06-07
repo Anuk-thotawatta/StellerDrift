@@ -7,6 +7,7 @@
 [ext_resource type="Shader" uid="uid://ssl5mg0a3yio" path="res://Assets/Shaders/explosion.gdshader" id="4_53qdw"]
 [ext_resource type="PackedScene" uid="uid://o4i86je37a7g" path="res://Assets/Scenes/game_over.tscn" id="4_ltsxh"]
 [ext_resource type="PackedScene" uid="uid://ch2hel60r6h55" path="res://Assets/Scenes/pause_menu.tscn" id="4_owchf"]
+[ext_resource type="FontFile" uid="uid://dt8yi6gi061ev" path="res://Assets/fonts/Linebeam.ttf" id="6_tim1p"]
 [ext_resource type="Shader" uid="uid://sgjcnrhvmpni" path="res://Assets/Shaders/starField.gdshader" id="7_4iy6t"]
 [ext_resource type="FontFile" uid="uid://bpr51ycd2jhki" path="res://Assets/fonts/ASTERA v2.ttf" id="9_4e1g7"]
 [ext_resource type="AudioStream" uid="uid://b8ga2mr0hg6pb" path="res://Assets/sound/soundtrack1.mp3" id="10_g3py7"]
@@ -88,42 +89,46 @@ offset_left = 34.0
 offset_top = 62.0
 offset_right = 261.0
 offset_bottom = 117.0
-theme_override_colors/font_color = Color(0, 0.955435, 0.97568864, 1)
+theme_override_colors/font_color = Color(0.3996417, 0.99348825, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 40
+theme_override_fonts/font = ExtResource("6_tim1p")
+theme_override_font_sizes/font_size = 30
 text = "High Score: "
 
 [node name="hscore" type="Label" parent="CanvasLayer" unique_id=696912810]
-offset_left = 259.0
-offset_top = 65.0
-offset_right = 387.0
-offset_bottom = 120.0
-theme_override_colors/font_color = Color(0, 0.955435, 0.97568864, 1)
+offset_left = 227.0
+offset_top = 68.0
+offset_right = 355.0
+offset_bottom = 123.0
+theme_override_colors/font_color = Color(0.4, 0.99215686, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 40
+theme_override_fonts/font = ExtResource("6_tim1p")
+theme_override_font_sizes/font_size = 30
 
 [node name="score_label" type="Label" parent="CanvasLayer" unique_id=1730362022]
 offset_left = 32.0
 offset_top = 16.0
 offset_right = 160.0
 offset_bottom = 71.0
-theme_override_colors/font_color = Color(0, 0.955435, 0.97568864, 1)
+theme_override_colors/font_color = Color(0.4, 0.99215686, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 40
+theme_override_fonts/font = ExtResource("6_tim1p")
+theme_override_font_sizes/font_size = 30
 text = "Score: "
 
 [node name="score" type="Label" parent="CanvasLayer" unique_id=1388900965]
-offset_left = 167.0
-offset_top = 16.0
-offset_right = 295.0
-offset_bottom = 71.0
-theme_override_colors/font_color = Color(0, 0.955435, 0.97568864, 1)
+offset_left = 144.0
+offset_top = 18.0
+offset_right = 272.0
+offset_bottom = 73.0
+theme_override_colors/font_color = Color(0.4, 0.99215686, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 40
+theme_override_fonts/font = ExtResource("6_tim1p")
+theme_override_font_sizes/font_size = 30
 
 [node name="Game_over" parent="CanvasLayer" unique_id=403820172 instance=ExtResource("4_ltsxh")]
 
@@ -181,8 +186,8 @@ volume_db = 1.0
 [node name="beep" type="AudioStreamPlayer2D" parent="." unique_id=422775388]
 process_mode = 3
 stream = ExtResource("11_tim1p")
-volume_db = 10.0
+volume_db = 5.0
 
-[connection signal="timeout" from="pillarSpawnTimer" to="." method="_on_tower_spawn_timer_timeout"]
 [connection signal="timeout" from="pillarSpawnTimer" to="." method="_on_pillar_spawn_timer_timeout"]
+[connection signal="timeout" from="pillarSpawnTimer" to="." method="_on_tower_spawn_timer_timeout"]
 [connection signal="body_entered" from="initial_pillars/Asteroid_pillars/floorSky_limits" to="." method="_on_floor_sky_limits_body_entered"]

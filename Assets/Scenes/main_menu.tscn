@@ -3,41 +3,45 @@
 [ext_resource type="Script" uid="uid://dbwmdq1tqxwyo" path="res://Assets/Scripts/main_menu.gd" id="1_fsbqx"]
 [ext_resource type="Texture2D" uid="uid://b34pwh1atbii7" path="res://Assets/Sprites/space_bg1.jpg" id="2_cbhea"]
 [ext_resource type="FontFile" uid="uid://bpr51ycd2jhki" path="res://Assets/fonts/ASTERA v2.ttf" id="3_tanm1"]
+[ext_resource type="FontFile" uid="uid://dy0egxts88v3n" path="res://Assets/fonts/Conthrax-SemiBold.otf" id="4_shbfh"]
 [ext_resource type="AudioStream" uid="uid://b8ga2mr0hg6pb" path="res://Assets/sound/soundtrack1.mp3" id="4_tanm1"]
 [ext_resource type="AudioStream" uid="uid://b3vbfg0w8ua5e" path="res://Assets/sound/buttons.mp3" id="5_6qsvb"]
+[ext_resource type="Texture2D" uid="uid://b036yecxodr5b" path="res://Assets/Sprites/button.png" id="5_hxcs8"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_x6jn2"]
 texture = ExtResource("2_cbhea")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_77rv3"]
-bg_color = Color(0.19607843, 0.003921569, 0.9764706, 1)
-border_width_left = 5
-border_width_right = 5
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-corner_detail = 9
-expand_margin_left = 10.0
-expand_margin_right = 10.0
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_shbfh"]
+load_path = "res://.godot/imported/button.png-12fa84202ab84fdfc25f930107ab94bd.ctex"
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fsbqx"]
-bg_color = Color(0.44705883, 0.6666667, 0.9764706, 1)
-border_width_top = 5
-border_width_bottom = 5
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hxcs8"]
+texture = SubResource("CompressedTexture2D_shbfh")
+expand_margin_left = 50.0
+expand_margin_top = 10.0
+expand_margin_right = 50.0
+expand_margin_bottom = 10.0
+region_rect = Rect2(15.283051, 18.5, 1803.8304, 552.7819)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x6jn2"]
-bg_color = Color(0.19607843, 0.003921569, 0.9764706, 1)
-border_width_top = 5
-border_width_bottom = 5
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hxcs8"]
+load_path = "res://.godot/imported/button.png-12fa84202ab84fdfc25f930107ab94bd.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pd3f2"]
+texture = SubResource("CompressedTexture2D_hxcs8")
+expand_margin_left = 30.0
+expand_margin_top = 10.0
+expand_margin_right = 30.0
+expand_margin_bottom = 10.0
+region_rect = Rect2(15.283051, 18.5, 1803.8304, 552.7819)
+modulate_color = Color(0.6703423, 1.1444291, 0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xkmpe"]
+texture = ExtResource("5_hxcs8")
+expand_margin_left = 35.0
+expand_margin_top = 15.0
+expand_margin_right = 35.0
+expand_margin_bottom = 15.0
+region_rect = Rect2(15.283051, 18.5, 1803.8304, 552.7819)
+modulate_color = Color(1.1638972, 1.1638972, 1.1638972, 1)
 
 [node name="MainMenu" type="Control" unique_id=53724646]
 layout_mode = 3
@@ -91,22 +95,25 @@ offset_right = 85.0
 offset_bottom = -43.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_constants/separation = 20
+theme_override_constants/separation = 40
 
 [node name="start_button" type="Button" parent="VBoxContainer" unique_id=2045587061]
 layout_mode = 2
-theme_override_font_sizes/font_size = 40
-theme_override_styles/normal = SubResource("StyleBoxFlat_77rv3")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_fsbqx")
-theme_override_styles/hover = SubResource("StyleBoxFlat_x6jn2")
+theme_override_fonts/font = ExtResource("4_shbfh")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxTexture_hxcs8")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_pd3f2")
+theme_override_styles/hover = SubResource("StyleBoxTexture_xkmpe")
 text = "Start"
+expand_icon = true
 
 [node name="quit_button" type="Button" parent="VBoxContainer" unique_id=413570577]
 layout_mode = 2
-theme_override_font_sizes/font_size = 40
-theme_override_styles/normal = SubResource("StyleBoxFlat_77rv3")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_fsbqx")
-theme_override_styles/hover = SubResource("StyleBoxFlat_x6jn2")
+theme_override_fonts/font = ExtResource("4_shbfh")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxTexture_hxcs8")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_pd3f2")
+theme_override_styles/hover = SubResource("StyleBoxTexture_xkmpe")
 text = "Quit"
 
 [node name="game_soundtrack" type="AudioStreamPlayer2D" parent="." unique_id=1887805673]
