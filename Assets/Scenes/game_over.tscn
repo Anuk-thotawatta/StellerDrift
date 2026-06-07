@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://1587nhvncxun" path="res://Assets/Scripts/game_over_menu.gd" id="1_b48d2"]
 [ext_resource type="FontFile" uid="uid://dy0egxts88v3n" path="res://Assets/fonts/Conthrax-SemiBold.otf" id="2_7gjxu"]
 [ext_resource type="Texture2D" uid="uid://b036yecxodr5b" path="res://Assets/Sprites/button.png" id="3_302cm"]
+[ext_resource type="AudioStream" uid="uid://b3vbfg0w8ua5e" path="res://Assets/sound/buttons.mp3" id="4_302cm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0mivm"]
 bg_color = Color(0, 0, 0, 0.78431374)
@@ -153,5 +154,13 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_ygpko")
 text = "Quit
 "
 
+[node name="button_sound" type="AudioStreamPlayer2D" parent="." unique_id=5857044]
+stream = ExtResource("4_302cm")
+volume_db = 17.0
+
+[connection signal="button_down" from="Panel/VBoxContainer/restart_button" to="." method="_on_restart_button_button_down"]
+[connection signal="mouse_entered" from="Panel/VBoxContainer/restart_button" to="." method="_on_restart_button_mouse_entered"]
 [connection signal="pressed" from="Panel/VBoxContainer/restart_button" to="." method="_on_restart_button_pressed"]
+[connection signal="button_down" from="Panel/VBoxContainer/quit_button" to="." method="_on_quit_button_button_down"]
+[connection signal="mouse_entered" from="Panel/VBoxContainer/quit_button" to="." method="_on_quit_button_mouse_entered"]
 [connection signal="pressed" from="Panel/VBoxContainer/quit_button" to="." method="_on_quit_button_pressed"]

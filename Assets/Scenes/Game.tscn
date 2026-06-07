@@ -188,6 +188,6 @@ process_mode = 3
 stream = ExtResource("11_tim1p")
 volume_db = 5.0
 
-[connection signal="timeout" from="pillarSpawnTimer" to="." method="_on_pillar_spawn_timer_timeout"]
 [connection signal="timeout" from="pillarSpawnTimer" to="." method="_on_tower_spawn_timer_timeout"]
+[connection signal="timeout" from="pillarSpawnTimer" to="." method="_on_pillar_spawn_timer_timeout"]
 [connection signal="body_entered" from="initial_pillars/Asteroid_pillars/floorSky_limits" to="." method="_on_floor_sky_limits_body_entered"]

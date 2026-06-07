@@ -1,5 +1,7 @@
 extends Control
 
+@onready var button_sound: AudioStreamPlayer2D = $button_sound
+
 func _on_restart_button_pressed() -> void:
 	get_tree().paused = false
 	get_tree().reload_current_scene()
@@ -8,3 +10,16 @@ func _on_restart_button_pressed() -> void:
 
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
+
+
+func _on_restart_button_button_down() -> void:
+	button_sound.play()
+
+func _on_restart_button_mouse_entered() -> void:
+	button_sound.play()
+
+func _on_quit_button_button_down() -> void:
+	button_sound.play()
+
+func _on_quit_button_mouse_entered() -> void:
+	button_sound.play()
