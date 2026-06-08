@@ -16,14 +16,20 @@ extends Node2D
 var background2: Sprite2D
 var bg_width
 
+var phase_timer: float = 0.0
+var phase_duration: float = 10.0
+var phase_order = [Global.state.ASTEROID, Global.state.ICE, Global.state.BOSS]
+var phase_index: int = 0
+
 const SAVEPATH = "user://save.json"
 
-var scoreVal = 0
-var highScoreVal = 0
+var scoreVal = 0.0
+var highScoreVal = 0.0
 const BG_SCROLL_SPEED = 100.0
 var star_time: float = 0.0
 
 func _ready():
+	Global.game_state = Global.state.ASTEROID
 	Global.countdown_happening = true
 	player.hide_exhaust()
 	explosion_fx.hide()
@@ -57,16 +63,16 @@ func _ready():
 	get_tree().paused = false
 	
 func _process(delta):
-	# If the tree is paused (during the 3-second countdown), update twinkles without shifting position
-	if get_tree().paused:
-		if star_field and star_field.material:
-			star_field.material.set_shader_parameter("manual_time", star_time)
-		return
-
+	if (get_tree().paused == false):
+		handle_background(delta)
+		
 	scoreVal += delta * 100
 	score.text = str(int(scoreVal))
 	hscore.text = str(int(highScoreVal))
+
+	check_phase()
 	
+func handle_background(delta):
 	# --- Scroll both backgrounds ---
 	background1.position.x -= BG_SCROLL_SPEED * delta
 	background2.position.x -= BG_SCROLL_SPEED * delta
@@ -82,7 +88,7 @@ func _process(delta):
 	if background2.position.x <= -bg_width:
 		background2.position.x = background1.position.x + bg_width
 	# --------------------------------
-	
+
 func player_died():
 	get_tree().paused = true
 	player.play_explosion_audio()
@@ -129,6 +135,29 @@ func _on_floor_sky_limits_body_entered(body: Node2D) -> void:
 
 
 func _on_pillar_spawn_timer_timeout() -> void:
-	var pillar = asteroid_pilar.instantiate()
-	pillar.position = Vector2(1500, randi_range(-500, 500))
-	add_child(pillar)
+	if(Global.game_state == Global.state.ASTEROID):
+		var pillar = asteroid_pilar.instantiate()
+		pillar.position = Vector2(1500, randi_range(-500, 500))
+		add_child(pillar)
+	
+func check_phase():
+	phase_timer += get_process_delta_time()
+	if phase_timer >= phase_duration:
+		phase_timer = 0.0
+		phase_index = (phase_index + 1) % phase_order.size()
+		var new_state = phase_order[phase_index]
+		if new_state != Global.game_state:
+			Global.game_state = new_state
+			Global.phase_changed.emit(new_state)
+			_on_phase_changed(new_state)
+
+func _on_phase_changed(new_state):
+	match new_state:
+		Global.state.ASTEROID:
+			print("ASTEROID PHASE")
+		Global.state.ICE:
+			print("ICE PHASE")
+			# spawn ice asteroids, change music, etc.
+		Global.state.BOSS:
+			print("BOSS PHASE")
+			# spawn boss, change music, etc.

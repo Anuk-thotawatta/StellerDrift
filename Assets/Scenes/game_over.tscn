@@ -17,58 +17,41 @@ load_path = "res://.godot/imported/button.png-12fa84202ab84fdfc25f930107ab94bd.c
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_uvs0b"]
 texture = SubResource("CompressedTexture2D_shbfh")
-expand_margin_left = 80.0
+expand_margin_left = 55.0
 expand_margin_top = 10.0
-expand_margin_right = 80.0
+expand_margin_right = 55.0
 expand_margin_bottom = 10.0
 region_rect = Rect2(15.283051, 18.5, 1803.8304, 552.7819)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hxcs8"]
 load_path = "res://.godot/imported/button.png-12fa84202ab84fdfc25f930107ab94bd.ctex"
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_eg02k"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_302cm"]
 texture = SubResource("CompressedTexture2D_hxcs8")
-expand_margin_left = 80.0
+expand_margin_left = 55.0
 expand_margin_top = 10.0
-expand_margin_right = 80.0
+expand_margin_right = 55.0
 expand_margin_bottom = 10.0
 region_rect = Rect2(15.283051, 18.5, 1803.8304, 552.7819)
-modulate_color = Color(0.6703423, 1.1444291, 0, 1)
+modulate_color = Color(0.37731165, 0.6679118, 1.353, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j1l6g"]
 texture = ExtResource("3_302cm")
-expand_margin_left = 85.0
+expand_margin_left = 60.0
 expand_margin_top = 15.0
-expand_margin_right = 85.0
+expand_margin_right = 60.0
 expand_margin_bottom = 15.0
 region_rect = Rect2(15.283051, 18.5, 1803.8304, 552.7819)
 modulate_color = Color(1.1638972, 1.1638972, 1.1638972, 1)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2iypb"]
-texture = SubResource("CompressedTexture2D_shbfh")
-expand_margin_left = 80.0
-expand_margin_top = 10.0
-expand_margin_right = 80.0
-expand_margin_bottom = 10.0
-region_rect = Rect2(15.283051, 18.5, 1803.8304, 552.7819)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gu83f"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_eg02k"]
 texture = SubResource("CompressedTexture2D_hxcs8")
-expand_margin_left = 80.0
+expand_margin_left = 55.0
 expand_margin_top = 10.0
-expand_margin_right = 80.0
+expand_margin_right = 55.0
 expand_margin_bottom = 10.0
 region_rect = Rect2(15.283051, 18.5, 1803.8304, 552.7819)
-modulate_color = Color(0.6703423, 1.1444291, 0, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ygpko"]
-texture = ExtResource("3_302cm")
-expand_margin_left = 85.0
-expand_margin_top = 15.0
-expand_margin_right = 85.0
-expand_margin_bottom = 15.0
-region_rect = Rect2(15.283051, 18.5, 1803.8304, 552.7819)
-modulate_color = Color(1.1638972, 1.1638972, 1.1638972, 1)
+modulate_color = Color(0.37731165, 0.6679118, 1.353, 1)
 
 [node name="Game_over" type="Control" unique_id=403820172]
 process_mode = 3
@@ -138,19 +121,19 @@ theme_override_constants/separation = 40
 [node name="restart_button" type="Button" parent="Panel/VBoxContainer" unique_id=1268296693]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_7gjxu")
-theme_override_font_sizes/font_size = 50
+theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxTexture_uvs0b")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_eg02k")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_302cm")
 theme_override_styles/hover = SubResource("StyleBoxTexture_j1l6g")
 text = "Restart"
 
 [node name="quit_button" type="Button" parent="Panel/VBoxContainer" unique_id=1931283668]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_7gjxu")
-theme_override_font_sizes/font_size = 50
-theme_override_styles/normal = SubResource("StyleBoxTexture_2iypb")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_gu83f")
-theme_override_styles/hover = SubResource("StyleBoxTexture_ygpko")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxTexture_uvs0b")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_eg02k")
+theme_override_styles/hover = SubResource("StyleBoxTexture_j1l6g")
 text = "Quit
 "
 

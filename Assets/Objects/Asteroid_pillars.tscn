@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c1knlbk0sm2y2"]
 
-[ext_resource type="Script" uid="uid://3808bvq8xqs7" path="res://Assets/Scripts/towers.gd" id="1_5vb52"]
+[ext_resource type="Script" uid="uid://3808bvq8xqs7" path="res://Assets/Scripts/pillars.gd" id="1_5vb52"]
 [ext_resource type="Texture2D" uid="uid://ckncv4fngtsc8" path="res://Assets/Sprites/asteroid_pillar.png" id="2_0v5yy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6cu8m"]

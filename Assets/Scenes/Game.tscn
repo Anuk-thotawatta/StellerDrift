@@ -138,16 +138,26 @@ theme_override_font_sizes/font_size = 30
 wait_time = 3.0
 autostart = true
 
+[node name="floorSky_limits" type="Area2D" parent="." unique_id=1218450829]
+
+[node name="floorLimit" type="CollisionShape2D" parent="floorSky_limits" unique_id=1489717559]
+position = Vector2(296, 992)
+shape = SubResource("RectangleShape2D_53qdw")
+
+[node name="skyLimit" type="CollisionShape2D" parent="floorSky_limits" unique_id=1350263682]
+position = Vector2(282, -983)
+shape = SubResource("RectangleShape2D_53qdw")
+
 [node name="initial_pillars" type="Node" parent="." unique_id=1165458556]
 
 [node name="Asteroid_pillars" parent="initial_pillars" unique_id=836778206 instance=ExtResource("3_ffpvu")]
 position = Vector2(1362, 4)
 
 [node name="countdown" type="Label" parent="initial_pillars/Asteroid_pillars" unique_id=585189894]
-offset_left = -1439.0
-offset_top = -459.0
-offset_right = -1267.0
-offset_bottom = -50.0
+offset_left = -1476.0
+offset_top = -318.0
+offset_right = -1245.0
+offset_bottom = 91.0
 theme_override_colors/font_color = Color(0.7893102, 0.8600971, 1, 1)
 theme_override_colors/font_outline_color = Color(1.1030967e-05, 0.013225988, 0.11723321, 1)
 theme_override_constants/outline_size = 37
@@ -164,17 +174,6 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 55
 text = "Press [space bar] to Boost"
 
-[node name="floorSky_limits" type="Area2D" parent="initial_pillars/Asteroid_pillars" unique_id=1218450829]
-position = Vector2(-1362, -4)
-
-[node name="floorLimit" type="CollisionShape2D" parent="initial_pillars/Asteroid_pillars/floorSky_limits" unique_id=1489717559]
-position = Vector2(296, 992)
-shape = SubResource("RectangleShape2D_53qdw")
-
-[node name="skyLimit" type="CollisionShape2D" parent="initial_pillars/Asteroid_pillars/floorSky_limits" unique_id=1350263682]
-position = Vector2(282, -983)
-shape = SubResource("RectangleShape2D_53qdw")
-
 [node name="Camera2D" type="Camera2D" parent="." unique_id=156824474]
 zoom = Vector2(0.4, 0.4)
 
@@ -190,4 +189,4 @@ volume_db = 5.0
 
 [connection signal="timeout" from="pillarSpawnTimer" to="." method="_on_tower_spawn_timer_timeout"]
 [connection signal="timeout" from="pillarSpawnTimer" to="." method="_on_pillar_spawn_timer_timeout"]
-[connection signal="body_entered" from="initial_pillars/Asteroid_pillars/floorSky_limits" to="." method="_on_floor_sky_limits_body_entered"]
+[connection signal="body_entered" from="floorSky_limits" to="." method="_on_floor_sky_limits_body_entered"]

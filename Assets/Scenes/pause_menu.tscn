@@ -22,48 +22,50 @@ load_path = "res://.godot/imported/button.png-12fa84202ab84fdfc25f930107ab94bd.c
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tgy2g"]
 texture = SubResource("CompressedTexture2D_shbfh")
-expand_margin_left = 80.0
+expand_margin_left = 40.0
 expand_margin_top = 10.0
-expand_margin_right = 80.0
+expand_margin_right = 40.0
 expand_margin_bottom = 10.0
 region_rect = Rect2(15.283051, 18.5, 1803.8304, 552.7819)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hxcs8"]
 load_path = "res://.godot/imported/button.png-12fa84202ab84fdfc25f930107ab94bd.ctex"
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qxc5f"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_48c7y"]
 texture = SubResource("CompressedTexture2D_hxcs8")
-expand_margin_left = 85.0
-expand_margin_top = 15.0
-expand_margin_right = 85.0
-expand_margin_bottom = 15.0
+expand_margin_left = 60.0
+expand_margin_top = 10.0
+expand_margin_right = 60.0
+expand_margin_bottom = 10.0
 region_rect = Rect2(15.283051, 18.5, 1803.8304, 552.7819)
-modulate_color = Color(0.6703423, 1.1444291, 0, 1)
+modulate_color = Color(0.37731165, 0.6679118, 1.353, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1lvdy"]
 texture = ExtResource("4_d7po0")
-expand_margin_left = 85.0
+expand_margin_left = 45.0
 expand_margin_top = 15.0
-expand_margin_right = 85.0
+expand_margin_right = 45.0
 expand_margin_bottom = 15.0
 region_rect = Rect2(15.283051, 18.5, 1803.8304, 552.7819)
 modulate_color = Color(1.1638972, 1.1638972, 1.1638972, 1)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6nmhk"]
-texture = SubResource("CompressedTexture2D_shbfh")
-expand_margin_left = 80.0
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d7po0"]
+texture = SubResource("CompressedTexture2D_hxcs8")
+expand_margin_left = 60.0
 expand_margin_top = 10.0
-expand_margin_right = 80.0
+expand_margin_right = 60.0
 expand_margin_bottom = 10.0
 region_rect = Rect2(15.283051, 18.5, 1803.8304, 552.7819)
+modulate_color = Color(0.37731165, 0.6679118, 1.353, 1)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hdkeg"]
-texture = SubResource("CompressedTexture2D_shbfh")
-expand_margin_left = 80.0
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qxc5f"]
+texture = SubResource("CompressedTexture2D_hxcs8")
+expand_margin_left = 40.0
 expand_margin_top = 10.0
-expand_margin_right = 80.0
+expand_margin_right = 40.0
 expand_margin_bottom = 10.0
 region_rect = Rect2(15.283051, 18.5, 1803.8304, 552.7819)
+modulate_color = Color(0.37731165, 0.6679118, 1.353, 1)
 
 [sub_resource type="Animation" id="Animation_jbhf4"]
 length = 0.001
@@ -257,26 +259,26 @@ theme_override_constants/separation = 33
 [node name="resume_button" type="Button" parent="Panel/VBoxContainer" unique_id=1123033984]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_48c7y")
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxTexture_tgy2g")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_qxc5f")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_48c7y")
 theme_override_styles/hover = SubResource("StyleBoxTexture_1lvdy")
 text = "Resume"
 
 [node name="restart_button" type="Button" parent="Panel/VBoxContainer" unique_id=466540129]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_48c7y")
-theme_override_font_sizes/font_size = 40
-theme_override_styles/normal = SubResource("StyleBoxTexture_6nmhk")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_qxc5f")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxTexture_tgy2g")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_d7po0")
 theme_override_styles/hover = SubResource("StyleBoxTexture_1lvdy")
 text = "Restart"
 
 [node name="quit_button" type="Button" parent="Panel/VBoxContainer" unique_id=1809116749]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_48c7y")
-theme_override_font_sizes/font_size = 40
-theme_override_styles/normal = SubResource("StyleBoxTexture_hdkeg")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxTexture_tgy2g")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_qxc5f")
 theme_override_styles/hover = SubResource("StyleBoxTexture_1lvdy")
 text = "Quit
