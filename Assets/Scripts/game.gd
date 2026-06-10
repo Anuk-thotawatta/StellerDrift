@@ -5,7 +5,7 @@ extends Node2D
 @onready var pillar_spawn_timer: Timer = $pillarSpawnTimer
 @onready var score: Label = $CanvasLayer/score
 @onready var hscore: Label = $CanvasLayer/hscore
-@onready var countdown: Label = $initial_pillars/Asteroid_pillars/countdown
+@onready var countdown: Label = $CanvasLayer/countdown
 @onready var player: CharacterBody2D = $Player
 @onready var background1: Sprite2D = $background1
 @onready var explosion_fx: ColorRect = $Explosion_fx
@@ -29,6 +29,7 @@ const BG_SCROLL_SPEED = 100.0
 var star_time: float = 0.0
 
 func _ready():
+	countdown.show()
 	Global.game_state = Global.state.ASTEROID
 	Global.countdown_happening = true
 	player.hide_exhaust()

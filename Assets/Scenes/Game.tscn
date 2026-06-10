@@ -84,6 +84,20 @@ scale = Vector2(0.75, 0.75)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=322626283]
 
+[node name="countdown" type="Label" parent="CanvasLayer" unique_id=585189894]
+offset_left = 517.0
+offset_top = 117.0
+offset_right = 748.0
+offset_bottom = 526.0
+scale = Vector2(0.5, 0.5)
+theme_override_colors/font_color = Color(0.7893102, 0.8600971, 1, 1)
+theme_override_colors/font_outline_color = Color(1.1030967e-05, 0.013225988, 0.11723321, 1)
+theme_override_constants/outline_size = 37
+theme_override_fonts/font = ExtResource("9_4e1g7")
+theme_override_font_sizes/font_size = 300
+text = "3"
+horizontal_alignment = 1
+
 [node name="hscore_label" type="Label" parent="CanvasLayer" unique_id=1447875411]
 offset_left = 34.0
 offset_top = 62.0
@@ -153,18 +167,6 @@ shape = SubResource("RectangleShape2D_53qdw")
 [node name="Asteroid_pillars" parent="initial_pillars" unique_id=836778206 instance=ExtResource("3_ffpvu")]
 position = Vector2(1362, 4)
 
-[node name="countdown" type="Label" parent="initial_pillars/Asteroid_pillars" unique_id=585189894]
-offset_left = -1476.0
-offset_top = -318.0
-offset_right = -1245.0
-offset_bottom = 91.0
-theme_override_colors/font_color = Color(0.7893102, 0.8600971, 1, 1)
-theme_override_colors/font_outline_color = Color(1.1030967e-05, 0.013225988, 0.11723321, 1)
-theme_override_constants/outline_size = 37
-theme_override_fonts/font = ExtResource("9_4e1g7")
-theme_override_font_sizes/font_size = 300
-text = "3"
-
 [node name="Tutorial" type="Label" parent="initial_pillars/Asteroid_pillars" unique_id=1517293332]
 offset_left = -1061.0
 offset_top = -243.0
@@ -185,7 +187,6 @@ volume_db = 1.0
 [node name="beep" type="AudioStreamPlayer2D" parent="." unique_id=422775388]
 process_mode = 3
 stream = ExtResource("11_tim1p")
-volume_db = 5.0
 
 [connection signal="timeout" from="pillarSpawnTimer" to="." method="_on_tower_spawn_timer_timeout"]
 [connection signal="timeout" from="pillarSpawnTimer" to="." method="_on_pillar_spawn_timer_timeout"]

@@ -1,6 +1,10 @@
 extends Control
 
 @onready var button_sound: AudioStreamPlayer2D = $button_sound
+@onready var countdown: Label = $"../countdown"
+@onready var beep: AudioStreamPlayer2D = $"../../beep"
+@onready var game_soundtrack: AudioStreamPlayer2D = $"../../game_soundtrack"
+@onready var player: CharacterBody2D = $"../../Player"
 
 func _ready():
 	$AnimationPlayer.play("RESET")
@@ -11,6 +15,21 @@ func resume():
 	$AnimationPlayer.play_backwards("blur")
 	hide()
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	
+	get_tree().paused = true
+	game_soundtrack.stop()
+	countdown.show()
+	var x=3
+	while x>=0:
+		countdown.text = str(x)
+		beep.play()
+		await get_tree().create_timer(1.0).timeout
+		x-=1
+	countdown.hide()
+	game_soundtrack.play()
+	player.show_exhaust()
+	Global.countdown_happening = false
+	get_tree().paused = false
 	
 func pause():
 	get_tree().paused = true

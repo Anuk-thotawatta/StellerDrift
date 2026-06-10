@@ -9,10 +9,13 @@ const tilt_up = -05.00
 const tilt_down = 65.00
 const tilt_speed = 8.0
 
+var extra_life_count = 1
+
 @onready var explosion: AudioStreamPlayer2D = $explosion
 @onready var woosh: AudioStreamPlayer2D = $woosh
 @onready var exhaust_fx: ColorRect = $Exhaust_fx
 @onready var jump_jet_fx: ColorRect = $JumpJet_fx
+@onready var force_field_fx: ColorRect = $ForceField_fx
 
 func show_exhaust():
 	exhaust_fx.show()
@@ -43,6 +46,7 @@ func _physics_process(delta):
 
 	var target_angle = lerp(tilt_up, tilt_down, (velocity.y + jump_force) / (gravity + jump_force))
 	rotation_degrees = lerp(rotation_degrees, target_angle, tilt_speed * delta)
+	force_field_fx.rotation = -rotation
 
 	if is_falling:
 		velocity.y += gravity * delta
