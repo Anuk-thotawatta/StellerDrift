@@ -1,7 +1,9 @@
 extends CharacterBody2D
 
-const gravity = 1600
-var jump_force = 700 
+const gravity = 1600.0
+var is_falling = true
+var jump_force = 700.0 
+var is_dashing = false
 
 const tilt_up = -05.00
 const tilt_down = 65.00
@@ -34,16 +36,66 @@ var can_jump = true
 
 func _physics_process(delta):
 	if Input.is_action_just_pressed("jump") and can_jump:
-		woosh.play()
-		play_burst()
-		velocity.y = -jump_force
-		rotation = 0
-		can_jump = false
-		await get_tree().create_timer(0.4).timeout
-		can_jump = true
+		jump()
+		
+	if Input.is_action_just_pressed("dash") and !is_dashing:
+		dash()
 
 	var target_angle = lerp(tilt_up, tilt_down, (velocity.y + jump_force) / (gravity + jump_force))
 	rotation_degrees = lerp(rotation_degrees, target_angle, tilt_speed * delta)
 
-	velocity.y += gravity * delta
+	if is_falling:
+		velocity.y += gravity * delta
 	move_and_slide()
+	
+func jump():
+	woosh.play()
+	play_burst()
+	velocity.y = -jump_force
+	rotation = 0
+	can_jump = false
+	await get_tree().create_timer(0.4).timeout
+	can_jump = true
+	
+func dash():
+	is_falling = false
+	is_dashing = true
+	velocity.y = 0
+	
+	var start_x = position.x
+	
+	# Phase 1: move with the pillars (net zero movement) for 0.6s
+	var elapsed = 0.0
+	while elapsed < 0.6:
+		var delta = get_process_delta_time()
+		elapsed += delta
+		position.x -= 300 * delta  # drift back with the world
+		velocity.y = 0
+		await get_tree().process_frame
+	
+	var dash_back_x = position.x
+	
+	# Phase 2: rocket forward past start_x (0.2s)
+	var overshoot_x = start_x + 300  # how far past start to overshoot
+	elapsed = 0.0
+	while elapsed < 0.2:
+		var delta = get_process_delta_time()
+		elapsed += delta
+		var t = elapsed / 0.2
+		var eased = 1.0 - pow(1.0 - t, 3)
+		position.x = lerp(dash_back_x, overshoot_x, eased)
+		velocity.y = 0
+		await get_tree().process_frame
+	
+	# Phase 3: glide back to start_x with pillar drift (until we reach start)
+	while position.x > start_x:
+		var delta = get_process_delta_time()
+		position.x -= 300 * delta  # drift with the world again
+		#velocity.y = 0
+		is_falling = true
+		await get_tree().process_frame
+	
+	position.x = start_x
+	is_dashing = false
+	
+	
