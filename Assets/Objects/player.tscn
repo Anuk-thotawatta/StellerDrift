@@ -5,6 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://nigu1idiqcr4" path="res://Assets/sound/woosh.mp3" id="3_kpjtk"]
 [ext_resource type="Shader" uid="uid://cod7pyhpvwnx4" path="res://Assets/Shaders/exhaust.gdshader" id="4_pcvt2"]
 [ext_resource type="Shader" uid="uid://ciewlexkbtcit" path="res://Assets/Shaders/jumpJet.gdshader" id="5_4xdwk"]
+[ext_resource type="Shader" uid="uid://d0mhsskslkd47" path="res://Assets/Shaders/teleport.gdshader" id="6_j7htu"]
 [ext_resource type="AudioStream" uid="uid://b5vbl20qak3p" path="res://Assets/sound/explosion.mp3" id="6_p0uke"]
 [ext_resource type="Shader" uid="uid://ca1xa4k5l1bqg" path="res://Assets/Shaders/force_field.gdshader" id="7_2xamd"]
 
@@ -65,9 +66,15 @@ shader_parameter/glow_color = Color(0, 0.7058824, 0.8235294, 0.25882354)
 shader_parameter/hex_scale = Vector2(3, 3)
 shader_parameter/line_thickness = 0.094000004465
 shader_parameter/scroll_speed = Vector2(0.2, 0.2)
-shader_parameter/pulse_speed = 0.5
-shader_parameter/appearance_progress = 1.0
-shader_parameter/explosion_progress = 0.0
+shader_parameter/pulse_speed = 10.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jrskk"]
+shader = ExtResource("6_j7htu")
+shader_parameter/beam_color = Color(0.3, 0.75, 1, 1)
+shader_parameter/core_color = Color(0.8, 0.95, 1, 1)
+shader_parameter/teleport_progress = 0.5850000277875
+shader_parameter/ring_frequency = 1.0
+shader_parameter/noise_speed = 0.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pcvt2"]
 radius = 62.0
@@ -106,6 +113,14 @@ offset_top = -244.0
 offset_right = 220.0
 offset_bottom = 256.0
 pivot_offset_ratio = Vector2(0.5, 0.5)
+
+[node name="Teleport_fx" type="ColorRect" parent="." unique_id=1525719668]
+visible = false
+material = SubResource("ShaderMaterial_jrskk")
+offset_left = 610.0
+offset_top = -189.0
+offset_right = 985.0
+offset_bottom = 224.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=388250326]
 visible = false

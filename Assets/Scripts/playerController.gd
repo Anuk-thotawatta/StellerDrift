@@ -23,17 +23,10 @@ func show_exhaust():
 func hide_exhaust():
 	exhaust_fx.hide()
 
-func gain_force_field():
+func get_extra_life():
 	force_field_fx.show()
-	force_field_fx.material.set_shader_parameter("explosion_progress", 0.0)
 
-func lose_force_field():
-	force_field_fx.show()
-	force_field_fx.process_mode = Node.PROCESS_MODE_ALWAYS
-	force_field_fx.material.set_shader_parameter("explosion_progress", 0.0)
-	var ff_tween = force_field_fx.create_tween()
-	ff_tween.tween_property(force_field_fx.material, "shader_parameter/explosion_progress", 1.0, 0.6)
-	await ff_tween.finished
+func lose_extra_life():
 	force_field_fx.hide()
 	
 func play_explosion_audio():
@@ -45,8 +38,7 @@ func play_burst():
 	tween.tween_property(jump_jet_fx.material, "shader_parameter/burst_progress", 1.0, 0.4)
 
 func _ready() -> void:
-	gain_force_field()
-	extra_life_count += 1 #need to fulfil upon picking pwr up
+	lose_extra_life()
 	velocity = Vector2.ZERO
 	jump_jet_fx.material.set_shader_parameter("burst_progress", 1.0)
 

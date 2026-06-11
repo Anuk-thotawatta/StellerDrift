@@ -7,6 +7,7 @@
 [ext_resource type="Shader" uid="uid://ssl5mg0a3yio" path="res://Assets/Shaders/explosion.gdshader" id="4_53qdw"]
 [ext_resource type="PackedScene" uid="uid://o4i86je37a7g" path="res://Assets/Scenes/game_over.tscn" id="4_ltsxh"]
 [ext_resource type="PackedScene" uid="uid://ch2hel60r6h55" path="res://Assets/Scenes/pause_menu.tscn" id="4_owchf"]
+[ext_resource type="PackedScene" uid="uid://dfckiei8osqkq" path="res://Assets/Objects/warp_shield.tscn" id="6_i61mr"]
 [ext_resource type="FontFile" uid="uid://dt8yi6gi061ev" path="res://Assets/fonts/Linebeam.ttf" id="6_tim1p"]
 [ext_resource type="Shader" uid="uid://sgjcnrhvmpni" path="res://Assets/Shaders/starField.gdshader" id="7_4iy6t"]
 [ext_resource type="FontFile" uid="uid://bpr51ycd2jhki" path="res://Assets/fonts/ASTERA v2.ttf" id="9_4e1g7"]
@@ -81,6 +82,9 @@ offset_bottom = 627.5
 
 [node name="Player" parent="." unique_id=1515067146 instance=ExtResource("2_up1fl")]
 scale = Vector2(0.75, 0.75)
+
+[node name="warp_shield" parent="." unique_id=1722959542 instance=ExtResource("6_i61mr")]
+position = Vector2(771, 0)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=322626283]
 

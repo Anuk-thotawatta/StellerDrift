@@ -24,7 +24,7 @@ func _on_area_2d_body_entered(body):
 			Global.countdown_happening = true
 			player.extra_life_count -= 1 
 			if(player.extra_life_count <= 1):
-				player.lose_force_field()
+				player.lose_extra_life()
 			get_tree().paused = true
 			await get_tree().create_timer(1.0, true).timeout
 			player.position.y = position.y 

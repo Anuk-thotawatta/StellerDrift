@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://dfckiei8osqkq"]
+
+[ext_resource type="Script" uid="uid://cel7fo0ehty70" path="res://Assets/Scripts/warp_shield.gd" id="1_cq531"]
+[ext_resource type="Texture2D" uid="uid://dbeckxfogxj2j" path="res://Assets/Sprites/warp_shield.png" id="1_essf0"]
+[ext_resource type="Shader" uid="uid://bvkj3psqxsa4r" path="res://Assets/Shaders/power_up.gdshader" id="2_5eifr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pjdnb"]
+shader = ExtResource("2_5eifr")
+shader_parameter/glow_color = Color(0.3, 0.7, 1, 1)
+shader_parameter/dispersion_width = 10.0
+shader_parameter/glow_intensity = 5.0
+shader_parameter/float_speed = 10.0
+shader_parameter/float_amplitude = 20.0
+shader_parameter/wave_frequency = 0.0
+shader_parameter/wave_speed = 0.0
+shader_parameter/wave_amplitude = 0.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cq531"]
+radius = 72.06247
+
+[node name="warp_shield" type="Node2D" unique_id=1722959542]
+script = ExtResource("1_cq531")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1634880842]
+material = SubResource("ShaderMaterial_pjdnb")
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("1_essf0")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1699022843]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=527800366]
+position = Vector2(1, 0)
+shape = SubResource("CircleShape2D_cq531")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
