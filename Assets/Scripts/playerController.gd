@@ -5,11 +5,11 @@ var is_falling = true
 var jump_force = 700.0 
 var is_dashing = false
 
-const tilt_up = -05.00
+const tilt_up = -5.00
 const tilt_down = 65.00
 const tilt_speed = 8.0
 
-var extra_life_count = 1
+var extra_life_count = 0
 
 @onready var explosion: AudioStreamPlayer2D = $explosion
 @onready var woosh: AudioStreamPlayer2D = $woosh
@@ -22,6 +22,19 @@ func show_exhaust():
 
 func hide_exhaust():
 	exhaust_fx.hide()
+
+func gain_force_field():
+	force_field_fx.show()
+	force_field_fx.material.set_shader_parameter("explosion_progress", 0.0)
+
+func lose_force_field():
+	force_field_fx.show()
+	force_field_fx.process_mode = Node.PROCESS_MODE_ALWAYS
+	force_field_fx.material.set_shader_parameter("explosion_progress", 0.0)
+	var ff_tween = force_field_fx.create_tween()
+	ff_tween.tween_property(force_field_fx.material, "shader_parameter/explosion_progress", 1.0, 0.6)
+	await ff_tween.finished
+	force_field_fx.hide()
 	
 func play_explosion_audio():
 	explosion.play()
@@ -32,6 +45,8 @@ func play_burst():
 	tween.tween_property(jump_jet_fx.material, "shader_parameter/burst_progress", 1.0, 0.4)
 
 func _ready() -> void:
+	gain_force_field()
+	extra_life_count += 1 #need to fulfil upon picking pwr up
 	velocity = Vector2.ZERO
 	jump_jet_fx.material.set_shader_parameter("burst_progress", 1.0)
 

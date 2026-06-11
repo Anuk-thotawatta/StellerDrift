@@ -66,6 +66,8 @@ shader_parameter/hex_scale = Vector2(3, 3)
 shader_parameter/line_thickness = 0.094000004465
 shader_parameter/scroll_speed = Vector2(0.2, 0.2)
 shader_parameter/pulse_speed = 0.5
+shader_parameter/appearance_progress = 1.0
+shader_parameter/explosion_progress = 0.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pcvt2"]
 radius = 62.0
@@ -97,6 +99,7 @@ offset_bottom = 164.02293
 rotation = 1.3168806
 
 [node name="ForceField_fx" type="ColorRect" parent="." unique_id=530438352]
+process_mode = 3
 material = SubResource("ShaderMaterial_j7htu")
 offset_left = -280.0
 offset_top = -244.0

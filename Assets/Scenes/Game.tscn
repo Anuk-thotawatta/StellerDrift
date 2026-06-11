@@ -42,7 +42,7 @@ shader_parameter/core_color = Color(0.99452263, 0.976832, 0.9999998, 1)
 shader_parameter/mid_color = Color(1, 0.79607844, 0, 1)
 shader_parameter/outer_color = Color(0.99931496, 2.8397144e-06, 7.70092e-07, 1)
 shader_parameter/smoke_color = Color(0.14901961, 0.14901961, 0.14901961, 1)
-shader_parameter/progress = 1.0
+shader_parameter/progress = 0.9600000456
 shader_parameter/noise_scale = 2.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_53qdw"]
