@@ -9,5 +9,5 @@ signal phase_changed(new_state)
 
 #to do list
 	#life system(sheild) - need the animations
-	#projectile(Gun)
+	#projectile(Gun) - need sound effects
 	#bossfight

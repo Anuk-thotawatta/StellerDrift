@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://6obkygko7avc"]
+
+[ext_resource type="Script" uid="uid://b5ir7l341ci1l" path="res://Assets/Scripts/bullet.gd" id="1_a8tfd"]
+[ext_resource type="Texture2D" uid="uid://ckh176ihor415" path="res://Assets/Sprites/energy_particle.png" id="2_3fhov"]
+[ext_resource type="Shader" uid="uid://cd58xvbxk88fg" path="res://Assets/Shaders/bullet_trail.gdshader" id="2_oe1aj"]
+[ext_resource type="Texture2D" uid="uid://gx5dyeim4ofy" path="res://Assets/Sprites/laser_bullet.png" id="2_svoyt"]
+
+[sub_resource type="Curve" id="Curve_svoyt"]
+_data = [Vector2(0, 0.7191012), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_oe1aj"]
+curve = SubResource("Curve_svoyt")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3fhov"]
+particle_flag_disable_z = true
+direction = Vector3(-1, 0, 0)
+spread = 15.0
+flatness = 1.0
+initial_velocity_min = 20.0
+initial_velocity_max = 80.0
+gravity = Vector3(0, 98, 0)
+scale_min = 0.14999999
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_oe1aj")
+turbulence_enabled = true
+turbulence_noise_strength = 0.8
+turbulence_noise_scale = 2.5
+turbulence_noise_speed = Vector3(-1.5, 0, 0)
+turbulence_influence_min = 0.3
+turbulence_influence_max = 0.8
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3fhov"]
+shader = ExtResource("2_oe1aj")
+shader_parameter/speed = 9.33500044015262
+shader_parameter/noise_strength = 0.5
+shader_parameter/trail_length = 0.5510000261725
+shader_parameter/core_color = Color(0.55686575, 0.99999994, 0.953222, 1)
+shader_parameter/edge_color = Color(0.78325987, 0.0025511223, 0.99070185, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oe1aj"]
+
+[node name="Bullet" type="Node2D" unique_id=971007339]
+z_index = -1
+script = ExtResource("1_a8tfd")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1180441130]
+position = Vector2(45, 0)
+amount = 100
+texture = ExtResource("2_3fhov")
+lifetime = 0.5
+randomness = 0.41
+process_material = SubResource("ParticleProcessMaterial_3fhov")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1907625186]
+material = SubResource("ShaderMaterial_3fhov")
+position = Vector2(-8, -1)
+scale = Vector2(0.7001136, 0.2955574)
+texture = ExtResource("2_svoyt")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=2140880986]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1613504270]
+position = Vector2(23, 0)
+scale = Vector2(3, 3)
+shape = SubResource("CircleShape2D_oe1aj")

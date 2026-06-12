@@ -5,12 +5,17 @@ var is_falling = true
 var jump_force = 700.0 
 var is_dashing = false
 
+var can_jump = true
+var can_shoot = true
+
 const tilt_up = -5.00
 const tilt_down = 65.00
 const tilt_speed = 8.0
 
 var extra_life_count = 0
 
+@onready var muzzle: Marker2D = $Muzzle
+@onready var bullet = preload("res://Assets/Objects/bullet.tscn")
 @onready var explosion: AudioStreamPlayer2D = $explosion
 @onready var woosh: AudioStreamPlayer2D = $woosh
 @onready var exhaust_fx: ColorRect = $Exhaust_fx
@@ -42,14 +47,15 @@ func _ready() -> void:
 	velocity = Vector2.ZERO
 	jump_jet_fx.material.set_shader_parameter("burst_progress", 1.0)
 
-var can_jump = true
-
 func _physics_process(delta):
 	if Input.is_action_just_pressed("jump") and can_jump:
 		jump()
 		
 	if Input.is_action_just_pressed("dash") and !is_dashing:
 		dash()
+		
+	if Input.is_action_just_pressed("shoot") and can_shoot:
+		shoot()
 
 	var target_angle = lerp(tilt_up, tilt_down, (velocity.y + jump_force) / (gravity + jump_force))
 	rotation_degrees = lerp(rotation_degrees, target_angle, tilt_speed * delta)
@@ -67,6 +73,14 @@ func jump():
 	can_jump = false
 	await get_tree().create_timer(0.4).timeout
 	can_jump = true
+	
+func shoot():
+	var projectile = bullet.instantiate()
+	projectile.global_position = muzzle.global_position
+	get_parent().add_child(projectile)
+	can_shoot = false
+	await get_tree().create_timer(0.4).timeout
+	can_shoot = true
 	
 func dash():
 	is_falling = false
