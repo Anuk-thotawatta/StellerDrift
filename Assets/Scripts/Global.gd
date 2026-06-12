@@ -8,6 +8,7 @@ signal phase_changed(new_state)
 
 
 #to do list
-	#life system(sheild) - need the animations
-	#projectile(Gun) - need sound effects
+	#life system(sheild) - need the animations, need UI element
+	#projectile(Gun) - need to program hitting target, also hit fx
+	#options menu
 	#bossfight

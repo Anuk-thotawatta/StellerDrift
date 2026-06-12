@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://b8ga2mr0hg6pb" path="res://Assets/sound/soundtrack1.mp3" id="4_tanm1"]
 [ext_resource type="AudioStream" uid="uid://b3vbfg0w8ua5e" path="res://Assets/sound/buttons.mp3" id="5_6qsvb"]
 [ext_resource type="Texture2D" uid="uid://b036yecxodr5b" path="res://Assets/Sprites/button.png" id="5_hxcs8"]
+[ext_resource type="PackedScene" uid="uid://csk68dxm3q6nm" path="res://Assets/Scenes/options_menu.tscn" id="6_hxcs8"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_x6jn2"]
 texture = ExtResource("2_cbhea")
@@ -107,6 +108,16 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_xkmpe")
 text = "Start"
 expand_icon = true
 
+[node name="options_button" type="Button" parent="VBoxContainer" unique_id=197889819]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_shbfh")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_hxcs8")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_pd3f2")
+theme_override_styles/hover = SubResource("StyleBoxTexture_xkmpe")
+text = "Options
+"
+
 [node name="quit_button" type="Button" parent="VBoxContainer" unique_id=413570577]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_shbfh")
@@ -115,6 +126,11 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_hxcs8")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_pd3f2")
 theme_override_styles/hover = SubResource("StyleBoxTexture_xkmpe")
 text = "Quit"
+
+[node name="Options_menu" parent="." unique_id=1663276678 instance=ExtResource("6_hxcs8")]
+layout_mode = 0
+offset_left = -42.0
+offset_right = -42.0
 
 [node name="game_soundtrack" type="AudioStreamPlayer2D" parent="." unique_id=1887805673]
 process_mode = 3
@@ -128,6 +144,9 @@ volume_db = 17.0
 [connection signal="button_down" from="VBoxContainer/start_button" to="." method="_on_start_button_button_down"]
 [connection signal="mouse_entered" from="VBoxContainer/start_button" to="." method="_on_start_button_mouse_entered"]
 [connection signal="pressed" from="VBoxContainer/start_button" to="." method="_on_start_pressed"]
+[connection signal="button_down" from="VBoxContainer/options_button" to="." method="_on_options_button_button_down"]
+[connection signal="mouse_entered" from="VBoxContainer/options_button" to="." method="_on_options_button_mouse_entered"]
+[connection signal="pressed" from="VBoxContainer/options_button" to="." method="_on_options_button_pressed"]
 [connection signal="button_down" from="VBoxContainer/quit_button" to="." method="_on_quit_button_button_down"]
 [connection signal="mouse_entered" from="VBoxContainer/quit_button" to="." method="_on_quit_button_mouse_entered"]
 [connection signal="pressed" from="VBoxContainer/quit_button" to="." method="_on_quit_pressed"]

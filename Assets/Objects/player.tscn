@@ -7,6 +7,7 @@
 [ext_resource type="Shader" uid="uid://ciewlexkbtcit" path="res://Assets/Shaders/jumpJet.gdshader" id="5_4xdwk"]
 [ext_resource type="AudioStream" uid="uid://b5vbl20qak3p" path="res://Assets/sound/explosion.mp3" id="6_p0uke"]
 [ext_resource type="Shader" uid="uid://ca1xa4k5l1bqg" path="res://Assets/Shaders/force_field.gdshader" id="7_2xamd"]
+[ext_resource type="AudioStream" uid="uid://pcy5oxh8iqx7" path="res://Assets/sound/laser_sound.mp3" id="8_j7htu"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_4xdwk"]
 seed = 6
@@ -110,6 +111,9 @@ position = Vector2(-16, 2)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_pcvt2")
 
+[node name="Muzzle" type="Marker2D" parent="." unique_id=1942974479]
+position = Vector2(146, 0)
+
 [node name="woosh" type="AudioStreamPlayer2D" parent="." unique_id=1963837134]
 process_mode = 3
 stream = ExtResource("3_kpjtk")
@@ -118,5 +122,6 @@ stream = ExtResource("3_kpjtk")
 process_mode = 3
 stream = ExtResource("6_p0uke")
 
-[node name="Muzzle" type="Marker2D" parent="." unique_id=1942974479]
-position = Vector2(146, 0)
+[node name="shoot_sound" type="AudioStreamPlayer2D" parent="." unique_id=930888001]
+stream = ExtResource("8_j7htu")
+volume_db = 2.0

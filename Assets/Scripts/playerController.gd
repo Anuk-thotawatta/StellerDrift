@@ -18,6 +18,7 @@ var extra_life_count = 0
 @onready var bullet = preload("res://Assets/Objects/bullet.tscn")
 @onready var explosion: AudioStreamPlayer2D = $explosion
 @onready var woosh: AudioStreamPlayer2D = $woosh
+@onready var shoot_sound: AudioStreamPlayer2D = $shoot_sound
 @onready var exhaust_fx: ColorRect = $Exhaust_fx
 @onready var jump_jet_fx: ColorRect = $JumpJet_fx
 @onready var force_field_fx: ColorRect = $ForceField_fx
@@ -78,6 +79,7 @@ func shoot():
 	var projectile = bullet.instantiate()
 	projectile.global_position = muzzle.global_position
 	get_parent().add_child(projectile)
+	shoot_sound.play()
 	can_shoot = false
 	await get_tree().create_timer(0.4).timeout
 	can_shoot = true

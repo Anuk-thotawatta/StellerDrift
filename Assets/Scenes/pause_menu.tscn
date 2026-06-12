@@ -58,6 +58,38 @@ expand_margin_bottom = 10.0
 region_rect = Rect2(15.283051, 18.5, 1803.8304, 552.7819)
 modulate_color = Color(0.37731165, 0.6679118, 1.353, 1)
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_48c7y"]
+load_path = "res://.godot/imported/button.png-12fa84202ab84fdfc25f930107ab94bd.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6nmhk"]
+texture = SubResource("CompressedTexture2D_48c7y")
+expand_margin_left = 40.0
+expand_margin_top = 10.0
+expand_margin_right = 40.0
+expand_margin_bottom = 10.0
+region_rect = Rect2(15.283051, 18.5, 1803.8304, 552.7819)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hdkeg"]
+load_path = "res://.godot/imported/button.png-12fa84202ab84fdfc25f930107ab94bd.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_taxb1"]
+texture = SubResource("CompressedTexture2D_hdkeg")
+expand_margin_left = 60.0
+expand_margin_top = 10.0
+expand_margin_right = 60.0
+expand_margin_bottom = 10.0
+region_rect = Rect2(15.283051, 18.5, 1803.8304, 552.7819)
+modulate_color = Color(0.37731165, 0.6679118, 1.353, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_h54ie"]
+texture = ExtResource("4_d7po0")
+expand_margin_left = 45.0
+expand_margin_top = 15.0
+expand_margin_right = 45.0
+expand_margin_bottom = 15.0
+region_rect = Rect2(15.283051, 18.5, 1803.8304, 552.7819)
+modulate_color = Color(1.1638972, 1.1638972, 1.1638972, 1)
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qxc5f"]
 texture = SubResource("CompressedTexture2D_hxcs8")
 expand_margin_left = 40.0
@@ -274,6 +306,15 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_d7po0")
 theme_override_styles/hover = SubResource("StyleBoxTexture_1lvdy")
 text = "Restart"
 
+[node name="menu_button" type="Button" parent="Panel/VBoxContainer" unique_id=756473783]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_48c7y")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxTexture_6nmhk")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_taxb1")
+theme_override_styles/hover = SubResource("StyleBoxTexture_h54ie")
+text = "main menu"
+
 [node name="quit_button" type="Button" parent="Panel/VBoxContainer" unique_id=1809116749]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_48c7y")
@@ -297,6 +338,9 @@ volume_db = 17.0
 [connection signal="button_down" from="Panel/VBoxContainer/restart_button" to="." method="_on_restart_button_button_down"]
 [connection signal="mouse_entered" from="Panel/VBoxContainer/restart_button" to="." method="_on_restart_button_mouse_entered"]
 [connection signal="pressed" from="Panel/VBoxContainer/restart_button" to="." method="_on_restart_button_pressed"]
+[connection signal="button_down" from="Panel/VBoxContainer/menu_button" to="." method="_on_menu_button_button_down"]
+[connection signal="mouse_entered" from="Panel/VBoxContainer/menu_button" to="." method="_on_menu_button_mouse_entered"]
+[connection signal="pressed" from="Panel/VBoxContainer/menu_button" to="." method="_on_menu_button_pressed"]
 [connection signal="button_down" from="Panel/VBoxContainer/quit_button" to="." method="_on_quit_button_button_down"]
 [connection signal="mouse_entered" from="Panel/VBoxContainer/quit_button" to="." method="_on_quit_button_mouse_entered"]
 [connection signal="pressed" from="Panel/VBoxContainer/quit_button" to="." method="_on_quit_button_pressed"]

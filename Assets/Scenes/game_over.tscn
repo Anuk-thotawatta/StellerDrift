@@ -82,7 +82,7 @@ anchor_bottom = 0.5
 offset_left = -268.75
 offset_top = -181.75
 offset_right = 268.75
-offset_bottom = 181.75
+offset_bottom = 239.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_0mivm")
@@ -127,6 +127,15 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_302cm")
 theme_override_styles/hover = SubResource("StyleBoxTexture_j1l6g")
 text = "Restart"
 
+[node name="menu_button" type="Button" parent="Panel/VBoxContainer" unique_id=2124345156]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_7gjxu")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxTexture_uvs0b")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_302cm")
+theme_override_styles/hover = SubResource("StyleBoxTexture_j1l6g")
+text = "main menu"
+
 [node name="quit_button" type="Button" parent="Panel/VBoxContainer" unique_id=1931283668]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_7gjxu")
@@ -144,6 +153,9 @@ volume_db = 17.0
 [connection signal="button_down" from="Panel/VBoxContainer/restart_button" to="." method="_on_restart_button_button_down"]
 [connection signal="mouse_entered" from="Panel/VBoxContainer/restart_button" to="." method="_on_restart_button_mouse_entered"]
 [connection signal="pressed" from="Panel/VBoxContainer/restart_button" to="." method="_on_restart_button_pressed"]
+[connection signal="button_down" from="Panel/VBoxContainer/menu_button" to="." method="_on_menu_button_button_down"]
+[connection signal="mouse_entered" from="Panel/VBoxContainer/menu_button" to="." method="_on_menu_button_mouse_entered"]
+[connection signal="pressed" from="Panel/VBoxContainer/menu_button" to="." method="_on_menu_button_pressed"]
 [connection signal="button_down" from="Panel/VBoxContainer/quit_button" to="." method="_on_quit_button_button_down"]
 [connection signal="mouse_entered" from="Panel/VBoxContainer/quit_button" to="." method="_on_quit_button_mouse_entered"]
 [connection signal="pressed" from="Panel/VBoxContainer/quit_button" to="." method="_on_quit_button_pressed"]

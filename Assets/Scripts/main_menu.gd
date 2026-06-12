@@ -2,10 +2,11 @@ extends Control
 
 @onready var game_soundtrack: AudioStreamPlayer2D = $game_soundtrack
 @onready var button_sound: AudioStreamPlayer2D = $button_sound
+@onready var options_menu: Control = $Options_menu
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	options_menu.hide()
 	game_soundtrack.play()
 
 func _on_quit_pressed() -> void:
@@ -28,3 +29,12 @@ func _on_quit_button_mouse_entered() -> void:
 
 func _on_quit_button_button_down() -> void:
 	button_sound.play()
+
+func _on_options_button_button_down() -> void:
+	button_sound.play()
+
+func _on_options_button_mouse_entered() -> void:
+	button_sound.play()
+
+func _on_options_button_pressed() -> void:
+	options_menu.show()
