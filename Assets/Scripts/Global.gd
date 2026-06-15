@@ -1,6 +1,8 @@
 extends Node
 
 #global variables go here
+const SAVEPATH = "user://save.json"
+const OPTIONSPATH = "user://options.json"
 var countdown_happening:bool
 enum state {ASTEROID, ICE, BOSS}
 var game_state = state.ASTEROID

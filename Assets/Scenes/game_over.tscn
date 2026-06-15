@@ -2,15 +2,13 @@
 
 [ext_resource type="Script" uid="uid://1587nhvncxun" path="res://Assets/Scripts/game_over_menu.gd" id="1_b48d2"]
 [ext_resource type="FontFile" uid="uid://dy0egxts88v3n" path="res://Assets/fonts/Conthrax-SemiBold.otf" id="2_7gjxu"]
+[ext_resource type="Texture2D" uid="uid://baxbq3r3svqjc" path="res://Assets/Sprites/menu_bg.png" id="2_uvs0b"]
 [ext_resource type="Texture2D" uid="uid://b036yecxodr5b" path="res://Assets/Sprites/button.png" id="3_302cm"]
 [ext_resource type="AudioStream" uid="uid://b3vbfg0w8ua5e" path="res://Assets/sound/buttons.mp3" id="4_302cm"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0mivm"]
-bg_color = Color(0, 0, 0, 0.78431374)
-corner_radius_top_left = 50
-corner_radius_top_right = 50
-corner_radius_bottom_right = 50
-corner_radius_bottom_left = 50
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2iypb"]
+texture = ExtResource("2_uvs0b")
+region_rect = Rect2(48, 32, 835, 551)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_shbfh"]
 load_path = "res://.godot/imported/button.png-12fa84202ab84fdfc25f930107ab94bd.ctex"
@@ -85,7 +83,7 @@ offset_right = 268.75
 offset_bottom = 239.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_0mivm")
+theme_override_styles/panel = SubResource("StyleBoxTexture_2iypb")
 
 [node name="Label" type="Label" parent="Panel" unique_id=494118671]
 layout_mode = 1
@@ -97,7 +95,7 @@ offset_top = 48.75
 offset_right = 320.0
 offset_bottom = 126.5
 grow_horizontal = 2
-theme_override_colors/font_color = Color(0.56078434, 0.6, 1, 1)
+theme_override_colors/font_color = Color(0.503, 0.709, 1.176, 1)
 theme_override_fonts/font = ExtResource("2_7gjxu")
 theme_override_font_sizes/font_size = 61
 text = "GAME OVER"
@@ -149,6 +147,7 @@ text = "Quit
 [node name="button_sound" type="AudioStreamPlayer2D" parent="." unique_id=5857044]
 stream = ExtResource("4_302cm")
 volume_db = 17.0
+bus = &"Effects"
 
 [connection signal="button_down" from="Panel/VBoxContainer/restart_button" to="." method="_on_restart_button_button_down"]
 [connection signal="mouse_entered" from="Panel/VBoxContainer/restart_button" to="." method="_on_restart_button_mouse_entered"]

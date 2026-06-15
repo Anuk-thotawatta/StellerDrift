@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://c5vt1k35wp317" path="res://Assets/Scripts/pause_menu.gd" id="1_6udtp"]
 [ext_resource type="Shader" uid="uid://dj38rmj2ynwok" path="res://Assets/Shaders/pause_blur.gdshader" id="1_jbhf4"]
 [ext_resource type="FontFile" uid="uid://dy0egxts88v3n" path="res://Assets/fonts/Conthrax-SemiBold.otf" id="3_48c7y"]
+[ext_resource type="Texture2D" uid="uid://baxbq3r3svqjc" path="res://Assets/Sprites/menu_bg.png" id="3_d7po0"]
 [ext_resource type="AudioStream" uid="uid://b3vbfg0w8ua5e" path="res://Assets/sound/buttons.mp3" id="3_dadan"]
 [ext_resource type="Texture2D" uid="uid://b036yecxodr5b" path="res://Assets/Sprites/button.png" id="4_d7po0"]
 
@@ -10,12 +11,9 @@
 shader = ExtResource("1_jbhf4")
 shader_parameter/lod = 0.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dadan"]
-bg_color = Color(0, 0, 0, 0.7764706)
-corner_radius_top_left = 50
-corner_radius_top_right = 50
-corner_radius_bottom_right = 50
-corner_radius_bottom_left = 50
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hdkeg"]
+texture = ExtResource("3_d7po0")
+region_rect = Rect2(45, 30, 839, 555)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_shbfh"]
 load_path = "res://.godot/imported/button.png-12fa84202ab84fdfc25f930107ab94bd.ctex"
@@ -253,7 +251,7 @@ offset_right = -322.0
 offset_bottom = -83.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_dadan")
+theme_override_styles/panel = SubResource("StyleBoxTexture_hdkeg")
 
 [node name="Label" type="Label" parent="Panel" unique_id=1256402976]
 layout_mode = 1
@@ -268,7 +266,7 @@ offset_right = 142.0
 offset_bottom = -79.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(0.43137255, 1, 1, 1)
+theme_override_colors/font_color = Color(0.503, 0.709, 1.176, 1)
 theme_override_fonts/font = ExtResource("3_48c7y")
 theme_override_font_sizes/font_size = 75
 text = "PAUSED"
@@ -331,6 +329,7 @@ libraries/ = SubResource("AnimationLibrary_dadan")
 [node name="button_sound" type="AudioStreamPlayer2D" parent="." unique_id=1505356103]
 stream = ExtResource("3_dadan")
 volume_db = 17.0
+bus = &"Effects"
 
 [connection signal="button_down" from="Panel/VBoxContainer/resume_button" to="." method="_on_resume_button_button_down"]
 [connection signal="mouse_entered" from="Panel/VBoxContainer/resume_button" to="." method="_on_resume_button_mouse_entered"]

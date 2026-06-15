@@ -136,10 +136,12 @@ offset_right = -42.0
 process_mode = 3
 stream = ExtResource("4_tanm1")
 volume_db = 1.0
+bus = &"Music"
 
 [node name="button_sound" type="AudioStreamPlayer2D" parent="." unique_id=1437709788]
 stream = ExtResource("5_6qsvb")
 volume_db = 17.0
+bus = &"Effects"
 
 [connection signal="button_down" from="VBoxContainer/start_button" to="." method="_on_start_button_button_down"]
 [connection signal="mouse_entered" from="VBoxContainer/start_button" to="." method="_on_start_button_mouse_entered"]

@@ -21,8 +21,6 @@ var phase_duration: float = 10.0
 var phase_order = [Global.state.ASTEROID, Global.state.ICE, Global.state.BOSS]
 var phase_index: int = 0
 
-const SAVEPATH = "user://save.json"
-
 var scoreVal = 0.0
 var highScoreVal = 0.0
 const BG_SCROLL_SPEED = 100.0
@@ -111,7 +109,7 @@ func saveHighScore(new_score: int):
 	if new_score <= current:
 		return
 	var data = {"highscore": new_score}
-	var file = FileAccess.open(SAVEPATH, FileAccess.WRITE)
+	var file = FileAccess.open(Global.SAVEPATH, FileAccess.WRITE)
 	if file == null:
 		print("Save error: ", FileAccess.get_open_error())
 		return
@@ -119,9 +117,9 @@ func saveHighScore(new_score: int):
 	file.close()
 
 func loadHighScore() -> int:
-	if not FileAccess.file_exists(SAVEPATH):
+	if not FileAccess.file_exists(Global.SAVEPATH):
 		return 0 
-	var file = FileAccess.open(SAVEPATH, FileAccess.READ)
+	var file = FileAccess.open(Global.SAVEPATH, FileAccess.READ)
 	if file == null:
 		return 0
 	var data = JSON.parse_string(file.get_as_text())

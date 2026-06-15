@@ -117,11 +117,14 @@ position = Vector2(146, 0)
 [node name="woosh" type="AudioStreamPlayer2D" parent="." unique_id=1963837134]
 process_mode = 3
 stream = ExtResource("3_kpjtk")
+bus = &"Effects"
 
 [node name="explosion" type="AudioStreamPlayer2D" parent="." unique_id=1952441412]
 process_mode = 3
 stream = ExtResource("6_p0uke")
+bus = &"Effects"
 
 [node name="shoot_sound" type="AudioStreamPlayer2D" parent="." unique_id=930888001]
 stream = ExtResource("8_j7htu")
 volume_db = 2.0
+bus = &"Effects"
