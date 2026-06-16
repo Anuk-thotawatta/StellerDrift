@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dfckiei8osqkq" path="res://Assets/Objects/warp_shield.tscn" id="6_i61mr"]
 [ext_resource type="FontFile" uid="uid://dt8yi6gi061ev" path="res://Assets/fonts/Linebeam.ttf" id="6_tim1p"]
 [ext_resource type="Shader" uid="uid://sgjcnrhvmpni" path="res://Assets/Shaders/starField.gdshader" id="7_4iy6t"]
+[ext_resource type="PackedScene" uid="uid://b8xiyb2kicwr2" path="res://Assets/Scenes/popup_box.tscn" id="7_b2ek4"]
 [ext_resource type="FontFile" uid="uid://bpr51ycd2jhki" path="res://Assets/fonts/ASTERA v2.ttf" id="9_4e1g7"]
 [ext_resource type="AudioStream" uid="uid://b8ga2mr0hg6pb" path="res://Assets/sound/soundtrack1.mp3" id="10_g3py7"]
 [ext_resource type="AudioStream" uid="uid://xbqkdh1f5pi0" path="res://Assets/sound/beep.mp3" id="11_tim1p"]
@@ -87,6 +88,8 @@ scale = Vector2(0.75, 0.75)
 position = Vector2(771, 0)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=322626283]
+
+[node name="Popup" parent="CanvasLayer" unique_id=691513632 instance=ExtResource("7_b2ek4")]
 
 [node name="countdown" type="Label" parent="CanvasLayer" unique_id=585189894]
 offset_left = 517.0

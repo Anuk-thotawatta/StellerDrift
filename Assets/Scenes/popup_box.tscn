@@ -1,0 +1,106 @@
+[gd_scene format=3 uid="uid://b8xiyb2kicwr2"]
+
+[ext_resource type="Texture2D" uid="uid://dnab8yt1qrubv" path="res://Assets/Sprites/tutorial_popup.png" id="1_ok7e3"]
+[ext_resource type="FontFile" uid="uid://dy0egxts88v3n" path="res://Assets/fonts/Conthrax-SemiBold.otf" id="2_pnc2c"]
+
+[sub_resource type="Animation" id="Animation_pnc2c"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(47, 649)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Text:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(244, 666)]
+}
+
+[sub_resource type="Animation" id="Animation_jg550"]
+resource_name = "pop_up"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.19999999, 4.8004537, 5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(47, 649), Vector2(47, 524), Vector2(47, 524), Vector2(47, 645)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Text:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.19999999, 4.8004537, 5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(244, 666), Vector2(244, 541), Vector2(244, 541), Vector2(244, 662)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vlerj"]
+_data = {
+&"RESET": SubResource("Animation_pnc2c"),
+&"pop_up": SubResource("Animation_jg550")
+}
+
+[node name="Popup" type="Control" unique_id=691513632]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1111545778]
+layout_mode = 1
+offset_left = 47.0
+offset_top = 649.0
+offset_right = 1455.0
+offset_bottom = 1417.0
+scale = Vector2(0.75751036, 0.16882168)
+texture = ExtResource("1_ok7e3")
+
+[node name="Text" type="Label" parent="." unique_id=59660359]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -332.0
+offset_top = 342.0
+offset_right = 337.0
+offset_bottom = 436.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_pnc2c")
+theme_override_font_sizes/font_size = 30
+text = "Press {SPACE} to Boost"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1129959460]
+libraries/ = SubResource("AnimationLibrary_vlerj")

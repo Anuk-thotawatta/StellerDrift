@@ -1,70 +1,61 @@
 shader_type canvas_item;
 
-// Control panel parameters for the Godot Inspector
-uniform vec4 glow_color : source_color = vec4(0.3, 0.7, 1.0, 1.0);
-uniform float dispersion_width : hint_range(1.0, 10.0) = 6.0;  // Higher = wider, softer glow
-uniform float glow_intensity : hint_range(0.0, 5.0) = 2.5;
+// Control colors and glow intensity from the Inspector
+uniform vec4 star_color : source_color = vec4(0.53, 0.81, 0.94, 1.0); // Light blue
+uniform float glow_intensity : hint_range(0.0, 5.0) = 2.0;
+uniform float rotation_speed : hint_range(-10.0, 10.0) = 2.0; // Positive is counter-clockwise
 
-uniform float float_speed : hint_range(0.0, 10.0) = 3.0;
-uniform float float_amplitude : hint_range(0.0, 20.0) = 8.0;   // Overall bobbing height
-uniform float wave_frequency : hint_range(0.0, 0.2) = 0.05;    // How many ripples ripple through
-uniform float wave_speed : hint_range(0.0, 20.0) = 8.0;        // Velocity of distortion ripples
-uniform float wave_amplitude : hint_range(0.0, 10.0) = 3.5;    // Shaking/distortion amount
-
-void vertex() {
-    // 1. Smooth Floating Translation
-    VERTEX.y += sin(TIME * float_speed) * float_amplitude;
-    
-    // 2. Liquid/Plasma Edge Distortion
-    // warps the vertices based on their coordinates over time to make it wiggle
-    VERTEX.x += cos(VERTEX.y * wave_frequency + (TIME * wave_speed)) * wave_amplitude;
-    VERTEX.y += sin(VERTEX.x * wave_frequency + (TIME * wave_speed)) * wave_amplitude;
-}
+// Explosion Controls (Animate progress from 0.0 to 1.0)
+uniform float explosion_progress : hint_range(0.0, 1.0) = 0.0;
+uniform float expansion_power : hint_range(1.0, 10.0) = 5.0;
 
 void fragment() {
-    // 3. Keep UV padded so the massive dispersed glow doesn't hit the screen boundaries
-    vec2 padded_uv = (UV - vec2(0.5)) * 1.35 + vec2(0.5);
+    // Center the texture coordinates around (0.0, 0.0)
+    vec2 uv = UV - 0.5;
     
-    // Safety check: clip pixels outside the frame bounds
-    if (padded_uv.x < 0.0 || padded_uv.x > 1.0 || padded_uv.y < 0.0 || padded_uv.y > 1.0) {
-        discard;
-    }
-
-    vec4 tex_color = texture(TEXTURE, padded_uv);
+    // 1. ANIMATE SCALE: Star expands rapidly as explosion progresses
+    float scale = 1.0 + explosion_progress * expansion_power;
+    uv /= scale;
     
-    // Clean up your black asset background pixels
-    if (tex_color.r < 0.05 && tex_color.g < 0.05 && tex_color.b < 0.05) {
-        tex_color = vec4(0.0);
-    }
-
-    // 4. Multi-Sample Box Blur Matrix for Maximum Dispersion
-    float total_alpha = 0.0;
-    float samples = 0.0;
+    // Calculate rotation angle based on time
+    float angle = TIME * rotation_speed;
+    float sin_b = sin(angle);
+    float cos_b = cos(angle);
     
-    // Steps out radically from the shield core to generate a wider gradient fog
-    for (float x = -3.0; x <= 3.0; x += 1.0) {
-        for (float y = -3.0; y <= 3.0; y += 1.0) {
-            vec2 offset = vec2(x, y) * TEXTURE_PIXEL_SIZE * dispersion_width;
-            vec4 neighbor = texture(TEXTURE, padded_uv + offset);
-            
-            // Check if neighboring pixel is part of the shield graphic or background
-            if (!(neighbor.r < 0.05 && neighbor.g < 0.05 && neighbor.b < 0.05)) {
-                // Diminish energy the further it gets from the center core
-                float distance_weight = 1.0 - (length(vec2(x, y)) / 4.25);
-                total_alpha += neighbor.a * max(0.0, distance_weight);
-            }
-            samples += 1.0;
-        }
-    }
+    // Rotate the coordinates
+    vec2 rotated_uv = vec2(
+        uv.x * cos_b - uv.y * sin_b,
+        uv.x * sin_b + uv.y * cos_b
+    );
     
-    // Isolate outer haze vector
-    float blurred_alpha = total_alpha / samples;
-    float glow_mask = clamp(blurred_alpha * 4.0, 0.0, 1.0) - tex_color.a;
+    // Calculate the mathematical distance for a 4-pointed star (astroid shape)
+    float x_abs = abs(rotated_uv.x);
+    float y_abs = abs(rotated_uv.y);
     
-    // Pulsate the dispersed aura softly
-    float pulse = (sin(TIME * 2.0) * 0.2 + 0.8) * glow_intensity;
-    vec4 final_glow = glow_color * glow_mask * pulse;
-
-    // 5. Final Output Composite
-    COLOR = mix(final_glow, tex_color, tex_color.a);
+    // 2. ANIMATE DISTORTION: Star points turn into thin shockwave lines during explosion
+    float shape_morph = mix(0.5, 0.2, explosion_progress);
+    float star_dist = pow(x_abs, shape_morph) + pow(y_abs, shape_morph);
+    
+    // Define the sharp boundary of the star
+    float star_edge = 0.5;
+    
+    // 3. ANIMATE CORE HOLLOWING: The center fades out to create a ring/shockwave effect
+    float core_hollow = smoothstep(0.0, star_edge * explosion_progress, star_dist);
+    float star_mask = smoothstep(star_edge, star_edge - 0.02, star_dist) * core_hollow;
+    
+    // Create a smooth outer glow based on distance from the star shape
+    // Glow intensifies then spikes down during explosion
+    float current_glow = glow_intensity * mix(1.0, 3.0, explosion_progress);
+    float glow = exp(-5.0 * max(0.0, star_dist - star_edge + 0.1)) * current_glow;
+    
+    // Combine the solid star color and the emitting glow
+    vec4 final_color = star_color * (star_mask + glow);
+    
+    // 4. ANIMATE FADE OUT: Entire effect vanishes completely at progress = 1.0
+    float lifetime_fade = 1.0 - explosion_progress;
+    
+    // Ensure the alpha matches the mask intensity so it transparently fades out
+    final_color.a = clamp(star_mask + (glow * 0.5), 0.0, 1.0) * star_color.a * lifetime_fade;
+    
+    COLOR = final_color;
 }

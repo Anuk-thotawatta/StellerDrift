@@ -4,29 +4,35 @@
 [ext_resource type="Texture2D" uid="uid://dbeckxfogxj2j" path="res://Assets/Sprites/warp_shield.png" id="1_essf0"]
 [ext_resource type="Shader" uid="uid://bvkj3psqxsa4r" path="res://Assets/Shaders/power_up.gdshader" id="2_5eifr"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_pjdnb"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5eifr"]
 shader = ExtResource("2_5eifr")
-shader_parameter/glow_color = Color(0.3, 0.7, 1, 1)
-shader_parameter/dispersion_width = 10.0
-shader_parameter/glow_intensity = 5.0
-shader_parameter/float_speed = 5.0000002375
-shader_parameter/float_amplitude = 20.0
-shader_parameter/wave_frequency = 0.0
-shader_parameter/wave_speed = 0.0
-shader_parameter/wave_amplitude = 0.0
+shader_parameter/star_color = Color(0.53, 0.81, 0.94, 1)
+shader_parameter/glow_intensity = 3.842000182495
+shader_parameter/rotation_speed = 0.5000004987499995
+shader_parameter/explosion_progress = 0.0
+shader_parameter/expansion_power = 3.000000095
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cq531"]
-radius = 72.06247
+radius = 158.85051
 
 [node name="warp_shield" type="Node2D" unique_id=1722959542]
+scale = Vector2(0.485, 0.485)
 script = ExtResource("1_cq531")
 
+[node name="power-up_fx" type="ColorRect" parent="." unique_id=290836954]
+material = SubResource("ShaderMaterial_5eifr")
+offset_left = -399.0
+offset_top = -412.0
+offset_right = 395.0
+offset_bottom = 392.0
+
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1634880842]
-material = SubResource("ShaderMaterial_pjdnb")
-scale = Vector2(0.3, 0.3)
+position = Vector2(6.18557, 6.185562)
+scale = Vector2(0.4802191, 0.506395)
 texture = ExtResource("1_essf0")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1699022843]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=527800366]
 position = Vector2(1, 0)
