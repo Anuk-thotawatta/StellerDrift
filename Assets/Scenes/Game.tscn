@@ -90,6 +90,7 @@ position = Vector2(771, 0)
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=322626283]
 
 [node name="Popup" parent="CanvasLayer" unique_id=691513632 instance=ExtResource("7_b2ek4")]
+process_mode = 3
 
 [node name="countdown" type="Label" parent="CanvasLayer" unique_id=585189894]
 offset_left = 517.0
@@ -140,11 +141,34 @@ theme_override_fonts/font = ExtResource("6_tim1p")
 theme_override_font_sizes/font_size = 30
 text = "Score: "
 
+[node name="extraLives_label" type="Label" parent="CanvasLayer" unique_id=971259648]
+offset_left = 32.0
+offset_top = 115.0
+offset_right = 222.0
+offset_bottom = 170.0
+theme_override_colors/font_color = Color(0.4, 0.99215686, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("6_tim1p")
+theme_override_font_sizes/font_size = 30
+text = "Extra Lives:"
+
 [node name="score" type="Label" parent="CanvasLayer" unique_id=1388900965]
 offset_left = 144.0
 offset_top = 18.0
 offset_right = 272.0
 offset_bottom = 73.0
+theme_override_colors/font_color = Color(0.4, 0.99215686, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("6_tim1p")
+theme_override_font_sizes/font_size = 30
+
+[node name="extraLives" type="Label" parent="CanvasLayer" unique_id=1162754011]
+offset_left = 231.0
+offset_top = 116.0
+offset_right = 359.0
+offset_bottom = 171.0
 theme_override_colors/font_color = Color(0.4, 0.99215686, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
@@ -173,15 +197,6 @@ shape = SubResource("RectangleShape2D_53qdw")
 
 [node name="Asteroid_pillars" parent="initial_pillars" unique_id=836778206 instance=ExtResource("3_ffpvu")]
 position = Vector2(1362, 4)
-
-[node name="Tutorial" type="Label" parent="initial_pillars/Asteroid_pillars" unique_id=1517293332]
-offset_left = -1061.0
-offset_top = -243.0
-offset_right = -376.0
-offset_bottom = -167.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 55
-text = "Press [space bar] to Boost"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=156824474]
 zoom = Vector2(0.4, 0.4)

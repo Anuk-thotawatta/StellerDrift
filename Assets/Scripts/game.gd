@@ -5,6 +5,7 @@ extends Node2D
 @onready var pillar_spawn_timer: Timer = $pillarSpawnTimer
 @onready var score: Label = $CanvasLayer/score
 @onready var hscore: Label = $CanvasLayer/hscore
+@onready var extra_lives: Label = $CanvasLayer/extraLives
 @onready var countdown: Label = $CanvasLayer/countdown
 @onready var player: CharacterBody2D = $Player
 @onready var background1: Sprite2D = $background1
@@ -12,12 +13,15 @@ extends Node2D
 @onready var star_field: ColorRect = $StarField
 @onready var game_soundtrack: AudioStreamPlayer2D = $game_soundtrack
 @onready var beep: AudioStreamPlayer2D = $beep
+@onready var popup: Control = $CanvasLayer/Popup
+@onready var popup_anim: AnimationPlayer = $CanvasLayer/Popup/AnimationPlayer
+@onready var popup_text: Label = $CanvasLayer/Popup/Text
 
 var background2: Sprite2D
 var bg_width
 
 var phase_timer: float = 0.0
-var phase_duration: float = 10.0
+var phase_duration: float = 40.0
 var phase_order = [Global.state.ASTEROID, Global.state.ICE, Global.state.BOSS]
 var phase_index: int = 0
 
@@ -27,6 +31,9 @@ const BG_SCROLL_SPEED = 100.0
 var star_time: float = 0.0
 
 func _ready():
+	score.text = str(int(scoreVal))
+	extra_lives.text = str(player.extra_life_count)
+	popup.hide()
 	countdown.show()
 	Global.game_state = Global.state.ASTEROID
 	Global.countdown_happening = true
@@ -34,6 +41,7 @@ func _ready():
 	explosion_fx.hide()
 	player.show()
 	highScoreVal = loadHighScore()
+	hscore.text = str(highScoreVal)
 	scoreVal = 0.0
 	get_tree().paused = false
 	game_over.hide()
@@ -51,6 +59,10 @@ func _ready():
 	get_tree().paused = true
 	var x=3
 	while x>=0:
+		if x==2:
+			popup.show()
+			popup_text.text = "Tap [SPACE] to Boost"
+			popup_anim.play("pop_up")
 		countdown.text = str(x)
 		beep.play()
 		await get_tree().create_timer(1.0).timeout
@@ -61,6 +73,9 @@ func _ready():
 	Global.countdown_happening = false
 	get_tree().paused = false
 	
+	await popup_anim.animation_finished
+	popup.hide()
+	
 func _process(delta):
 	if (get_tree().paused == false):
 		handle_background(delta)
@@ -68,6 +83,7 @@ func _process(delta):
 	scoreVal += delta * 100
 	score.text = str(int(scoreVal))
 	hscore.text = str(int(highScoreVal))
+	extra_lives.text = str(player.extra_life_count)
 
 	check_phase()
 	
