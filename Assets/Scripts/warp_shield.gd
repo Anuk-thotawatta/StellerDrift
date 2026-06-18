@@ -1,7 +1,7 @@
 extends Node2D
 
 var player = null
-var speed = 300
+var speed = Global.gameSpeed
 var is_exploding = false
 
 @onready var power_up_fx: ColorRect = $"power-up_fx"

@@ -106,10 +106,11 @@ value = 1.0
 
 [node name="MasterVolume_lbl" type="Label" parent="Panel" unique_id=289234518]
 layout_mode = 0
-offset_left = 103.0
-offset_top = 113.0
-offset_right = 221.0
-offset_bottom = 136.0
+offset_left = 95.0
+offset_top = 121.0
+offset_right = 252.0
+offset_bottom = 144.0
+theme_override_fonts/font = ExtResource("2_fq17n")
 text = "Master Volume"
 
 [node name="MusicVolume_sldr" type="HSlider" parent="Panel" unique_id=603458724]
@@ -124,10 +125,11 @@ value = 1.0
 
 [node name="MusicVolume_lbl" type="Label" parent="Panel" unique_id=1479927364]
 layout_mode = 0
-offset_left = 103.0
-offset_top = 145.0
-offset_right = 221.0
-offset_bottom = 168.0
+offset_left = 95.0
+offset_top = 153.0
+offset_right = 239.0
+offset_bottom = 176.0
+theme_override_fonts/font = ExtResource("2_fq17n")
 text = "Music Volume"
 
 [node name="EffectsVolume_sldr" type="HSlider" parent="Panel" unique_id=1965632500]
@@ -142,11 +144,32 @@ value = 1.0
 
 [node name="EffectsVolume_lbl" type="Label" parent="Panel" unique_id=845464782]
 layout_mode = 0
-offset_left = 103.0
-offset_top = 177.0
-offset_right = 221.0
-offset_bottom = 200.0
+offset_left = 95.0
+offset_top = 185.0
+offset_right = 252.0
+offset_bottom = 208.0
+theme_override_fonts/font = ExtResource("2_fq17n")
 text = "Effects Volume"
+
+[node name="gameSpeed_sldr" type="HSlider" parent="Panel" unique_id=213771339]
+layout_mode = 0
+offset_left = 263.0
+offset_top = 289.0
+offset_right = 636.0
+offset_bottom = 305.0
+min_value = 100.0
+max_value = 500.0
+step = 100.0
+value = 300.0
+
+[node name="gameSpeed_lbl" type="Label" parent="Panel" unique_id=15527517]
+layout_mode = 0
+offset_left = 95.0
+offset_top = 289.0
+offset_right = 252.0
+offset_bottom = 312.0
+theme_override_fonts/font = ExtResource("2_fq17n")
+text = "Game Speed"
 
 [node name="button_sound" type="AudioStreamPlayer2D" parent="." unique_id=1989622810]
 stream = ExtResource("4_ecqyi")
@@ -159,3 +182,4 @@ bus = &"Effects"
 [connection signal="value_changed" from="Panel/MasterVolume_sldr" to="." method="_on_master_volume_sldr_value_changed"]
 [connection signal="value_changed" from="Panel/MusicVolume_sldr" to="." method="_on_music_volume_sldr_value_changed"]
 [connection signal="value_changed" from="Panel/EffectsVolume_sldr" to="." method="_on_effects_volume_sldr_value_changed"]
+[connection signal="value_changed" from="Panel/gameSpeed_sldr" to="." method="_on_game_speed_sldr_value_changed"]

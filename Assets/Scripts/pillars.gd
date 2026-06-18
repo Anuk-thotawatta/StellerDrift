@@ -1,6 +1,6 @@
 extends Node2D
 
-var speed = 300
+var speed = Global.gameSpeed
 var player = null
 var gap_center = 0.0 
 

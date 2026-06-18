@@ -1,6 +1,6 @@
 extends Node2D
 
-var speed = 600.0
+var speed = Global.gameSpeed * 2
 
 func _physics_process(delta):
 	position.x += speed * delta  

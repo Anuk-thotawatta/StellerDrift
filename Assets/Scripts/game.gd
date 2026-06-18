@@ -20,6 +20,9 @@ extends Node2D
 var background2: Sprite2D
 var bg_width
 
+var distance_since_last_pillar_spawn = 0.0
+var pillar_gap_distance = 750.0
+
 var phase_timer: float = 0.0
 var phase_duration: float = 40.0
 var phase_order = [Global.state.ASTEROID, Global.state.ICE, Global.state.BOSS]
@@ -79,6 +82,10 @@ func _ready():
 func _process(delta):
 	if (get_tree().paused == false):
 		handle_background(delta)
+		distance_since_last_pillar_spawn += Global.gameSpeed * delta
+		if Global.game_state == Global.state.ASTEROID and distance_since_last_pillar_spawn >= pillar_gap_distance :
+			distance_since_last_pillar_spawn = 0.0
+			spawn_pillar()
 		
 	scoreVal += delta * 100
 	score.text = str(int(scoreVal))
@@ -86,6 +93,11 @@ func _process(delta):
 	extra_lives.text = str(player.extra_life_count)
 
 	check_phase()
+	
+func spawn_pillar():
+	var pillar = asteroid_pilar.instantiate()
+	pillar.position = Vector2(1700, randi_range(-500, 500))
+	add_child(pillar)
 	
 func handle_background(delta):
 	# --- Scroll both backgrounds ---
@@ -147,13 +159,6 @@ func loadHighScore() -> int:
 func _on_floor_sky_limits_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
 		get_tree().get_root().get_node("Game").player_died()
-
-
-func _on_pillar_spawn_timer_timeout() -> void:
-	if(Global.game_state == Global.state.ASTEROID):
-		var pillar = asteroid_pilar.instantiate()
-		pillar.position = Vector2(1500, randi_range(-500, 500))
-		add_child(pillar)
 	
 func check_phase():
 	phase_timer += get_process_delta_time()

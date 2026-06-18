@@ -72,7 +72,7 @@ func jump():
 	velocity.y = -jump_force
 	rotation = 0
 	can_jump = false
-	await get_tree().create_timer(0.4).timeout
+	await get_tree().create_timer(0.2).timeout
 	can_jump = true
 	
 func shoot():
@@ -96,14 +96,14 @@ func dash():
 	while elapsed < 0.6:
 		var delta = get_process_delta_time()
 		elapsed += delta
-		position.x -= 300 * delta  # drift back with the world
+		position.x -= Global.gameSpeed * delta  # drift back with the world
 		velocity.y = 0
 		await get_tree().process_frame
 	
 	var dash_back_x = position.x
 	
 	# Phase 2: rocket forward past start_x (0.2s)
-	var overshoot_x = start_x + 300  # how far past start to overshoot
+	var overshoot_x = start_x + Global.gameSpeed  # how far past start to overshoot
 	elapsed = 0.0
 	while elapsed < 0.2:
 		var delta = get_process_delta_time()
@@ -117,7 +117,7 @@ func dash():
 	# Phase 3: glide back to start_x with pillar drift (until we reach start)
 	while position.x > start_x:
 		var delta = get_process_delta_time()
-		position.x -= 300 * delta  # drift with the world again
+		position.x -= Global.gameSpeed * delta  # drift with the world again
 		#velocity.y = 0
 		is_falling = true
 		await get_tree().process_frame
