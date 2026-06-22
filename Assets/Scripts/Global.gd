@@ -13,4 +13,4 @@ signal phase_changed(new_state)
 #to do list
 	#projectile(Gun) - need to program hitting target, also hit fx
 	#options menu - reset high score button
-	#bossfight
+	#bossfight - need to add skeleton to the arms, need to change the look of the arms

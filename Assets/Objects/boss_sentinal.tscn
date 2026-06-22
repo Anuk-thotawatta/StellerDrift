@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://bt1unuigtqam7"]
+
+[ext_resource type="Texture2D" uid="uid://vgdrqfvwk35h" path="res://Assets/Sprites/boss/boss_img.png" id="1_eh6bt"]
+[ext_resource type="Shader" uid="uid://cod7pyhpvwnx4" path="res://Assets/Shaders/exhaust.gdshader" id="2_lhav2"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_bhayt"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4xdwk"]
+height = 511
+noise = SubResource("FastNoiseLite_bhayt")
+seamless = true
+seamless_blend_skirt = 0.44
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_cqh7i"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2xamd"]
+noise = SubResource("FastNoiseLite_cqh7i")
+seamless = true
+invert = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jvfof"]
+shader = ExtResource("2_lhav2")
+shader_parameter/noise_tex1 = SubResource("NoiseTexture2D_4xdwk")
+shader_parameter/noise_tex2 = SubResource("NoiseTexture2D_2xamd")
+shader_parameter/yellow_color = Color(0.9544582, 2.117753e-06, 9.62615e-07, 1)
+shader_parameter/orange_color = Color(1, 1, 0, 1)
+shader_parameter/smoke_color = Color(0.816937, 0.7915322, 0, 1)
+shader_parameter/effect_speed = 3.0
+shader_parameter/flame_height = 1.3
+
+[node name="Sentinal" type="Node2D" unique_id=1372791209]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1484621815]
+position = Vector2(-267, -17)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_eh6bt")
+
+[node name="Exhaust_fx" type="ColorRect" parent="Sprite2D" unique_id=54691321]
+material = SubResource("ShaderMaterial_jvfof")
+offset_left = -95.666664
+offset_top = -317.6667
+offset_right = -25.890175
+offset_bottom = -148.64375
+rotation = 1.5707964
+scale = Vector2(1.5, 1.5)
+
+[node name="Exhaust_fx2" type="ColorRect" parent="Sprite2D" unique_id=1482850612]
+material = SubResource("ShaderMaterial_jvfof")
+offset_left = -95.465576
+offset_top = 243.66667
+offset_right = -25.689087
+offset_bottom = 412.6896
+rotation = 1.5707964
+scale = Vector2(1.5, 1.5)

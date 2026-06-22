@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://da2xfa25cbma1" path="res://Assets/Scripts/game.gd" id="1_jqtiv"]
 [ext_resource type="Texture2D" uid="uid://d2ieq0c5mp7ev" path="res://Assets/Sprites/space_bg2.png" id="2_4iy6t"]
+[ext_resource type="PackedScene" uid="uid://bt1unuigtqam7" path="res://Assets/Objects/boss_sentinal.tscn" id="2_e4bck"]
 [ext_resource type="PackedScene" uid="uid://buclaxknceuby" path="res://Assets/Objects/player.tscn" id="2_up1fl"]
 [ext_resource type="PackedScene" uid="uid://c1knlbk0sm2y2" path="res://Assets/Objects/Asteroid_pillars.tscn" id="3_ffpvu"]
 [ext_resource type="Shader" uid="uid://ssl5mg0a3yio" path="res://Assets/Shaders/explosion.gdshader" id="4_53qdw"]
@@ -53,6 +54,9 @@ size = Vector2(5474, 303)
 [node name="Game" type="Node2D" unique_id=435565740]
 script = ExtResource("1_jqtiv")
 metadata/_edit_horizontal_guides_ = [-1813.0]
+
+[node name="Sentinal" parent="." unique_id=1372791209 instance=ExtResource("2_e4bck")]
+position = Vector2(1426, 0)
 
 [node name="background1" type="Sprite2D" parent="." unique_id=2041400844]
 z_index = -10
@@ -212,6 +216,6 @@ process_mode = 3
 stream = ExtResource("11_tim1p")
 bus = &"Effects"
 
-[connection signal="timeout" from="pillarSpawnTimer" to="." method="_on_tower_spawn_timer_timeout"]
 [connection signal="timeout" from="pillarSpawnTimer" to="." method="_on_pillar_spawn_timer_timeout"]
+[connection signal="timeout" from="pillarSpawnTimer" to="." method="_on_tower_spawn_timer_timeout"]
 [connection signal="body_entered" from="floorSky_limits" to="." method="_on_floor_sky_limits_body_entered"]
