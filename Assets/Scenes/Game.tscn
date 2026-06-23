@@ -56,7 +56,7 @@ script = ExtResource("1_jqtiv")
 metadata/_edit_horizontal_guides_ = [-1813.0]
 
 [node name="Sentinal" parent="." unique_id=1372791209 instance=ExtResource("2_e4bck")]
-position = Vector2(1426, 0)
+position = Vector2(1603, 25)
 
 [node name="background1" type="Sprite2D" parent="." unique_id=2041400844]
 z_index = -10
@@ -216,6 +216,6 @@ process_mode = 3
 stream = ExtResource("11_tim1p")
 bus = &"Effects"
 
-[connection signal="timeout" from="pillarSpawnTimer" to="." method="_on_pillar_spawn_timer_timeout"]
 [connection signal="timeout" from="pillarSpawnTimer" to="." method="_on_tower_spawn_timer_timeout"]
+[connection signal="timeout" from="pillarSpawnTimer" to="." method="_on_pillar_spawn_timer_timeout"]
 [connection signal="body_entered" from="floorSky_limits" to="." method="_on_floor_sky_limits_body_entered"]

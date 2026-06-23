@@ -177,7 +177,5 @@ func _on_phase_changed(new_state):
 			print("ASTEROID PHASE")
 		Global.state.ICE:
 			print("ICE PHASE")
-			# spawn ice asteroids, change music, etc.
 		Global.state.BOSS:
 			print("BOSS PHASE")
-			# spawn boss, change music, etc.
