@@ -25,7 +25,7 @@ var pillar_gap_distance = 750.0
 
 var phase_timer: float = 0.0
 var phase_duration: float = 40.0
-var phase_order = [Global.state.ASTEROID, Global.state.ICE, Global.state.BOSS]
+var phase_order = [Global.state.BOSS, Global.state.BOSS, Global.state.BOSS]
 var phase_index: int = 0
 
 var scoreVal = 0.0
@@ -38,7 +38,7 @@ func _ready():
 	extra_lives.text = str(player.extra_life_count)
 	popup.hide()
 	countdown.show()
-	Global.game_state = Global.state.ASTEROID
+	Global.game_state = phase_order[phase_index]
 	Global.countdown_happening = true
 	player.hide_exhaust()
 	explosion_fx.hide()

@@ -1,9 +1,17 @@
 [gd_scene format=3 uid="uid://bt1unuigtqam7"]
 
 [ext_resource type="Script" uid="uid://7cxa11scg0n0" path="res://Assets/Scripts/boss_sentinal.gd" id="1_cqh7i"]
+[ext_resource type="Shader" uid="uid://bn16xnb3yxbkr" path="res://Assets/Shaders/boss_damage_taken.gdshader" id="2_cy5io"]
 [ext_resource type="Texture2D" uid="uid://dw10eorr3webj" path="res://Assets/Sprites/boss/sentinal_eye.png" id="2_jvfof"]
 [ext_resource type="Shader" uid="uid://cod7pyhpvwnx4" path="res://Assets/Shaders/exhaust.gdshader" id="2_lhav2"]
 [ext_resource type="Texture2D" uid="uid://o1406yvrkkh8" path="res://Assets/Sprites/boss/sentinal_body.png" id="3_cy5io"]
+[ext_resource type="Texture2D" uid="uid://c2m48m0nq3jip" path="res://Assets/Sprites/boss/arm_linkage.png" id="6_ch0b3"]
+[ext_resource type="Texture2D" uid="uid://cl8u7xemcjwik" path="res://Assets/Sprites/boss/laser_palms.png" id="7_2f5kg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ijcav"]
+shader = ExtResource("2_cy5io")
+shader_parameter/flash_color = Color(1, 0, 0, 1)
+shader_parameter/flash_modifier = 0.0
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_bhayt"]
 
@@ -30,11 +38,50 @@ shader_parameter/smoke_color = Color(0.816937, 0.7915322, 0, 1)
 shader_parameter/effect_speed = 3.0
 shader_parameter/flame_height = 1.3
 
+[sub_resource type="Animation" id="Animation_jvfof"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sentinal_eye:material:shader_parameter/flash_modifier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_cy5io"]
+resource_name = "eye_damage_taken"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sentinal_eye:material:shader_parameter/flash_modifier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.6000000285, 0.6000000285, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ijcav"]
+_data = {
+&"RESET": SubResource("Animation_jvfof"),
+&"eye_damage_taken": SubResource("Animation_cy5io")
+}
+
 [node name="Sentinal" type="Node2D" unique_id=1372791209]
 script = ExtResource("1_cqh7i")
 
 [node name="sentinal_eye" type="Sprite2D" parent="." unique_id=469866734]
+material = SubResource("ShaderMaterial_ijcav")
 position = Vector2(-282, 4)
+rotation = 3.1415927
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("2_jvfof")
 
@@ -66,3 +113,27 @@ offset_right = -25.689087
 offset_bottom = 412.6896
 rotation = 1.5707964
 scale = Vector2(1.5, 1.5)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=959854887]
+libraries/ = SubResource("AnimationLibrary_ijcav")
+
+[node name="upper_arm" type="Sprite2D" parent="." unique_id=866735652]
+position = Vector2(-536.25, -242.35)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("6_ch0b3")
+
+[node name="palm" type="Sprite2D" parent="upper_arm" unique_id=963150683]
+position = Vector2(-791.0714, -379.5)
+texture = ExtResource("7_2f5kg")
+
+[node name="lower_arm" type="Sprite2D" parent="." unique_id=1268983643]
+position = Vector2(-529.5, 251.9)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("6_ch0b3")
+
+[node name="palm" type="Sprite2D" parent="lower_arm" unique_id=1737096814]
+position = Vector2(-692.1429, 310.14285)
+scale = Vector2(0.99999994, 0.99999994)
+texture = ExtResource("7_2f5kg")
+
+[connection signal="area_entered" from="sentinal_eye/Area2D" to="." method="_on_area_2d_area_entered"]

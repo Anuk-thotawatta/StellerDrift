@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dse7r8fp88hbq"]
+
+[ext_resource type="Texture2D" uid="uid://c2m48m0nq3jip" path="res://Assets/Sprites/boss/arm_linkage.png" id="1_lw4iu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3jyve"]
+size = Vector2(211, 58)
+
+[node name="Tentacle_Link" type="RigidBody2D" unique_id=1191867779]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=676109736]
+position = Vector2(0.5, -3)
+shape = SubResource("RectangleShape2D_3jyve")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1827531420]
+scale = Vector2(0.6573034, 0.7193396)
+texture = ExtResource("1_lw4iu")

@@ -40,7 +40,7 @@ shader_parameter/edge_color = Color(0.78325987, 0.0025511223, 0.99070185, 0)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_oe1aj"]
 
-[node name="Bullet" type="Node2D" unique_id=971007339]
+[node name="Bullet" type="Area2D" unique_id=1265762222]
 z_index = -1
 script = ExtResource("1_a8tfd")
 
@@ -58,10 +58,7 @@ position = Vector2(-8, -1)
 scale = Vector2(0.7001136, 0.2955574)
 texture = ExtResource("2_svoyt")
 
-[node name="Area2D" type="Area2D" parent="." unique_id=2140880986]
-visible = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1613504270]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1613504270]
 position = Vector2(23, 0)
 scale = Vector2(3, 3)
 shape = SubResource("CircleShape2D_oe1aj")
