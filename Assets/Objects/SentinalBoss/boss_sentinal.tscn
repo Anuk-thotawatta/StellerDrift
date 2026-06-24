@@ -5,8 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://dw10eorr3webj" path="res://Assets/Sprites/boss/sentinal_eye.png" id="2_jvfof"]
 [ext_resource type="Shader" uid="uid://cod7pyhpvwnx4" path="res://Assets/Shaders/exhaust.gdshader" id="2_lhav2"]
 [ext_resource type="Texture2D" uid="uid://o1406yvrkkh8" path="res://Assets/Sprites/boss/sentinal_body.png" id="3_cy5io"]
-[ext_resource type="Texture2D" uid="uid://c2m48m0nq3jip" path="res://Assets/Sprites/boss/arm_linkage.png" id="6_ch0b3"]
-[ext_resource type="Texture2D" uid="uid://cl8u7xemcjwik" path="res://Assets/Sprites/boss/laser_palms.png" id="7_2f5kg"]
+[ext_resource type="PackedScene" uid="uid://bui4s3i0q0gne" path="res://Assets/Objects/SentinalBoss/lower_sentinal_tentacle.tscn" id="6_ch0b3"]
+[ext_resource type="PackedScene" uid="uid://dthd6st33wg8" path="res://Assets/Objects/SentinalBoss/upper_sentinal_tentacle.tscn" id="6_o434e"]
+[ext_resource type="Shader" uid="uid://bmulani23g2tq" path="res://Assets/Shaders/laser_glow.gdshader" id="8_2f5kg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ijcav"]
 shader = ExtResource("2_cy5io")
@@ -37,6 +38,16 @@ shader_parameter/orange_color = Color(1, 1, 0, 1)
 shader_parameter/smoke_color = Color(0.816937, 0.7915322, 0, 1)
 shader_parameter/effect_speed = 3.0
 shader_parameter/flame_height = 1.3
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8dsjm"]
+shader = ExtResource("8_2f5kg")
+shader_parameter/flare_color = Color(1, 0.1, 0.1, 1)
+shader_parameter/core_brightness = 5.0
+shader_parameter/horizontal_streak_thickness = 0.03800000110648
+shader_parameter/vertical_spike_thickness = 0.04900000162898
+shader_parameter/core_size = 0.15100000647398001
+shader_parameter/pulse_speed = 4.11700019229762
+shader_parameter/pulse_strength = 0.250000011875
 
 [sub_resource type="Animation" id="Animation_jvfof"]
 length = 0.001
@@ -78,6 +89,12 @@ _data = {
 [node name="Sentinal" type="Node2D" unique_id=1372791209]
 script = ExtResource("1_cqh7i")
 
+[node name="LowerTentacle" parent="." unique_id=703041790 instance=ExtResource("6_ch0b3")]
+position = Vector2(-416, 248)
+
+[node name="UpperTentacle" parent="." unique_id=870644904 instance=ExtResource("6_o434e")]
+position = Vector2(-416, -248)
+
 [node name="sentinal_eye" type="Sprite2D" parent="." unique_id=469866734]
 material = SubResource("ShaderMaterial_ijcav")
 position = Vector2(-282, 4)
@@ -114,81 +131,14 @@ offset_bottom = 412.6896
 rotation = 1.5707964
 scale = Vector2(1.5, 1.5)
 
+[node name="joint_glow" type="ColorRect" parent="sentinal_body" unique_id=187523877]
+material = SubResource("ShaderMaterial_8dsjm")
+offset_left = 338.0
+offset_top = -58.0
+offset_right = 488.0
+offset_bottom = 92.0
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=959854887]
 libraries/ = SubResource("AnimationLibrary_ijcav")
-
-[node name="upper_tentacle_anchor" type="Node2D" parent="." unique_id=148264046]
-position = Vector2(-419, -243)
-scale = Vector2(0.5, 0.5)
-
-[node name="upper_arm0" type="Sprite2D" parent="upper_tentacle_anchor" unique_id=866735652]
-position = Vector2(-128, 2)
-texture = ExtResource("6_ch0b3")
-
-[node name="upper_arm1" type="Sprite2D" parent="upper_tentacle_anchor/upper_arm0" unique_id=1206720289]
-position = Vector2(-252.5, 0)
-texture = ExtResource("6_ch0b3")
-
-[node name="upper_arm2" type="Sprite2D" parent="upper_tentacle_anchor/upper_arm0/upper_arm1" unique_id=445728386]
-position = Vector2(-258, 2)
-texture = ExtResource("6_ch0b3")
-
-[node name="upper_arm3" type="Sprite2D" parent="upper_tentacle_anchor/upper_arm0/upper_arm1/upper_arm2" unique_id=720947872]
-position = Vector2(-254, -6)
-texture = ExtResource("6_ch0b3")
-
-[node name="upper_arm4" type="Sprite2D" parent="upper_tentacle_anchor/upper_arm0/upper_arm1/upper_arm2/upper_arm3" unique_id=1476176033]
-position = Vector2(-258, 0)
-texture = ExtResource("6_ch0b3")
-
-[node name="upper_arm5" type="Sprite2D" parent="upper_tentacle_anchor/upper_arm0/upper_arm1/upper_arm2/upper_arm3/upper_arm4" unique_id=2087650533]
-position = Vector2(-252, 0)
-texture = ExtResource("6_ch0b3")
-
-[node name="upper_arm6" type="Sprite2D" parent="upper_tentacle_anchor/upper_arm0/upper_arm1/upper_arm2/upper_arm3/upper_arm4/upper_arm5" unique_id=748227215]
-position = Vector2(-254, 2)
-texture = ExtResource("6_ch0b3")
-
-[node name="u_palm" type="Sprite2D" parent="upper_tentacle_anchor/upper_arm0/upper_arm1/upper_arm2/upper_arm3/upper_arm4/upper_arm5/upper_arm6" unique_id=963150683]
-position = Vector2(-277.5, -30)
-scale = Vector2(1.4, 1.4)
-texture = ExtResource("7_2f5kg")
-
-[node name="lower_tentacle_anchor" type="Node2D" parent="." unique_id=2043183671]
-position = Vector2(-414, 254)
-
-[node name="lower_arm0" type="Sprite2D" parent="lower_tentacle_anchor" unique_id=1268983643]
-position = Vector2(-63, 1)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_ch0b3")
-
-[node name="lower_arm1" type="Sprite2D" parent="lower_tentacle_anchor/lower_arm0" unique_id=69607284]
-position = Vector2(-250, -0.5)
-texture = ExtResource("6_ch0b3")
-
-[node name="lower_arm2" type="Sprite2D" parent="lower_tentacle_anchor/lower_arm0/lower_arm1" unique_id=241609441]
-position = Vector2(-256, 2)
-texture = ExtResource("6_ch0b3")
-
-[node name="lower_arm3" type="Sprite2D" parent="lower_tentacle_anchor/lower_arm0/lower_arm1/lower_arm2" unique_id=915771061]
-position = Vector2(-248, 0)
-texture = ExtResource("6_ch0b3")
-
-[node name="lower_arm4" type="Sprite2D" parent="lower_tentacle_anchor/lower_arm0/lower_arm1/lower_arm2/lower_arm3" unique_id=85454391]
-position = Vector2(-246, 0)
-texture = ExtResource("6_ch0b3")
-
-[node name="lower_arm5" type="Sprite2D" parent="lower_tentacle_anchor/lower_arm0/lower_arm1/lower_arm2/lower_arm3/lower_arm4" unique_id=276290931]
-position = Vector2(-250, 0)
-texture = ExtResource("6_ch0b3")
-
-[node name="lower_arm6" type="Sprite2D" parent="lower_tentacle_anchor/lower_arm0/lower_arm1/lower_arm2/lower_arm3/lower_arm4/lower_arm5" unique_id=64488978]
-position = Vector2(-256, 0)
-texture = ExtResource("6_ch0b3")
-
-[node name="l_palm" type="Sprite2D" parent="lower_tentacle_anchor/lower_arm0/lower_arm1/lower_arm2/lower_arm3/lower_arm4/lower_arm5/lower_arm6" unique_id=1737096814]
-position = Vector2(-276, -21.5)
-scale = Vector2(1.3999999, 1.3999999)
-texture = ExtResource("7_2f5kg")
 
 [connection signal="area_entered" from="sentinal_eye/Area2D" to="." method="_on_area_2d_area_entered"]

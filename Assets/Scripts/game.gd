@@ -16,6 +16,7 @@ extends Node2D
 @onready var popup: Control = $CanvasLayer/Popup
 @onready var popup_anim: AnimationPlayer = $CanvasLayer/Popup/AnimationPlayer
 @onready var popup_text: Label = $CanvasLayer/Popup/Text
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var background2: Sprite2D
 var bg_width
@@ -24,8 +25,8 @@ var distance_since_last_pillar_spawn = 0.0
 var pillar_gap_distance = 750.0
 
 var phase_timer: float = 0.0
-var phase_duration: float = 40.0
-var phase_order = [Global.state.BOSS, Global.state.BOSS, Global.state.BOSS]
+var phase_duration: float = 10.0
+var phase_order = [Global.state.ASTEROID, Global.state.BOSS, Global.state.BOSS]
 var phase_index: int = 0
 
 var scoreVal = 0.0
@@ -34,6 +35,7 @@ const BG_SCROLL_SPEED = 100.0
 var star_time: float = 0.0
 
 func _ready():
+	Global.pillarCount = 0
 	score.text = str(int(scoreVal))
 	extra_lives.text = str(player.extra_life_count)
 	popup.hide()
@@ -94,11 +96,18 @@ func _process(delta):
 
 	check_phase()
 	
+	if Global.game_state == Global.state.BOSS and Global.pillarCount <= 0:
+		if not animation_player.is_playing() and animation_player.current_animation != "sentinal_idle":
+			animation_player.play("sentinal_appear")
+			await animation_player.animation_finished
+			animation_player.play("sentinal_idle")
+	
 func spawn_pillar():
 	var pillar = asteroid_pilar.instantiate()
 	pillar.position = Vector2(1700, randi_range(-500, 500))
 	add_child(pillar)
-	
+	Global.pillarCount += 1
+
 func handle_background(delta):
 	# --- Scroll both backgrounds ---
 	background1.position.x -= BG_SCROLL_SPEED * delta
@@ -175,6 +184,8 @@ func _on_phase_changed(new_state):
 	match new_state:
 		Global.state.ASTEROID:
 			print("ASTEROID PHASE")
+			animation_player.play_backwards("sentinal_appear")
+			await animation_player.animation_finished
 		Global.state.ICE:
 			print("ICE PHASE")
 		Global.state.BOSS:

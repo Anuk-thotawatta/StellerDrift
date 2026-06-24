@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://bui4s3i0q0gne"]
+
+[ext_resource type="PackedScene" uid="uid://c2r6ufxuekjb3" path="res://Assets/Objects/SentinalBoss/arm_segment.tscn" id="1_yry6l"]
+[ext_resource type="Texture2D" uid="uid://cl8u7xemcjwik" path="res://Assets/Sprites/boss/laser_palms.png" id="2_ey48h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xjw7p"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sih0f"]
+radius = 48.14373
+
+[node name="LowerTentacle" type="Node2D" unique_id=703041790]
+
+[node name="anchor" type="StaticBody2D" parent="." unique_id=312730292]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="anchor" unique_id=1273136264]
+shape = SubResource("RectangleShape2D_xjw7p")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="." unique_id=720704602]
+node_a = NodePath("../anchor")
+node_b = NodePath("../arm_segment")
+
+[node name="arm_segment" parent="." unique_id=1781783688 instance=ExtResource("1_yry6l")]
+position = Vector2(-66, -1)
+mass = 0.1
+gravity_scale = 0.5
+angular_damp = 26.839
+
+[node name="PinJoint2D2" type="PinJoint2D" parent="." unique_id=260348700]
+position = Vector2(-129, 0)
+node_a = NodePath("../arm_segment")
+node_b = NodePath("../arm_segment2")
+
+[node name="arm_segment2" parent="." unique_id=961311157 instance=ExtResource("1_yry6l")]
+position = Vector2(-192, -1)
+mass = 0.1
+gravity_scale = 0.5
+angular_damp = 26.839
+
+[node name="PinJoint2D3" type="PinJoint2D" parent="." unique_id=1201370131]
+position = Vector2(-253, 0)
+node_a = NodePath("../arm_segment2")
+node_b = NodePath("../arm_segment3")
+
+[node name="arm_segment3" parent="." unique_id=259624007 instance=ExtResource("1_yry6l")]
+position = Vector2(-318, 0)
+mass = 0.1
+gravity_scale = 0.5
+angular_damp = 26.839
+
+[node name="PinJoint2D4" type="PinJoint2D" parent="." unique_id=439614802]
+position = Vector2(-379, 0)
+node_a = NodePath("../arm_segment3")
+node_b = NodePath("../arm_segment4")
+
+[node name="arm_segment4" parent="." unique_id=1880469791 instance=ExtResource("1_yry6l")]
+position = Vector2(-442, 0)
+mass = 0.1
+gravity_scale = 0.5
+angular_damp = 26.839
+
+[node name="PinJoint2D5" type="PinJoint2D" parent="." unique_id=1948546063]
+position = Vector2(-505, 0)
+node_a = NodePath("../arm_segment4")
+node_b = NodePath("../arm_segment5")
+
+[node name="arm_segment5" parent="." unique_id=1820130402 instance=ExtResource("1_yry6l")]
+position = Vector2(-568, 0)
+mass = 0.1
+gravity_scale = 0.5
+angular_damp = 26.839
+
+[node name="PinJoint2D6" type="PinJoint2D" parent="." unique_id=1250025695]
+position = Vector2(-629, 0)
+node_a = NodePath("../arm_segment5")
+node_b = NodePath("../laser_gun")
+
+[node name="laser_gun" type="RigidBody2D" parent="." unique_id=951599136]
+position = Vector2(-720, -16)
+gravity_scale = 0.0
+freeze = true
+freeze_mode = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="laser_gun" unique_id=1778206930]
+position = Vector2(-19, 5)
+shape = SubResource("CircleShape2D_sih0f")
+
+[node name="Sprite2D" type="Sprite2D" parent="laser_gun" unique_id=1949937116]
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("2_ey48h")

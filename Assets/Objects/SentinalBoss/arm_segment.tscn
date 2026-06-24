@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://c2r6ufxuekjb3"]
+
+[ext_resource type="Texture2D" uid="uid://c2m48m0nq3jip" path="res://Assets/Sprites/boss/arm_linkage.png" id="1_wiw83"]
+[ext_resource type="Shader" uid="uid://bmulani23g2tq" path="res://Assets/Shaders/laser_glow.gdshader" id="2_wso15"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wso15"]
+radius = 37.0
+height = 108.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wd4xn"]
+shader = ExtResource("2_wso15")
+
+[node name="arm_segment" type="RigidBody2D" unique_id=1781783688]
+rotation = 1.5707964
+collision_layer = 4096
+collision_mask = 4096
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1448441376]
+shape = SubResource("CapsuleShape2D_wso15")
+
+[node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D" unique_id=1456146060]
+rotation = 1.5707964
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_wiw83")
+
+[node name="joint_glow" type="ColorRect" parent="CollisionShape2D" unique_id=1316028102]
+material = SubResource("ShaderMaterial_wd4xn")
+offset_left = -39.999992
+offset_top = 22.0
+offset_right = 40.000008
+offset_bottom = 102.0
+
+[node name="joint_glow2" type="ColorRect" parent="CollisionShape2D" unique_id=2016079259]
+material = SubResource("ShaderMaterial_wd4xn")
+offset_left = -40.0
+offset_top = -104.0
+offset_right = 40.0
+offset_bottom = -24.0

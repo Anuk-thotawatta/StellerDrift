@@ -3,19 +3,25 @@ extends Node2D
 @onready var sentinal_eye: Sprite2D = $sentinal_eye
 @onready var player: CharacterBody2D = $"../Player"
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var u_palm: Sprite2D = $upper_tentacle/upper_arm0/upper_arm1/upper_arm2/upper_arm3/upper_arm4/upper_arm5/upper_arm6/u_palm
-@onready var l_palm: Sprite2D = $lower_tentacle/lower_arm0/lower_arm1/lower_arm2/lower_arm3/lower_arm4/lower_arm5/lower_arm6/l_palm
+@onready var sentinal_body: Sprite2D = $sentinal_body
+@onready var upper_laser = $UpperTentacle/laser_gun
+@onready var lower_laser = $LowerTentacle/laser_gun
 
+var sentinal_body_pos;
 
 func _ready():
 	pass
 
 func _process(delta: float) -> void:
+	sentinal_body_pos = sentinal_body.position
+	upper_laser.position.x = sentinal_body_pos.x - 300
+	lower_laser.position.x = sentinal_body_pos.x - 300
 	# Eye tracks player
 	var target_angle = (player.global_position - sentinal_eye.global_position).angle() + PI
 	sentinal_eye.rotation = lerp_angle(sentinal_eye.rotation, target_angle, delta * 5.0)
-	u_palm.rotation = 0
-	l_palm.rotation = 0
+	upper_laser.rotation = 0
+	lower_laser.rotation = 0
+	
 	# Move palms towards player
 	target_player(delta)
 	
@@ -25,10 +31,10 @@ func target_player(delta):
 	var player_altitude = player.position.y
 	
 	# Upper arm aims slightly above player
-	u_palm.position.y = lerp(u_palm.position.y, player_altitude - 40, delta * 0.5)
+	upper_laser.position.y = lerp(upper_laser.position.y, player_altitude - 40, delta * 1.0)
 	
 	# Lower arm aims slightly below player
-	l_palm.position.y = lerp(l_palm.position.y, player_altitude + 40, delta * 0.5)
+	lower_laser.position.y = lerp(lower_laser.position.y, player_altitude + 40, delta * 1.0)
 
 func _on_area_2d_area_entered(area: Area2D):
 	if area.is_in_group("bullets"):

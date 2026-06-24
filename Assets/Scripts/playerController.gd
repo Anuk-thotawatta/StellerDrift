@@ -3,6 +3,7 @@ extends CharacterBody2D
 const gravity = 1600.0
 var is_falling = true
 var jump_force = 700.0 
+var horizontalSpeed = 200
 var is_dashing = false
 
 var can_jump = true
@@ -49,11 +50,22 @@ func _ready() -> void:
 	jump_jet_fx.material.set_shader_parameter("burst_progress", 1.0)
 
 func _physics_process(delta):
+	if Global.game_state == Global.state.BOSS:
+		if position.x > -500 and Global.pillarCount <= 0:
+			velocity.x = -horizontalSpeed
+		else:
+			velocity.x = 0
+	elif Global.game_state != Global.state.BOSS:
+		if position.x < 0:
+			velocity.x = horizontalSpeed
+		else:
+			velocity.x = 0
+		
 	if Input.is_action_just_pressed("jump") and can_jump:
 		jump()
 		
-	if Input.is_action_just_pressed("dash") and !is_dashing:
-		dash()
+	#if Input.is_action_just_pressed("dash") and !is_dashing:
+	#	dash()
 		
 	if Input.is_action_just_pressed("shoot") and can_shoot:
 		shoot()

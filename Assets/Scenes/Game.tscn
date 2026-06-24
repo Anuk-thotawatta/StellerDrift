@@ -50,12 +50,67 @@ shader_parameter/noise_scale = 2.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_53qdw"]
 size = Vector2(5474, 303)
 
+[sub_resource type="Animation" id="Animation_b2ek4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sentinal:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-2428, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_e4bck"]
+resource_name = "sentinal_appear"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sentinal:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-2428, 0), Vector2(811, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_2hp5s"]
+resource_name = "sentinal_idle"
+length = 8.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sentinal:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 4, 6.0333333, 8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(811, 0), Vector2(811, -100), Vector2(750, 0), Vector2(811, 100), Vector2(811, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2hp5s"]
+_data = {
+&"RESET": SubResource("Animation_b2ek4"),
+&"sentinal_appear": SubResource("Animation_e4bck"),
+&"sentinal_idle": SubResource("Animation_2hp5s")
+}
+
 [node name="Game" type="Node2D" unique_id=435565740]
 script = ExtResource("1_jqtiv")
 metadata/_edit_horizontal_guides_ = [-1813.0]
 
 [node name="Sentinal" parent="." unique_id=1372791209 instance=ExtResource("2_e4bck")]
-position = Vector2(1603, 0)
+position = Vector2(-2428, 0)
 
 [node name="background1" type="Sprite2D" parent="." unique_id=2041400844]
 z_index = -10
@@ -194,11 +249,11 @@ position = Vector2(282, -983)
 shape = SubResource("RectangleShape2D_53qdw")
 
 [node name="initial_pillars" type="Node" parent="." unique_id=1165458556]
-process_mode = 4
 
 [node name="Asteroid_pillars" parent="initial_pillars" unique_id=836778206 instance=ExtResource("3_ffpvu")]
+process_mode = 4
 visible = false
-position = Vector2(1362, 4)
+position = Vector2(1554, 4)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=156824474]
 zoom = Vector2(0.4, 0.4)
@@ -214,6 +269,9 @@ process_mode = 3
 stream = ExtResource("11_tim1p")
 bus = &"Effects"
 
-[connection signal="timeout" from="pillarSpawnTimer" to="." method="_on_tower_spawn_timer_timeout"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=946622537]
+libraries/ = SubResource("AnimationLibrary_2hp5s")
+
 [connection signal="timeout" from="pillarSpawnTimer" to="." method="_on_pillar_spawn_timer_timeout"]
+[connection signal="timeout" from="pillarSpawnTimer" to="." method="_on_tower_spawn_timer_timeout"]
 [connection signal="body_entered" from="floorSky_limits" to="." method="_on_floor_sky_limits_body_entered"]
