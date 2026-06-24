@@ -55,7 +55,7 @@ script = ExtResource("1_jqtiv")
 metadata/_edit_horizontal_guides_ = [-1813.0]
 
 [node name="Sentinal" parent="." unique_id=1372791209 instance=ExtResource("2_e4bck")]
-position = Vector2(1603, 25)
+position = Vector2(1603, 0)
 
 [node name="background1" type="Sprite2D" parent="." unique_id=2041400844]
 z_index = -10
@@ -194,8 +194,10 @@ position = Vector2(282, -983)
 shape = SubResource("RectangleShape2D_53qdw")
 
 [node name="initial_pillars" type="Node" parent="." unique_id=1165458556]
+process_mode = 4
 
 [node name="Asteroid_pillars" parent="initial_pillars" unique_id=836778206 instance=ExtResource("3_ffpvu")]
+visible = false
 position = Vector2(1362, 4)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=156824474]

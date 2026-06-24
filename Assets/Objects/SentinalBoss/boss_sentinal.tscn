@@ -117,23 +117,78 @@ scale = Vector2(1.5, 1.5)
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=959854887]
 libraries/ = SubResource("AnimationLibrary_ijcav")
 
-[node name="upper_arm" type="Sprite2D" parent="." unique_id=866735652]
-position = Vector2(-536.25, -242.35)
-scale = Vector2(0.7, 0.7)
+[node name="upper_tentacle_anchor" type="Node2D" parent="." unique_id=148264046]
+position = Vector2(-419, -243)
+scale = Vector2(0.5, 0.5)
+
+[node name="upper_arm0" type="Sprite2D" parent="upper_tentacle_anchor" unique_id=866735652]
+position = Vector2(-128, 2)
 texture = ExtResource("6_ch0b3")
 
-[node name="palm" type="Sprite2D" parent="upper_arm" unique_id=963150683]
-position = Vector2(-791.0714, -379.5)
+[node name="upper_arm1" type="Sprite2D" parent="upper_tentacle_anchor/upper_arm0" unique_id=1206720289]
+position = Vector2(-252.5, 0)
+texture = ExtResource("6_ch0b3")
+
+[node name="upper_arm2" type="Sprite2D" parent="upper_tentacle_anchor/upper_arm0/upper_arm1" unique_id=445728386]
+position = Vector2(-258, 2)
+texture = ExtResource("6_ch0b3")
+
+[node name="upper_arm3" type="Sprite2D" parent="upper_tentacle_anchor/upper_arm0/upper_arm1/upper_arm2" unique_id=720947872]
+position = Vector2(-254, -6)
+texture = ExtResource("6_ch0b3")
+
+[node name="upper_arm4" type="Sprite2D" parent="upper_tentacle_anchor/upper_arm0/upper_arm1/upper_arm2/upper_arm3" unique_id=1476176033]
+position = Vector2(-258, 0)
+texture = ExtResource("6_ch0b3")
+
+[node name="upper_arm5" type="Sprite2D" parent="upper_tentacle_anchor/upper_arm0/upper_arm1/upper_arm2/upper_arm3/upper_arm4" unique_id=2087650533]
+position = Vector2(-252, 0)
+texture = ExtResource("6_ch0b3")
+
+[node name="upper_arm6" type="Sprite2D" parent="upper_tentacle_anchor/upper_arm0/upper_arm1/upper_arm2/upper_arm3/upper_arm4/upper_arm5" unique_id=748227215]
+position = Vector2(-254, 2)
+texture = ExtResource("6_ch0b3")
+
+[node name="u_palm" type="Sprite2D" parent="upper_tentacle_anchor/upper_arm0/upper_arm1/upper_arm2/upper_arm3/upper_arm4/upper_arm5/upper_arm6" unique_id=963150683]
+position = Vector2(-277.5, -30)
+scale = Vector2(1.4, 1.4)
 texture = ExtResource("7_2f5kg")
 
-[node name="lower_arm" type="Sprite2D" parent="." unique_id=1268983643]
-position = Vector2(-529.5, 251.9)
-scale = Vector2(0.7, 0.7)
+[node name="lower_tentacle_anchor" type="Node2D" parent="." unique_id=2043183671]
+position = Vector2(-414, 254)
+
+[node name="lower_arm0" type="Sprite2D" parent="lower_tentacle_anchor" unique_id=1268983643]
+position = Vector2(-63, 1)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_ch0b3")
 
-[node name="palm" type="Sprite2D" parent="lower_arm" unique_id=1737096814]
-position = Vector2(-692.1429, 310.14285)
-scale = Vector2(0.99999994, 0.99999994)
+[node name="lower_arm1" type="Sprite2D" parent="lower_tentacle_anchor/lower_arm0" unique_id=69607284]
+position = Vector2(-250, -0.5)
+texture = ExtResource("6_ch0b3")
+
+[node name="lower_arm2" type="Sprite2D" parent="lower_tentacle_anchor/lower_arm0/lower_arm1" unique_id=241609441]
+position = Vector2(-256, 2)
+texture = ExtResource("6_ch0b3")
+
+[node name="lower_arm3" type="Sprite2D" parent="lower_tentacle_anchor/lower_arm0/lower_arm1/lower_arm2" unique_id=915771061]
+position = Vector2(-248, 0)
+texture = ExtResource("6_ch0b3")
+
+[node name="lower_arm4" type="Sprite2D" parent="lower_tentacle_anchor/lower_arm0/lower_arm1/lower_arm2/lower_arm3" unique_id=85454391]
+position = Vector2(-246, 0)
+texture = ExtResource("6_ch0b3")
+
+[node name="lower_arm5" type="Sprite2D" parent="lower_tentacle_anchor/lower_arm0/lower_arm1/lower_arm2/lower_arm3/lower_arm4" unique_id=276290931]
+position = Vector2(-250, 0)
+texture = ExtResource("6_ch0b3")
+
+[node name="lower_arm6" type="Sprite2D" parent="lower_tentacle_anchor/lower_arm0/lower_arm1/lower_arm2/lower_arm3/lower_arm4/lower_arm5" unique_id=64488978]
+position = Vector2(-256, 0)
+texture = ExtResource("6_ch0b3")
+
+[node name="l_palm" type="Sprite2D" parent="lower_tentacle_anchor/lower_arm0/lower_arm1/lower_arm2/lower_arm3/lower_arm4/lower_arm5/lower_arm6" unique_id=1737096814]
+position = Vector2(-276, -21.5)
+scale = Vector2(1.3999999, 1.3999999)
 texture = ExtResource("7_2f5kg")
 
 [connection signal="area_entered" from="sentinal_eye/Area2D" to="." method="_on_area_2d_area_entered"]
