@@ -45,7 +45,7 @@ shader_parameter/flare_color = Color(1, 0.1, 0.1, 1)
 shader_parameter/core_brightness = 5.0
 shader_parameter/horizontal_streak_thickness = 0.03800000110648
 shader_parameter/vertical_spike_thickness = 0.04900000162898
-shader_parameter/core_size = 0.15100000647398001
+shader_parameter/core_size = 0.15100000647398
 shader_parameter/pulse_speed = 4.11700019229762
 shader_parameter/pulse_strength = 0.250000011875
 

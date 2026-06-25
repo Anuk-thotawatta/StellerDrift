@@ -272,6 +272,6 @@ bus = &"Effects"
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=946622537]
 libraries/ = SubResource("AnimationLibrary_2hp5s")
 
-[connection signal="timeout" from="pillarSpawnTimer" to="." method="_on_pillar_spawn_timer_timeout"]
 [connection signal="timeout" from="pillarSpawnTimer" to="." method="_on_tower_spawn_timer_timeout"]
+[connection signal="timeout" from="pillarSpawnTimer" to="." method="_on_pillar_spawn_timer_timeout"]
 [connection signal="body_entered" from="floorSky_limits" to="." method="_on_floor_sky_limits_body_entered"]

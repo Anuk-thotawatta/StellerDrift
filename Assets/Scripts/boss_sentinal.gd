@@ -8,6 +8,10 @@ extends Node2D
 @onready var lower_laser = $LowerTentacle/laser_gun
 
 var sentinal_body_pos;
+var boss_hp = 1000
+var bullet_dmg = 125
+
+signal boss_defeated
 
 func _ready():
 	pass
@@ -45,3 +49,9 @@ func _on_area_2d_area_entered(area: Area2D):
 			animation_player.stop()
 			animation_player.play("eye_damage_taken")
 			bullet.queue_free()
+			boss_hp -= bullet_dmg
+			
+			if boss_hp <= 0:
+				boss_hp = 1000  # Reset health
+				boss_defeated.emit()
+				

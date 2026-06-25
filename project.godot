@@ -21,6 +21,7 @@ Global="*uid://dj464s5n2rtxe"
 
 [display]
 
+window/size/mode=3
 window/stretch/mode="canvas_items"
 
 [input]

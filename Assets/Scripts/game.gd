@@ -17,6 +17,7 @@ extends Node2D
 @onready var popup_anim: AnimationPlayer = $CanvasLayer/Popup/AnimationPlayer
 @onready var popup_text: Label = $CanvasLayer/Popup/Text
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var sentinal: Node2D = $Sentinal
 
 var background2: Sprite2D
 var bg_width
@@ -24,23 +25,32 @@ var bg_width
 var distance_since_last_pillar_spawn = 0.0
 var pillar_gap_distance = 750.0
 
+#phase timer variables
+var game_started: bool = false
 var phase_timer: float = 0.0
-var phase_duration: float = 10.0
-var phase_order = [Global.state.ASTEROID, Global.state.BOSS, Global.state.BOSS]
-var phase_index: int = 0
+var phase_duration: float = 20.0
 
+#score variables
 var scoreVal = 0.0
 var highScoreVal = 0.0
 const BG_SCROLL_SPEED = 100.0
 var star_time: float = 0.0
 
+# Boss state
+var boss_spawned: bool = false
+
 func _ready():
+	game_started = false
 	Global.pillarCount = 0
+	Global.current_phase_index = 0
+	Global.is_boss_active = false
+	Global.waiting_for_pillars = false
+	
 	score.text = str(int(scoreVal))
 	extra_lives.text = str(player.extra_life_count)
 	popup.hide()
 	countdown.show()
-	Global.game_state = phase_order[phase_index]
+	Global.game_state = Global.phase_queue[Global.current_phase_index]
 	Global.countdown_happening = true
 	player.hide_exhaust()
 	explosion_fx.hide()
@@ -72,6 +82,9 @@ func _ready():
 		beep.play()
 		await get_tree().create_timer(1.0).timeout
 		x-=1
+		
+	game_started = true
+	spawn_pillar()
 	countdown.hide()
 	game_soundtrack.play()
 	player.show_exhaust()
@@ -81,26 +94,75 @@ func _ready():
 	await popup_anim.animation_finished
 	popup.hide()
 	
-func _process(delta):
+	Global.phase_changed.connect(_on_phase_changed)
+	sentinal.boss_defeated.connect(_on_boss_defeated)  # Add this line
+	
+func _process(delta):	
 	if (get_tree().paused == false):
 		handle_background(delta)
 		distance_since_last_pillar_spawn += Global.gameSpeed * delta
-		if Global.game_state == Global.state.ASTEROID and distance_since_last_pillar_spawn >= pillar_gap_distance :
-			distance_since_last_pillar_spawn = 0.0
-			spawn_pillar()
+		if Global.game_state == Global.state.ASTEROID and not Global.waiting_for_pillars:
+			if distance_since_last_pillar_spawn >= pillar_gap_distance:
+				distance_since_last_pillar_spawn = 0.0
+				spawn_pillar()
 		
 	scoreVal += delta * 100
 	score.text = str(int(scoreVal))
 	hscore.text = str(int(highScoreVal))
 	extra_lives.text = str(player.extra_life_count)
 
-	check_phase()
+	# Handle boss behavior FIRST - this spawns the boss
+	handle_boss_behavior(delta)
 	
-	if Global.game_state == Global.state.BOSS and Global.pillarCount <= 0:
-		if not animation_player.is_playing() and animation_player.current_animation != "sentinal_idle":
+	# Handle phase transitions SECOND - this checks if boss is dead
+	handle_phase_transitions(delta)
+	
+func handle_phase_transitions(delta):
+	if not game_started:
+		return
+	match Global.game_state:
+		Global.state.ASTEROID:
+			phase_timer += delta
+			if phase_timer >= phase_duration:
+				phase_timer = 0.0
+				transition_to_next_phase()
+		Global.state.BOSS:
+			# ONLY transition if the boss was successfully spawned AND is now dead
+			if boss_spawned and not Global.is_boss_active:
+				transition_to_next_phase()
+
+func transition_to_next_phase():
+	Global.current_phase_index = (Global.current_phase_index + 1) % Global.phase_queue.size()
+	var new_state = Global.phase_queue[Global.current_phase_index]
+	
+	if new_state != Global.game_state:
+		Global.game_state = new_state
+		Global.phase_changed.emit(new_state)
+
+func _on_boss_defeated():
+	Global.is_boss_active = false
+	if animation_player.has_animation("sentinal_appear"):
+		animation_player.play_backwards("sentinal_appear")
+
+func handle_boss_behavior(delta):
+	if not game_started:
+		return
+	
+	# Spawn boss when pillars are cleared
+	if Global.game_state == Global.state.BOSS and not boss_spawned and Global.pillarCount <= 0:
+		boss_spawned = true
+		Global.is_boss_active = true
+		
+		# Play boss appearance animation
+		if animation_player.has_animation("sentinal_appear"):
 			animation_player.play("sentinal_appear")
 			await animation_player.animation_finished
+		
+		# Start boss idle animation
+		if animation_player.has_animation("sentinal_idle"):
 			animation_player.play("sentinal_idle")
+		
+		print("BOSS SPAWNED - Kill it to end phase")
 	
 func spawn_pillar():
 	var pillar = asteroid_pilar.instantiate()
@@ -169,24 +231,15 @@ func _on_floor_sky_limits_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
 		get_tree().get_root().get_node("Game").player_died()
 	
-func check_phase():
-	phase_timer += get_process_delta_time()
-	if phase_timer >= phase_duration:
-		phase_timer = 0.0
-		phase_index = (phase_index + 1) % phase_order.size()
-		var new_state = phase_order[phase_index]
-		if new_state != Global.game_state:
-			Global.game_state = new_state
-			Global.phase_changed.emit(new_state)
-			_on_phase_changed(new_state)
-
 func _on_phase_changed(new_state):
 	match new_state:
 		Global.state.ASTEROID:
-			print("ASTEROID PHASE")
-			animation_player.play_backwards("sentinal_appear")
-			await animation_player.animation_finished
-		Global.state.ICE:
-			print("ICE PHASE")
+			print("ASTEROID PHASE STARTED")
+			phase_timer = 0.0  
+			Global.waiting_for_pillars = false
+			boss_spawned = false       # Ready for next cycle
+			Global.is_boss_active = false # Ready for next cycle
+			distance_since_last_pillar_spawn = pillar_gap_distance - 200
+					
 		Global.state.BOSS:
-			print("BOSS PHASE")
+			print("BOSS PHASE TRIGGERED - Waiting for pillars to clear...")
