@@ -2,11 +2,27 @@
 
 [ext_resource type="PackedScene" uid="uid://c2r6ufxuekjb3" path="res://Assets/Objects/SentinalBoss/arm_segment.tscn" id="1_61xne"]
 [ext_resource type="Texture2D" uid="uid://cl8u7xemcjwik" path="res://Assets/Sprites/boss/laser_palms.png" id="2_d05l0"]
+[ext_resource type="Shader" uid="uid://dbod5eahqxabs" path="res://Assets/Objects/SentinalBoss/laser_telegraph.gdshader" id="3_d05l0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xjw7p"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sih0f"]
 radius = 48.14373
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_eq74n"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mnjro"]
+noise = SubResource("FastNoiseLite_eq74n")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_76gfm"]
+shader = ExtResource("3_d05l0")
+shader_parameter/noise_tex1 = SubResource("NoiseTexture2D_mnjro")
+shader_parameter/energy_color = Color(1, 0, 0, 1)
+shader_parameter/core_light = Color(1, 0.8428765, 0.8429972, 1)
+shader_parameter/charge_progress = 0.0
+shader_parameter/flicker_speed = 0.0
+shader_parameter/swirl_speed = 6.125
+shader_parameter/swirl_density = 5.0
 
 [node name="UpperTentacle" type="Node2D" unique_id=703041790]
 
@@ -88,3 +104,11 @@ shape = SubResource("CircleShape2D_sih0f")
 [node name="Sprite2D" type="Sprite2D" parent="laser_gun" unique_id=1949937116]
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("2_d05l0")
+
+[node name="upper_palm_laser" type="ColorRect" parent="laser_gun" unique_id=1668316710]
+z_index = 1
+material = SubResource("ShaderMaterial_76gfm")
+offset_left = -101.0
+offset_top = -55.0
+offset_right = -11.0
+offset_bottom = 65.0

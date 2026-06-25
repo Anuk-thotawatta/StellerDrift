@@ -2,7 +2,6 @@ extends Node2D
 
 @onready var game_over = $CanvasLayer/Game_over
 @onready var asteroid_pilar = preload("res://Assets/Objects/Asteroid_pillars.tscn")
-@onready var pillar_spawn_timer: Timer = $pillarSpawnTimer
 @onready var score: Label = $CanvasLayer/score
 @onready var hscore: Label = $CanvasLayer/hscore
 @onready var extra_lives: Label = $CanvasLayer/extraLives
@@ -28,7 +27,7 @@ var pillar_gap_distance = 750.0
 #phase timer variables
 var game_started: bool = false
 var phase_timer: float = 0.0
-var phase_duration: float = 20.0
+var phase_duration: float = 5.0
 
 #score variables
 var scoreVal = 0.0

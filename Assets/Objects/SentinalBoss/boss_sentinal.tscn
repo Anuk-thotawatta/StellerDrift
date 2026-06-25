@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dw10eorr3webj" path="res://Assets/Sprites/boss/sentinal_eye.png" id="2_jvfof"]
 [ext_resource type="Shader" uid="uid://cod7pyhpvwnx4" path="res://Assets/Shaders/exhaust.gdshader" id="2_lhav2"]
 [ext_resource type="Texture2D" uid="uid://o1406yvrkkh8" path="res://Assets/Sprites/boss/sentinal_body.png" id="3_cy5io"]
+[ext_resource type="Shader" uid="uid://dbod5eahqxabs" path="res://Assets/Objects/SentinalBoss/laser_telegraph.gdshader" id="6_8dsjm"]
 [ext_resource type="PackedScene" uid="uid://bui4s3i0q0gne" path="res://Assets/Objects/SentinalBoss/lower_sentinal_tentacle.tscn" id="6_ch0b3"]
 [ext_resource type="PackedScene" uid="uid://dthd6st33wg8" path="res://Assets/Objects/SentinalBoss/upper_sentinal_tentacle.tscn" id="6_o434e"]
 [ext_resource type="Shader" uid="uid://bmulani23g2tq" path="res://Assets/Shaders/laser_glow.gdshader" id="8_2f5kg"]
@@ -13,6 +14,21 @@
 shader = ExtResource("2_cy5io")
 shader_parameter/flash_color = Color(1, 0, 0, 1)
 shader_parameter/flash_modifier = 0.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_eq74n"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_mnjro"]
+noise = SubResource("FastNoiseLite_eq74n")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mnjro"]
+shader = ExtResource("6_8dsjm")
+shader_parameter/noise_tex1 = SubResource("NoiseTexture2D_mnjro")
+shader_parameter/energy_color = Color(1, 0, 0, 1)
+shader_parameter/core_light = Color(1, 0.8428765, 0.8429972, 1)
+shader_parameter/charge_progress = 0.0
+shader_parameter/flicker_speed = 0.0
+shader_parameter/swirl_speed = 6.125
+shader_parameter/swirl_density = 9.895
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_bhayt"]
 
@@ -108,26 +124,33 @@ texture = ExtResource("2_jvfof")
 visible = false
 polygon = PackedVector2Array(134.66666, -98.666664, 168, -6.666667, 152, 80.66667, 76.666664, 147.33333, -36, 158.66667, -109.33334, 120.00001, -154, 60.666668, -164.66669, -5.3333335, -152, -72.666664, -103.33334, -127.333336, -24.666672, -157.33334, 77.33333, -145.33334)
 
+[node name="eye_laser_fx" type="ColorRect" parent="sentinal_eye" unique_id=783285922]
+material = SubResource("ShaderMaterial_mnjro")
+offset_left = -174.61159
+offset_top = -107.972435
+offset_right = -17.290741
+offset_bottom = 111.19846
+
 [node name="sentinal_body" type="Sprite2D" parent="." unique_id=1484621815]
 position = Vector2(-267, -17)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("3_cy5io")
 
-[node name="Exhaust_fx" type="ColorRect" parent="sentinal_body" unique_id=54691321]
+[node name="Exhaust_fx1" type="ColorRect" parent="sentinal_body" unique_id=54691321]
 material = SubResource("ShaderMaterial_jvfof")
-offset_left = -95.666664
-offset_top = -317.6667
-offset_right = -25.890175
-offset_bottom = -148.64375
+offset_left = -93.333336
+offset_top = -326.00003
+offset_right = -23.556847
+offset_bottom = -26.00003
 rotation = 1.5707964
 scale = Vector2(1.5, 1.5)
 
 [node name="Exhaust_fx2" type="ColorRect" parent="sentinal_body" unique_id=1482850612]
 material = SubResource("ShaderMaterial_jvfof")
-offset_left = -95.465576
-offset_top = 243.66667
-offset_right = -25.689087
-offset_bottom = 412.6896
+offset_left = -91.333336
+offset_top = 252.0
+offset_right = -21.556847
+offset_bottom = 552.0
 rotation = 1.5707964
 scale = Vector2(1.5, 1.5)
 

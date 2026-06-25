@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://d2ieq0c5mp7ev" path="res://Assets/Sprites/space_bg2.png" id="2_4iy6t"]
 [ext_resource type="PackedScene" uid="uid://bt1unuigtqam7" path="res://Assets/Objects/SentinalBoss/boss_sentinal.tscn" id="2_e4bck"]
 [ext_resource type="PackedScene" uid="uid://buclaxknceuby" path="res://Assets/Objects/player.tscn" id="2_up1fl"]
-[ext_resource type="PackedScene" uid="uid://c1knlbk0sm2y2" path="res://Assets/Objects/Asteroid_pillars.tscn" id="3_ffpvu"]
 [ext_resource type="Shader" uid="uid://ssl5mg0a3yio" path="res://Assets/Shaders/explosion.gdshader" id="4_53qdw"]
 [ext_resource type="PackedScene" uid="uid://o4i86je37a7g" path="res://Assets/Scenes/game_over.tscn" id="4_ltsxh"]
 [ext_resource type="PackedScene" uid="uid://ch2hel60r6h55" path="res://Assets/Scenes/pause_menu.tscn" id="4_owchf"]
@@ -234,10 +233,6 @@ theme_override_font_sizes/font_size = 30
 
 [node name="pause_menu" parent="CanvasLayer" unique_id=438422434 instance=ExtResource("4_owchf")]
 
-[node name="pillarSpawnTimer" type="Timer" parent="." unique_id=1724369859]
-wait_time = 3.0
-autostart = true
-
 [node name="floorSky_limits" type="Area2D" parent="." unique_id=1218450829]
 
 [node name="floorLimit" type="CollisionShape2D" parent="floorSky_limits" unique_id=1489717559]
@@ -247,13 +242,6 @@ shape = SubResource("RectangleShape2D_53qdw")
 [node name="skyLimit" type="CollisionShape2D" parent="floorSky_limits" unique_id=1350263682]
 position = Vector2(282, -983)
 shape = SubResource("RectangleShape2D_53qdw")
-
-[node name="initial_pillars" type="Node" parent="." unique_id=1165458556]
-
-[node name="Asteroid_pillars" parent="initial_pillars" unique_id=836778206 instance=ExtResource("3_ffpvu")]
-process_mode = 4
-visible = false
-position = Vector2(1554, 4)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=156824474]
 zoom = Vector2(0.4, 0.4)
@@ -272,6 +260,4 @@ bus = &"Effects"
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=946622537]
 libraries/ = SubResource("AnimationLibrary_2hp5s")
 
-[connection signal="timeout" from="pillarSpawnTimer" to="." method="_on_tower_spawn_timer_timeout"]
-[connection signal="timeout" from="pillarSpawnTimer" to="." method="_on_pillar_spawn_timer_timeout"]
 [connection signal="body_entered" from="floorSky_limits" to="." method="_on_floor_sky_limits_body_entered"]
