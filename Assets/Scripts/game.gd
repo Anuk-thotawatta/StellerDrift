@@ -141,7 +141,9 @@ func transition_to_next_phase():
 func _on_boss_defeated():
 	Global.is_boss_active = false
 	if animation_player.has_animation("sentinal_appear"):
+		sentinal.deactivate_boss()
 		animation_player.play_backwards("sentinal_appear")
+		
 
 func handle_boss_behavior(delta):
 	if not game_started:
@@ -155,7 +157,9 @@ func handle_boss_behavior(delta):
 		# Play boss appearance animation
 		if animation_player.has_animation("sentinal_appear"):
 			animation_player.play("sentinal_appear")
-			await animation_player.animation_finished
+			if sentinal.has_method("activate_boss"):
+				await animation_player.animation_finished
+				sentinal.activate_boss()
 		
 		# Start boss idle animation
 		if animation_player.has_animation("sentinal_idle"):

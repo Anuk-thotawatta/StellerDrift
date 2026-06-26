@@ -3,6 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://c2r6ufxuekjb3" path="res://Assets/Objects/SentinalBoss/arm_segment.tscn" id="1_61xne"]
 [ext_resource type="Texture2D" uid="uid://cl8u7xemcjwik" path="res://Assets/Sprites/boss/laser_palms.png" id="2_d05l0"]
 [ext_resource type="Shader" uid="uid://dbod5eahqxabs" path="res://Assets/Objects/SentinalBoss/laser_telegraph.gdshader" id="3_d05l0"]
+[ext_resource type="Script" uid="uid://o484uaeg4kko" path="res://Assets/Objects/SentinalBoss/laser.gd" id="4_76gfm"]
+[ext_resource type="Shader" uid="uid://dxo2sviqu5chw" path="res://Assets/Objects/SentinalBoss/laser_core_glow.gdshader" id="5_21365"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xjw7p"]
 
@@ -23,6 +25,21 @@ shader_parameter/charge_progress = 0.0
 shader_parameter/flicker_speed = 0.0
 shader_parameter/swirl_speed = 6.125
 shader_parameter/swirl_density = 5.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_c52w0"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_22ucr"]
+noise = SubResource("FastNoiseLite_c52w0")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vsod2"]
+shader = ExtResource("5_21365")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_22ucr")
+shader_parameter/core_color = Color(1, 1, 1, 1)
+shader_parameter/glow_color = Color(1, 0, 0, 1)
+shader_parameter/laser_speed = 2.0
+shader_parameter/core_thickness = 0.34400001634
+shader_parameter/glow_falloff = 0.10000000149012
+shader_parameter/noise_strength = 0.4390000208525
 
 [node name="UpperTentacle" type="Node2D" unique_id=703041790]
 
@@ -93,6 +110,8 @@ node_b = NodePath("../laser_gun")
 
 [node name="laser_gun" type="RigidBody2D" parent="." unique_id=951599136]
 position = Vector2(-716, -12)
+collision_layer = 2
+collision_mask = 2
 gravity_scale = 0.0
 freeze = true
 freeze_mode = 1
@@ -108,7 +127,22 @@ texture = ExtResource("2_d05l0")
 [node name="upper_palm_laser" type="ColorRect" parent="laser_gun" unique_id=1668316710]
 z_index = 1
 material = SubResource("ShaderMaterial_76gfm")
-offset_left = -101.0
-offset_top = -55.0
-offset_right = -11.0
-offset_bottom = 65.0
+offset_left = -132.0
+offset_top = -96.0
+offset_right = 18.0
+offset_bottom = 104.0
+
+[node name="upper_Laser_beam" type="RayCast2D" parent="laser_gun" unique_id=2146560422]
+position = Vector2(-99, 4)
+target_position = Vector2(0, -2000)
+collide_with_areas = true
+script = ExtResource("4_76gfm")
+
+[node name="beam_line" type="Line2D" parent="laser_gun/upper_Laser_beam" unique_id=1588725680]
+material = SubResource("ShaderMaterial_vsod2")
+points = PackedVector2Array(0, 0, 0, 0)
+width = 70.0
+texture_mode = 2
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2

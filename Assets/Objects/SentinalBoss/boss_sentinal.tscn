@@ -8,7 +8,9 @@
 [ext_resource type="Shader" uid="uid://dbod5eahqxabs" path="res://Assets/Objects/SentinalBoss/laser_telegraph.gdshader" id="6_8dsjm"]
 [ext_resource type="PackedScene" uid="uid://bui4s3i0q0gne" path="res://Assets/Objects/SentinalBoss/lower_sentinal_tentacle.tscn" id="6_ch0b3"]
 [ext_resource type="PackedScene" uid="uid://dthd6st33wg8" path="res://Assets/Objects/SentinalBoss/upper_sentinal_tentacle.tscn" id="6_o434e"]
+[ext_resource type="Script" uid="uid://o484uaeg4kko" path="res://Assets/Objects/SentinalBoss/laser.gd" id="7_mnjro"]
 [ext_resource type="Shader" uid="uid://bmulani23g2tq" path="res://Assets/Shaders/laser_glow.gdshader" id="8_2f5kg"]
+[ext_resource type="Shader" uid="uid://dxo2sviqu5chw" path="res://Assets/Objects/SentinalBoss/laser_core_glow.gdshader" id="8_acb13"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ijcav"]
 shader = ExtResource("2_cy5io")
@@ -29,6 +31,21 @@ shader_parameter/charge_progress = 0.0
 shader_parameter/flicker_speed = 0.0
 shader_parameter/swirl_speed = 6.125
 shader_parameter/swirl_density = 9.895
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_acb13"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_acb13"]
+noise = SubResource("FastNoiseLite_acb13")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_22ucr"]
+shader = ExtResource("8_acb13")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_acb13")
+shader_parameter/core_color = Color(1, 1, 1, 1)
+shader_parameter/glow_color = Color(1, 0, 0, 1)
+shader_parameter/laser_speed = 2.0
+shader_parameter/core_thickness = 0.34400001634
+shader_parameter/glow_falloff = 0.10000000149012
+shader_parameter/noise_strength = 0.4390000208525
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_bhayt"]
 
@@ -130,6 +147,21 @@ offset_left = -174.61159
 offset_top = -107.972435
 offset_right = -17.290741
 offset_bottom = 111.19846
+
+[node name="Eye_Laser" type="RayCast2D" parent="sentinal_eye" unique_id=270530803]
+position = Vector2(-124.666664, 1.0766189e-05)
+target_position = Vector2(0, -2000)
+collide_with_areas = true
+script = ExtResource("7_mnjro")
+
+[node name="beam_line" type="Line2D" parent="sentinal_eye/Eye_Laser" unique_id=313412414]
+material = SubResource("ShaderMaterial_22ucr")
+points = PackedVector2Array(0, 0, 0, 0)
+width = 100.0
+texture_mode = 2
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
 
 [node name="sentinal_body" type="Sprite2D" parent="." unique_id=1484621815]
 position = Vector2(-267, -17)

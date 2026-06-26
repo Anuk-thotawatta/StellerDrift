@@ -11,6 +11,10 @@ extends Node2D
 @onready var lower_laser_fx: ColorRect = $LowerTentacle/laser_gun/lower_palm_laser
 @onready var upper_laser_fx: ColorRect = $UpperTentacle/laser_gun/upper_palm_laser
 
+@onready var eye_laser: RayCast2D = $sentinal_eye/Eye_Laser
+@onready var upper_laser_beam: RayCast2D = $UpperTentacle/laser_gun/upper_Laser_beam
+@onready var lower_laser_beam: RayCast2D = $LowerTentacle/laser_gun/lower_Laser_beam
+
 var sentinal_body_pos
 var eye_rotation
 var boss_hp = 1000
@@ -18,10 +22,14 @@ var bullet_dmg = 125
 var beam_telegraph = 2.0
 var eye_beam_telegraph = 4.0
 var next_attack: int = 0
+var boss_activated: bool = false
+
+var screen_min_y = -650.0
+var screen_max_y = 650.0
 
 signal boss_defeated
 
-enum BossState { TRACKING, CHARGING_UPPER, CHARGING_LOWER, CHARGING_EYE, FIRING, HURT }
+enum BossState { TRACKING, CHARGING_UPPER, CHARGING_LOWER, CHARGING_EYE, FIRING_SMALL, FIRING_BIG}
 var current_state: BossState = BossState.TRACKING
 
 func _ready() -> void:
@@ -32,36 +40,76 @@ func _ready() -> void:
 	if upper_laser_fx.material:
 		upper_laser_fx.material = upper_laser_fx.material.duplicate()
 		
+func activate_boss() -> void:
+	boss_activated = true
+	current_state = BossState.TRACKING
 	run_boss()
+	
+func deactivate_boss() -> void:
+	boss_activated = false
 
 func _process(delta: float) -> void:
-	# Keep calculating positions and tracking the player as long as we aren't stunned
-	if current_state != BossState.HURT:
 		sentinal_body_pos = sentinal_body.position
 		upper_laser.position.x = sentinal_body_pos.x - 300
 		lower_laser.position.x = sentinal_body_pos.x - 300
 		
-		# Eye tracks player
-		if current_state != BossState.CHARGING_EYE:
+		var eye_is_shooting = eye_laser and eye_laser.is_firing
+		
+		if current_state == BossState.FIRING_BIG or eye_is_shooting:
+			pass
+		elif current_state == BossState.CHARGING_EYE:
+			var progress = eye_laser_fx.material.get_shader_parameter("charge_progress") if eye_laser_fx.material else 0.0
+			if progress < 0.5:
+				eye_rotation = (player.global_position - sentinal_eye.global_position).angle() + PI
+				sentinal_eye.rotation = lerp_angle(sentinal_eye.rotation, eye_rotation, delta * 5.0)
+			else:
+				pass
+		else:
 			eye_rotation = (player.global_position - sentinal_eye.global_position).angle() + PI
 			sentinal_eye.rotation = lerp_angle(sentinal_eye.rotation, eye_rotation, delta * 5.0)
 		
 		upper_laser.rotation = 0
 		lower_laser.rotation = 0
 		
-		# Move palms towards player
 		target_player(delta)
-
+		
 func target_player(delta: float) -> void:
 	var player_altitude = player.position.y
 	
-	# Upper arm aims slightly above player
-	upper_laser.position.y = lerp(upper_laser.position.y, player_altitude - 40, delta * 1.0)
-	# Lower arm aims slightly below player
-	lower_laser.position.y = lerp(lower_laser.position.y, player_altitude + 40, delta * 1.0)
+	var upper_is_shooting = upper_laser_beam and upper_laser_beam.is_firing
+	
+	if current_state == BossState.CHARGING_UPPER or upper_is_shooting:
+		if not upper_is_shooting:
+			var progress = upper_laser_fx.material.get_shader_parameter("charge_progress") if upper_laser_fx.material else 0.0
+			if progress < 0.5:
+				upper_laser.position.y = lerp(upper_laser.position.y, player_altitude + 200, delta * 5.0)
+	else:
+		upper_laser.position.y = lerp(upper_laser.position.y, player_altitude - 120, delta * 1.5)
 
+	var lower_is_shooting = lower_laser_beam and lower_laser_beam.is_firing
+	
+	if current_state == BossState.CHARGING_LOWER or lower_is_shooting:
+		if not lower_is_shooting:
+			var progress = lower_laser_fx.material.get_shader_parameter("charge_progress") if lower_laser_fx.material else 0.0
+			if progress < 0.5:
+				lower_laser.position.y = lerp(lower_laser.position.y, player_altitude - 200, delta * 5.0)
+	else:
+		lower_laser.position.y = lerp(lower_laser.position.y, player_altitude + 120, delta * 1.5)
+
+	if upper_laser.get_parent():
+		var min_local = upper_laser.get_parent().to_local(Vector2(0, screen_min_y)).y
+		var max_local = upper_laser.get_parent().to_local(Vector2(0, screen_max_y)).y
+		upper_laser.position.y = clamp(upper_laser.position.y, min_local, max_local)
+		
+	if lower_laser.get_parent():
+		var min_local = lower_laser.get_parent().to_local(Vector2(0, screen_min_y)).y
+		var max_local = lower_laser.get_parent().to_local(Vector2(0, screen_max_y)).y
+		lower_laser.position.y = clamp(lower_laser.position.y, min_local, max_local)
+	
 func run_boss() -> void:
 	while true:
+		if boss_activated == false:
+			break
 		match current_state:
 			BossState.TRACKING:
 				await get_tree().create_timer(2.5).timeout
@@ -79,29 +127,29 @@ func run_boss() -> void:
 				charge_and_shoot_upper(beam_telegraph)
 				await get_tree().create_timer(beam_telegraph + 0.1).timeout
 				if current_state == BossState.CHARGING_UPPER:
-					current_state = BossState.FIRING
+					current_state = BossState.FIRING_SMALL
 
-			BossState.FIRING:
+			BossState.FIRING_SMALL:
 				await get_tree().create_timer(1.0).timeout
-				if current_state == BossState.FIRING:
+				if current_state == BossState.FIRING_SMALL:
+					current_state = BossState.TRACKING
+					
+			BossState.FIRING_BIG:
+				await get_tree().create_timer(1.0).timeout
+				if current_state == BossState.FIRING_BIG:
 					current_state = BossState.TRACKING
 
 			BossState.CHARGING_LOWER:
 				charge_and_shoot_lower(beam_telegraph)
 				await get_tree().create_timer(beam_telegraph + 0.1).timeout
 				if current_state == BossState.CHARGING_LOWER:
-					current_state = BossState.FIRING
+					current_state = BossState.FIRING_SMALL
 
 			BossState.CHARGING_EYE:
 				charge_and_shoot_eye(eye_beam_telegraph)
 				await get_tree().create_timer(eye_beam_telegraph + 0.1).timeout
 				if current_state == BossState.CHARGING_EYE:
-					current_state = BossState.FIRING
-
-			BossState.HURT:
-				await get_tree().create_timer(0.4).timeout
-				if current_state == BossState.HURT:
-					current_state = BossState.TRACKING
+					current_state = BossState.FIRING_BIG
 
 func charge_and_shoot_lower(duration: float) -> void:
 	if not lower_laser_fx.material: return
@@ -124,39 +172,48 @@ func charge_and_shoot_eye(duration: float) -> void:
 	tween.tween_property(eye_laser_fx.material, "shader_parameter/charge_progress", 1.0, duration)
 	tween.tween_callback(shootEyeLaser)
 
-func shootLowerLaser() -> void:
-	print("Lower Laser FIRED!")
-	# Spawn beam scene here	
-	var fade_tween = create_tween()
-	fade_tween.tween_property(lower_laser_fx.material,"shader_parameter/charge_progress",0.0,0.35)
-	
 func shootUpperLaser() -> void:
-	print("Upper Laser FIRED!")
-	# Spawn beam scene here	
+	if upper_laser_beam:
+		upper_laser_beam.turn_on()
+		
 	var fade_tween = create_tween()
-	fade_tween.tween_property(upper_laser_fx.material,"shader_parameter/charge_progress",0.0,0.35)
+	fade_tween.tween_property(upper_laser_fx.material, "shader_parameter/charge_progress", 0.0, 0.35)
+	fade_tween.tween_interval(0.65)
+	fade_tween.tween_callback(func():
+		if current_state == BossState.FIRING_SMALL and upper_laser_beam:
+			upper_laser_beam.turn_off()
+	)
+
+func shootLowerLaser() -> void:
+	if lower_laser_beam:
+		lower_laser_beam.turn_on()
+		
+	var fade_tween = create_tween()
+	fade_tween.tween_property(lower_laser_fx.material, "shader_parameter/charge_progress", 0.0, 0.35)
+	fade_tween.tween_interval(0.65)
+	fade_tween.tween_callback(func():
+		if current_state == BossState.FIRING_SMALL and lower_laser_beam:
+			lower_laser_beam.turn_off()
+	)
 	
 func shootEyeLaser() -> void:
 	print("Eye Laser FIRED!")
-	# Spawn eye beam scene here	
+	eye_laser.turn_on()
 	var fade_tween = create_tween()
-	fade_tween.tween_property(eye_laser_fx.material,"shader_parameter/charge_progress",0.0,0.35)
-
+	fade_tween.tween_property(eye_laser_fx.material, "shader_parameter/charge_progress", 0.0, 0.35)
+	fade_tween.tween_interval(0.65) 
+	fade_tween.tween_callback(func():
+		if current_state == BossState.FIRING_BIG:
+			eye_laser.turn_off()
+	)
+	
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area.is_in_group("bullets"):
 		var bullet = area
 		if not bullet.has_hit:
 			bullet.has_hit = true
 			print("boss is hit")
-			
-			# Switch to HURT state to break active charging loops
-			current_state = BossState.HURT
-			
-			# Clean up visual shader artifacts instantly so they don't get stuck glowing
-			lower_laser_fx.material.set_shader_parameter("charge_progress", 0.0)
-			upper_laser_fx.material.set_shader_parameter("charge_progress", 0.0)
-			eye_laser_fx.material.set_shader_parameter("charge_progress", 0.0)
-			
+
 			animation_player.stop()
 			animation_player.play("eye_damage_taken")
 			bullet.queue_free()
