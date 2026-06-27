@@ -3,7 +3,7 @@ extends CharacterBody2D
 const gravity = 1600.0
 var is_falling = true
 var jump_force = 700.0 
-var horizontalSpeed = 200
+var horizontalSpeed = 400
 var is_dashing = false
 
 var can_jump = true
@@ -51,7 +51,7 @@ func _ready() -> void:
 
 func _physics_process(delta):
 	if Global.game_state == Global.state.BOSS:
-		if position.x > -500 and Global.pillarCount <= 0:
+		if position.x > -800 and Global.pillarCount <= 0:
 			velocity.x = -horizontalSpeed
 		else:
 			velocity.x = 0

@@ -15,6 +15,11 @@ extends Node2D
 @onready var upper_laser_beam: RayCast2D = $UpperTentacle/laser_gun/upper_Laser_beam
 @onready var lower_laser_beam: RayCast2D = $LowerTentacle/laser_gun/lower_Laser_beam
 
+@onready var eye_laser_charge: AudioStreamPlayer2D = $eye_laser_charge
+@onready var eye_laser_shoot: AudioStreamPlayer2D = $eye_laser_shoot
+@onready var palm_laser_charge: AudioStreamPlayer2D = $laser_charge
+@onready var palm_laser_shoot: AudioStreamPlayer2D = $laser_shoot
+
 var sentinal_body_pos
 var eye_rotation
 var boss_hp = 1000
@@ -47,32 +52,38 @@ func activate_boss() -> void:
 	
 func deactivate_boss() -> void:
 	boss_activated = false
+	turn_off_all_lasers()
+
+func turn_off_all_lasers() -> void:
+	if upper_laser_beam: upper_laser_beam.turn_off()
+	if lower_laser_beam: lower_laser_beam.turn_off()
+	if eye_laser: eye_laser.turn_off()
 
 func _process(delta: float) -> void:
-		sentinal_body_pos = sentinal_body.position
-		upper_laser.position.x = sentinal_body_pos.x - 300
-		lower_laser.position.x = sentinal_body_pos.x - 300
-		
-		var eye_is_shooting = eye_laser and eye_laser.is_firing
-		
-		if current_state == BossState.FIRING_BIG or eye_is_shooting:
-			pass
-		elif current_state == BossState.CHARGING_EYE:
-			var progress = eye_laser_fx.material.get_shader_parameter("charge_progress") if eye_laser_fx.material else 0.0
-			if progress < 0.5:
-				eye_rotation = (player.global_position - sentinal_eye.global_position).angle() + PI
-				sentinal_eye.rotation = lerp_angle(sentinal_eye.rotation, eye_rotation, delta * 5.0)
-			else:
-				pass
-		else:
+	sentinal_body_pos = sentinal_body.position
+	upper_laser.position.x = sentinal_body_pos.x - 300
+	lower_laser.position.x = sentinal_body_pos.x - 300
+
+	var eye_is_shooting = eye_laser and eye_laser.is_firing
+	
+	if current_state == BossState.FIRING_BIG or eye_is_shooting:
+		pass
+	elif current_state == BossState.CHARGING_EYE:
+		var progress = eye_laser_fx.material.get_shader_parameter("charge_progress") if eye_laser_fx.material else 0.0
+		if progress < 0.5:
 			eye_rotation = (player.global_position - sentinal_eye.global_position).angle() + PI
 			sentinal_eye.rotation = lerp_angle(sentinal_eye.rotation, eye_rotation, delta * 5.0)
-		
-		upper_laser.rotation = 0
-		lower_laser.rotation = 0
-		
-		target_player(delta)
-		
+		else:
+			pass
+	else:
+		eye_rotation = (player.global_position - sentinal_eye.global_position).angle() + PI
+		sentinal_eye.rotation = lerp_angle(sentinal_eye.rotation, eye_rotation, delta * 5.0)
+	
+	upper_laser.rotation = 0
+	lower_laser.rotation = 0
+	
+	target_player(delta)
+
 func target_player(delta: float) -> void:
 	var player_altitude = player.position.y
 	
@@ -152,6 +163,7 @@ func run_boss() -> void:
 					current_state = BossState.FIRING_BIG
 
 func charge_and_shoot_lower(duration: float) -> void:
+	palm_laser_charge.play()
 	if not lower_laser_fx.material: return
 	var tween = create_tween()
 	lower_laser_fx.material.set_shader_parameter("charge_progress", 0.0)
@@ -159,6 +171,7 @@ func charge_and_shoot_lower(duration: float) -> void:
 	tween.tween_callback(shootLowerLaser)
 
 func charge_and_shoot_upper(duration: float) -> void:
+	palm_laser_charge.play()
 	if not upper_laser_fx.material: return
 	var tween = create_tween()
 	upper_laser_fx.material.set_shader_parameter("charge_progress", 0.0)
@@ -166,6 +179,7 @@ func charge_and_shoot_upper(duration: float) -> void:
 	tween.tween_callback(shootUpperLaser)
 
 func charge_and_shoot_eye(duration: float) -> void:
+	eye_laser_charge.play()
 	if not eye_laser_fx.material: return
 	var tween = create_tween()
 	eye_laser_fx.material.set_shader_parameter("charge_progress", 0.0)
@@ -175,6 +189,7 @@ func charge_and_shoot_eye(duration: float) -> void:
 func shootUpperLaser() -> void:
 	if upper_laser_beam:
 		upper_laser_beam.turn_on()
+		palm_laser_shoot.play()
 		
 	var fade_tween = create_tween()
 	fade_tween.tween_property(upper_laser_fx.material, "shader_parameter/charge_progress", 0.0, 0.35)
@@ -187,6 +202,7 @@ func shootUpperLaser() -> void:
 func shootLowerLaser() -> void:
 	if lower_laser_beam:
 		lower_laser_beam.turn_on()
+		palm_laser_shoot.play()
 		
 	var fade_tween = create_tween()
 	fade_tween.tween_property(lower_laser_fx.material, "shader_parameter/charge_progress", 0.0, 0.35)
@@ -199,6 +215,7 @@ func shootLowerLaser() -> void:
 func shootEyeLaser() -> void:
 	print("Eye Laser FIRED!")
 	eye_laser.turn_on()
+	eye_laser_shoot.play()
 	var fade_tween = create_tween()
 	fade_tween.tween_property(eye_laser_fx.material, "shader_parameter/charge_progress", 0.0, 0.35)
 	fade_tween.tween_interval(0.65) 

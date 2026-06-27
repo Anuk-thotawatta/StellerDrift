@@ -17,6 +17,7 @@ extends Node2D
 @onready var popup_text: Label = $CanvasLayer/Popup/Text
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sentinal: Node2D = $Sentinal
+@onready var sentinal_music: AudioStreamPlayer2D = $sentinal_music
 
 var background2: Sprite2D
 var bg_width
@@ -142,7 +143,9 @@ func _on_boss_defeated():
 	Global.is_boss_active = false
 	if animation_player.has_animation("sentinal_appear"):
 		sentinal.deactivate_boss()
+		game_soundtrack.play()
 		animation_player.play_backwards("sentinal_appear")
+		sentinal_music.stop()
 		
 
 func handle_boss_behavior(delta):
@@ -157,6 +160,8 @@ func handle_boss_behavior(delta):
 		# Play boss appearance animation
 		if animation_player.has_animation("sentinal_appear"):
 			animation_player.play("sentinal_appear")
+			sentinal_music.play()
+			game_soundtrack.stop()
 			if sentinal.has_method("activate_boss"):
 				await animation_player.animation_finished
 				sentinal.activate_boss()

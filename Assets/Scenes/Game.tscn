@@ -13,6 +13,7 @@
 [ext_resource type="FontFile" uid="uid://bpr51ycd2jhki" path="res://Assets/fonts/ASTERA v2.ttf" id="9_4e1g7"]
 [ext_resource type="AudioStream" uid="uid://b8ga2mr0hg6pb" path="res://Assets/sound/soundtrack1.mp3" id="10_g3py7"]
 [ext_resource type="AudioStream" uid="uid://xbqkdh1f5pi0" path="res://Assets/sound/beep.mp3" id="11_tim1p"]
+[ext_resource type="AudioStream" uid="uid://bx60piacm4em7" path="res://Assets/sound/sentinal_boss_music.mp3" id="13_b2ek4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4e1g7"]
 shader = ExtResource("7_4iy6t")
@@ -249,6 +250,12 @@ zoom = Vector2(0.4, 0.4)
 [node name="game_soundtrack" type="AudioStreamPlayer2D" parent="." unique_id=1632519022]
 process_mode = 3
 stream = ExtResource("10_g3py7")
+volume_db = 1.0
+bus = &"Music"
+
+[node name="sentinal_music" type="AudioStreamPlayer2D" parent="." unique_id=504823234]
+process_mode = 3
+stream = ExtResource("13_b2ek4")
 volume_db = 1.0
 bus = &"Music"
 

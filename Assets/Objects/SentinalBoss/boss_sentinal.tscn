@@ -11,6 +11,9 @@
 [ext_resource type="Script" uid="uid://o484uaeg4kko" path="res://Assets/Objects/SentinalBoss/laser.gd" id="7_mnjro"]
 [ext_resource type="Shader" uid="uid://bmulani23g2tq" path="res://Assets/Shaders/laser_glow.gdshader" id="8_2f5kg"]
 [ext_resource type="Shader" uid="uid://dxo2sviqu5chw" path="res://Assets/Objects/SentinalBoss/laser_core_glow.gdshader" id="8_acb13"]
+[ext_resource type="AudioStream" uid="uid://kca1j56q2urm" path="res://Assets/sound/laser_charge_audio.mp3" id="12_jboy3"]
+[ext_resource type="AudioStream" uid="uid://t2lwhyg068en" path="res://Assets/sound/laser_shoot_audio.mp3" id="13_1eicm"]
+[ext_resource type="AudioStream" uid="uid://dyw7yff3m0t8v" path="res://Assets/sound/small_laser_charge_audio.mp3" id="14_1eicm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ijcav"]
 shader = ExtResource("2_cy5io")
@@ -195,5 +198,25 @@ offset_bottom = 92.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=959854887]
 libraries/ = SubResource("AnimationLibrary_ijcav")
+
+[node name="eye_laser_charge" type="AudioStreamPlayer2D" parent="." unique_id=1199766449]
+stream = ExtResource("12_jboy3")
+volume_db = 20.0
+bus = &"Effects"
+
+[node name="eye_laser_shoot" type="AudioStreamPlayer2D" parent="." unique_id=1873985603]
+stream = ExtResource("13_1eicm")
+volume_db = 20.0
+bus = &"Effects"
+
+[node name="laser_charge" type="AudioStreamPlayer2D" parent="." unique_id=1385452801]
+stream = ExtResource("14_1eicm")
+volume_db = 10.0
+bus = &"Effects"
+
+[node name="laser_shoot" type="AudioStreamPlayer2D" parent="." unique_id=1701161599]
+stream = ExtResource("13_1eicm")
+volume_db = 10.0
+bus = &"Effects"
 
 [connection signal="area_entered" from="sentinal_eye/Area2D" to="." method="_on_area_2d_area_entered"]

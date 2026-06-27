@@ -6,7 +6,10 @@ extends Control
 @onready var game_soundtrack: AudioStreamPlayer2D = $"../../game_soundtrack"
 @onready var player: CharacterBody2D = $"../../Player"
 
+var can_hit_esc: bool
+
 func _ready():
+	can_hit_esc = true
 	$AnimationPlayer.play("RESET")
 	hide()
 
@@ -15,7 +18,7 @@ func resume():
 	$AnimationPlayer.play_backwards("blur")
 	hide()
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-	
+	can_hit_esc = false
 	get_tree().paused = true
 	game_soundtrack.stop()
 	countdown.show()
@@ -30,6 +33,7 @@ func resume():
 	player.show_exhaust()
 	Global.countdown_happening = false
 	get_tree().paused = false
+	can_hit_esc = true
 	
 func pause():
 	get_tree().paused = true
@@ -41,7 +45,7 @@ func hit_escape():
 	var game = get_tree().get_root().get_node("Game")
 	if game.game_over.visible:
 		return
-
+	
 	if Input.is_action_just_pressed("pause") and get_tree().paused == false:
 		pause()
 	elif Input.is_action_just_pressed("pause") and get_tree().paused == true and Global.countdown_happening == false:
@@ -59,7 +63,8 @@ func _on_quit_button_pressed() -> void:
 	get_tree().quit()
 	
 func _process(delta):
-	hit_escape()
+	if can_hit_esc:
+		hit_escape()
 
 func _on_resume_button_button_down() -> void:
 	button_sound.play()
