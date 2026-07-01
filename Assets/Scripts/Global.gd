@@ -17,6 +17,4 @@ var is_boss_active: bool = false
 var waiting_for_pillars: bool = false
 
 #to do list
-	#projectile(Gun) - need to program hitting target, also hit fx
 	#options menu - reset high score button
-	#bossfight - need to add skeleton to the arms, need to change the look of the arms

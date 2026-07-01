@@ -20,10 +20,12 @@ extends Node2D
 @onready var palm_laser_charge: AudioStreamPlayer2D = $laser_charge
 @onready var palm_laser_shoot: AudioStreamPlayer2D = $laser_shoot
 
+@onready var health_bar: ProgressBar = $boss_health_bar/HealthBar
+
 var sentinal_body_pos
 var eye_rotation
 var boss_hp = 1000
-var bullet_dmg = 125
+var bullet_dmg = 25
 var beam_telegraph = 2.0
 var eye_beam_telegraph = 4.0
 var next_attack: int = 0
@@ -38,6 +40,7 @@ enum BossState { TRACKING, CHARGING_UPPER, CHARGING_LOWER, CHARGING_EYE, FIRING_
 var current_state: BossState = BossState.TRACKING
 
 func _ready() -> void:
+	health_bar.init_health(boss_hp)
 	if eye_laser_fx.material:
 		eye_laser_fx.material = eye_laser_fx.material.duplicate()
 	if lower_laser_fx.material:
@@ -123,7 +126,7 @@ func run_boss() -> void:
 			break
 		match current_state:
 			BossState.TRACKING:
-				await get_tree().create_timer(2.5).timeout
+				await get_tree().create_timer(1.0).timeout
 				if current_state == BossState.TRACKING:
 					if next_attack == 0:
 						current_state = BossState.CHARGING_UPPER
@@ -224,6 +227,23 @@ func shootEyeLaser() -> void:
 			eye_laser.turn_off()
 	)
 	
+func disable_boss_lasers() -> void:
+	if upper_laser_beam: upper_laser_beam.turn_off()
+	if lower_laser_beam: lower_laser_beam.turn_off()
+	if eye_laser: eye_laser.turn_off()
+	
+	if upper_laser_fx and upper_laser_fx.material:
+		upper_laser_fx.material.set_shader_parameter("charge_progress", 0.0)
+	if lower_laser_fx and lower_laser_fx.material:
+		lower_laser_fx.material.set_shader_parameter("charge_progress", 0.0)
+	if eye_laser_fx and eye_laser_fx.material:
+		eye_laser_fx.material.set_shader_parameter("charge_progress", 0.0)
+		
+	if palm_laser_charge: palm_laser_charge.stop()
+	if palm_laser_shoot: palm_laser_shoot.stop()
+	if eye_laser_charge: eye_laser_charge.stop()
+	if eye_laser_shoot: eye_laser_shoot.stop()
+	
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area.is_in_group("bullets"):
 		var bullet = area
@@ -236,6 +256,10 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 			bullet.queue_free()
 			boss_hp -= bullet_dmg
 			
+			if health_bar and health_bar.has_method("update_health"):
+				health_bar.update_health(boss_hp)
+			
 			if boss_hp <= 0:
 				boss_hp = 1000
+				disable_boss_lasers()
 				boss_defeated.emit()

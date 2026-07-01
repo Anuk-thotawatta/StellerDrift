@@ -18,6 +18,8 @@ extends Node2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sentinal: Node2D = $Sentinal
 @onready var sentinal_music: AudioStreamPlayer2D = $sentinal_music
+@onready var boss_health_bar: CanvasLayer = $Sentinal/boss_health_bar
+
 
 var background2: Sprite2D
 var bg_width
@@ -40,6 +42,7 @@ var star_time: float = 0.0
 var boss_spawned: bool = false
 
 func _ready():
+	boss_health_bar.hide()
 	game_started = false
 	Global.pillarCount = 0
 	Global.current_phase_index = 0
@@ -141,6 +144,7 @@ func transition_to_next_phase():
 
 func _on_boss_defeated():
 	Global.is_boss_active = false
+	boss_health_bar.hide()
 	if animation_player.has_animation("sentinal_appear"):
 		sentinal.deactivate_boss()
 		game_soundtrack.play()
@@ -169,6 +173,7 @@ func handle_boss_behavior(delta):
 		# Start boss idle animation
 		if animation_player.has_animation("sentinal_idle"):
 			animation_player.play("sentinal_idle")
+			boss_health_bar.show()
 		
 		print("BOSS SPAWNED - Kill it to end phase")
 	
