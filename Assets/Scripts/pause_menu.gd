@@ -45,7 +45,8 @@ func hit_escape():
 	var game = get_tree().get_root().get_node("Game")
 	if game.game_over.visible:
 		return
-	
+	if Global.game_state == Global.state.BOSS:
+		return
 	if Input.is_action_just_pressed("pause") and get_tree().paused == false:
 		pause()
 	elif Input.is_action_just_pressed("pause") and get_tree().paused == true and Global.countdown_happening == false:

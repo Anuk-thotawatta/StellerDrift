@@ -98,9 +98,9 @@ func _ready():
 	popup.hide()
 	
 	Global.phase_changed.connect(_on_phase_changed)
-	sentinal.boss_defeated.connect(_on_boss_defeated)  # Add this line
+	sentinal.boss_defeated.connect(_on_boss_defeated)
 	
-func _process(delta):	
+func _process(delta):
 	if (get_tree().paused == false):
 		handle_background(delta)
 		distance_since_last_pillar_spawn += Global.gameSpeed * delta
@@ -109,7 +109,8 @@ func _process(delta):
 				distance_since_last_pillar_spawn = 0.0
 				spawn_pillar()
 		
-	scoreVal += delta * 100
+	if Global.game_state != Global.state.BOSS :
+		scoreVal += delta * 100
 	score.text = str(int(scoreVal))
 	hscore.text = str(int(highScoreVal))
 	extra_lives.text = str(player.extra_life_count)
@@ -143,6 +144,7 @@ func transition_to_next_phase():
 		Global.phase_changed.emit(new_state)
 
 func _on_boss_defeated():
+	sentinal.disable_boss_lasers()
 	Global.is_boss_active = false
 	boss_health_bar.hide()
 	if animation_player.has_animation("sentinal_appear"):
@@ -172,6 +174,7 @@ func handle_boss_behavior(delta):
 		
 		# Start boss idle animation
 		if animation_player.has_animation("sentinal_idle"):
+			sentinal.is_invincible = false
 			animation_player.play("sentinal_idle")
 			boss_health_bar.show()
 		

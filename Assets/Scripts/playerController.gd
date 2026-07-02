@@ -60,13 +60,10 @@ func _physics_process(delta):
 			velocity.x = horizontalSpeed
 		else:
 			velocity.x = 0
-		
+
 	if Input.is_action_just_pressed("jump") and can_jump:
 		jump()
-		
-	#if Input.is_action_just_pressed("dash") and !is_dashing:
-	#	dash()
-		
+
 	if Input.is_action_just_pressed("shoot") and can_shoot:
 		shoot()
 
@@ -95,46 +92,3 @@ func shoot():
 	can_shoot = false
 	await get_tree().create_timer(0.4).timeout
 	can_shoot = true
-	
-func dash():
-	is_falling = false
-	is_dashing = true
-	velocity.y = 0
-	
-	var start_x = position.x
-	
-	# Phase 1: move with the pillars (net zero movement) for 0.6s
-	var elapsed = 0.0
-	while elapsed < 0.6:
-		var delta = get_process_delta_time()
-		elapsed += delta
-		position.x -= Global.gameSpeed * delta  # drift back with the world
-		velocity.y = 0
-		await get_tree().process_frame
-	
-	var dash_back_x = position.x
-	
-	# Phase 2: rocket forward past start_x (0.2s)
-	var overshoot_x = start_x + Global.gameSpeed  # how far past start to overshoot
-	elapsed = 0.0
-	while elapsed < 0.2:
-		var delta = get_process_delta_time()
-		elapsed += delta
-		var t = elapsed / 0.2
-		var eased = 1.0 - pow(1.0 - t, 3)
-		position.x = lerp(dash_back_x, overshoot_x, eased)
-		velocity.y = 0
-		await get_tree().process_frame
-	
-	# Phase 3: glide back to start_x with pillar drift (until we reach start)
-	while position.x > start_x:
-		var delta = get_process_delta_time()
-		position.x -= Global.gameSpeed * delta  # drift with the world again
-		#velocity.y = 0
-		is_falling = true
-		await get_tree().process_frame
-	
-	position.x = start_x
-	is_dashing = false
-	
-	

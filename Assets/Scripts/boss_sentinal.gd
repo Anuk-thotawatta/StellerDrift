@@ -25,11 +25,15 @@ extends Node2D
 var sentinal_body_pos
 var eye_rotation
 var boss_hp = 1000
-var bullet_dmg = 25
+var bullet_dmg = 250
 var beam_telegraph = 2.0
 var eye_beam_telegraph = 4.0
 var next_attack: int = 0
 var boss_activated: bool = false
+var is_invincible: bool = true
+
+var is_dead:bool = false
+var death_timer:float = 0.0
 
 var screen_min_y = -650.0
 var screen_max_y = 650.0
@@ -47,20 +51,16 @@ func _ready() -> void:
 		lower_laser_fx.material = lower_laser_fx.material.duplicate()
 	if upper_laser_fx.material:
 		upper_laser_fx.material = upper_laser_fx.material.duplicate()
-		
+
 func activate_boss() -> void:
+	boss_hp = 1000
+	health_bar.init_health(boss_hp)
 	boss_activated = true
 	current_state = BossState.TRACKING
 	run_boss()
 	
 func deactivate_boss() -> void:
 	boss_activated = false
-	turn_off_all_lasers()
-
-func turn_off_all_lasers() -> void:
-	if upper_laser_beam: upper_laser_beam.turn_off()
-	if lower_laser_beam: lower_laser_beam.turn_off()
-	if eye_laser: eye_laser.turn_off()
 
 func _process(delta: float) -> void:
 	sentinal_body_pos = sentinal_body.position
@@ -85,7 +85,12 @@ func _process(delta: float) -> void:
 	upper_laser.rotation = 0
 	lower_laser.rotation = 0
 	
-	target_player(delta)
+	
+	
+	if boss_hp <= 0:
+		disable_boss_lasers()
+	else:
+		target_player(delta)
 
 func target_player(delta: float) -> void:
 	var player_altitude = player.position.y
@@ -245,7 +250,7 @@ func disable_boss_lasers() -> void:
 	if eye_laser_shoot: eye_laser_shoot.stop()
 	
 func _on_area_2d_area_entered(area: Area2D) -> void:
-	if area.is_in_group("bullets"):
+	if area.is_in_group("bullets") and is_invincible == false:
 		var bullet = area
 		if not bullet.has_hit:
 			bullet.has_hit = true
@@ -260,6 +265,5 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 				health_bar.update_health(boss_hp)
 			
 			if boss_hp <= 0:
-				boss_hp = 1000
-				disable_boss_lasers()
 				boss_defeated.emit()
+				is_invincible = true
